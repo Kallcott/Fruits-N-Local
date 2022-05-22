@@ -26,21 +26,21 @@ GO
 USE [master]
 GO
 
-IF EXISTS (SELECT name FROM sys.databases WHERE name = N'dbpTermProject2022')
+IF EXISTS (SELECT name FROM sys.databases WHERE name = N'DbpTermProject2022')
 	-- The N in front of strings stands for National Language in SQL-92 standard. 
 	-- It converts them to unicode before becoming an nvarcahr
 BEGIN
-DROP DATABASE [dbpTermProject2022]
-PRINT('dbpTermProject2022 Database Deleted')
+DROP DATABASE [DbpTermProject2022]
+PRINT('DbpTermProject2022 Database Deleted')
 END
 GO
 
-CREATE DATABASE [dbpTermProject2022]
+CREATE DATABASE [DbpTermProject2022]
 GO
 
-USE [dbpTermProject2022]
+USE [DbpTermProject2022]
 GO
-PRINT('dbpTermProject2022 Database Created')
+PRINT('DbpTermProject2022 Database Created')
 PRINT('-----------------------------' + CHAR(13)+CHAR(10))
 GO
 
@@ -804,54 +804,54 @@ GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Producer]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit]'))
 ALTER TABLE [dbo].[Fruit] CHECK CONSTRAINT [FK_Fruit_Producer]
 GO
-PRINT('Fruit_Producer Foreign Key Created')
+PRINT('FK_Fruit_Producer Foreign Key Created')
 
 -- Fruit_Origin
 -- To Fruit ID
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Origin]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Origin]'))
-ALTER TABLE [dbo].[Fruit_Origin]  WITH CHECK ADD  CONSTRAINT [FK_Fruit_Origin] FOREIGN KEY([FruitId])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Origin_Fruit]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Origin]'))
+ALTER TABLE [dbo].[Fruit_Origin]  WITH CHECK ADD  CONSTRAINT [FK_Fruit_Origin_Fruit] FOREIGN KEY([FruitId])
 REFERENCES [dbo].[Fruit] ([FruitId])
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Origin]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Origin]'))
-ALTER TABLE [dbo].[Fruit_Origin] CHECK CONSTRAINT [FK_Fruit_Origin]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Origin_Fruit]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Origin]'))
+ALTER TABLE [dbo].[Fruit_Origin] CHECK CONSTRAINT [FK_Fruit_Origin_Fruit]
 GO
-PRINT('Fruit_Origin - FruitID Foreign Key Created')
+PRINT('FK_Fruit_Origin_Fruit - FruitID Foreign Key Created')
 
 -- To Region ID
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Origin]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Origin]'))
-ALTER TABLE [dbo].[Fruit_Origin]  WITH CHECK ADD  CONSTRAINT [FK_Fruit_Origin] FOREIGN KEY([RegionId])
-REFERENCES [dbo].[Region] ([RegionId])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Origin_Region]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Origin]'))
+ALTER TABLE [dbo].[Fruit_Origin]  WITH CHECK ADD  CONSTRAINT [FK_Fruit_Origin_Region] FOREIGN KEY([RegionId])
+REFERENCES [dbo].[Regions] ([RegionId])
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Origin]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Origin]'))
-ALTER TABLE [dbo].[Fruit_Origin] CHECK CONSTRAINT [FK_Fruit_Origin]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Origin_Region]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Origin]'))
+ALTER TABLE [dbo].[Fruit_Origin] CHECK CONSTRAINT [FK_Fruit_Origin_Region]
 GO
-PRINT('Fruit_Origin - RegionId Foreign Key Created')
+PRINT('FK_Fruit_Origin_Regions - RegionId Foreign Key Created')
 
 
 -- Fruit_Month
 -- To Fruit ID
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Month]'))
-ALTER TABLE [dbo].[Fruit_Month]  WITH CHECK ADD  CONSTRAINT [FK_Fruit_Month] FOREIGN KEY([FruitId])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month_Fruit]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Month]'))
+ALTER TABLE [dbo].[Fruit_Month]  WITH CHECK ADD  CONSTRAINT [FK_Fruit_Month_Fruit] FOREIGN KEY([FruitId])
 REFERENCES [dbo].[Fruit] ([FruitId])
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Month]'))
-ALTER TABLE [dbo].[Fruit_Month] CHECK CONSTRAINT [FK_Fruit_Month]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month_Fruit]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Month]'))
+ALTER TABLE [dbo].[Fruit_Month] CHECK CONSTRAINT [FK_Fruit_Month_Fruit]
 GO
-PRINT('Fruit_Month - FruitID Foreign Key Created')
+PRINT('FK_Fruit_Month_Fruit - FruitID Foreign Key Created')
 
 
 -- To Month ID
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Month]'))
-ALTER TABLE [dbo].[Fruit_Month]  WITH CHECK ADD  CONSTRAINT [FK_Fruit_Month] FOREIGN KEY([MonthId])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month_Month]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Month]'))
+ALTER TABLE [dbo].[Fruit_Month]  WITH CHECK ADD  CONSTRAINT [FK_Fruit_Month_Month] FOREIGN KEY([MonthId])
 REFERENCES [dbo].[Month] ([MonthId])
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Month]'))
-ALTER TABLE [dbo].[Fruit_Month] CHECK CONSTRAINT [FK_Fruit_Month]
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month_Month]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Month]'))
+ALTER TABLE [dbo].[Fruit_Month] CHECK CONSTRAINT [FK_Fruit_Month_Month]
 GO
-PRINT('Fruit_Month - MonthId Foreign Key Created')
+PRINT('FK_Fruit_Month_Month - MonthId Foreign Key Created')
 
 
 USE [master]
 GO
-ALTER DATABASE [dbpTermProject2022] SET  READ_WRITE 
+ALTER DATABASE [DbpTermProject2022] SET READ_WRITE 
 GO
