@@ -62,7 +62,7 @@ GO
 
 CREATE TABLE [dbo].[Regions](
 	[RegionId] [int] IDENTITY(1,1) NOT NULL,
-	[RegionName] [nvarchar](50) NOT NULL,
+	[RegionName] [nvarchar](100) NOT NULL,
  CONSTRAINT [PK_RegionId] PRIMARY KEY CLUSTERED 
 (
 	[RegionId] ASC
@@ -74,8 +74,7 @@ GO
 
 CREATE TABLE [dbo].[Month](
 	[MonthId] [int] IDENTITY(1,1) NOT NULL,
-	[Month] [nvarchar](50) NOT NULL,
-	[Abbreviation] [nvarchar](50) NULL,
+	[Month] [nvarchar](9) NOT NULL,
  CONSTRAINT [PK_Month] PRIMARY KEY CLUSTERED 
 (
 	[MonthId] ASC
@@ -111,6 +110,20 @@ CREATE TABLE [dbo].[Fruit_Month](
 ) ON [PRIMARY]
 GO
 PRINT('Table Fruit_Month Created')
+GO
+
+CREATE TABLE [dbo].[Users](
+	[UserId] [int] IDENTITY(1,1) NOT NULL,
+	[Username] [nvarchar](100) NOT NULL,
+	[password] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+
+(
+	[UserId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+PRINT('Table Users Created')
 PRINT('-----------------------------' + CHAR(13)+CHAR(10))
 GO
 
@@ -793,6 +806,20 @@ GO
 DECLARE @Fruit_MonthCount AS INT = -1;
 SELECT @Fruit_MonthCount = COUNT(*) FROM Fruit_Month;
 PRINT(Convert(VARCHAR, @Fruit_MonthCount) + ' rows inserted into Fruit_Month');
+GO
+
+SET IDENTITY_INSERT [dbo].[Users] ON 
+GO
+INSERT [dbo].[Users] ([UserId], [Username], [Password]) VALUES (1, N'jmurray', N'12345')
+GO
+INSERT [dbo].[Users] ([UserId], [Username], [Password]) VALUES (2, N'admin', N'admin')
+GO
+SET IDENTITY_INSERT [dbo].[Users] OFF
+GO
+
+DECLARE @UsersCount AS INT = -1;
+SELECT @UsersCount = COUNT(*) FROM Users;
+PRINT(Convert(VARCHAR, @UsersCount) + ' rows inserted into Users');
 PRINT('-----------------------------' + CHAR(13)+CHAR(10))
 GO
 
@@ -841,11 +868,11 @@ PRINT('FK_Fruit_Month_Fruit - FruitID Foreign Key Created')
 
 
 -- To Month ID
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month_Month]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Month]'))
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month_Month]') AND parent_object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month_Month]'))
 ALTER TABLE [dbo].[Fruit_Month]  WITH CHECK ADD  CONSTRAINT [FK_Fruit_Month_Month] FOREIGN KEY([MonthId])
 REFERENCES [dbo].[Month] ([MonthId])
 GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month_Month]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruit_Month]'))
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month_Month]') AND parent_object_id = OBJECT_ID(N'[dbo].[FK_Fruit_Month_Month]'))
 ALTER TABLE [dbo].[Fruit_Month] CHECK CONSTRAINT [FK_Fruit_Month_Month]
 GO
 PRINT('FK_Fruit_Month_Month - MonthId Foreign Key Created')
