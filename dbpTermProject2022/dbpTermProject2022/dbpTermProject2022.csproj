@@ -54,11 +54,47 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmFruits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFruits.Designer.cs">
+      <DependentUpon>frmFruits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MDIParent1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MDIParent1.Designer.cs">
+      <DependentUpon>MDIParent1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMonths.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMonths.Designer.cs">
+      <DependentUpon>frmMonths.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UiUtilities.cs" />
+    <Compile Include="frmRegions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRegions.Designer.cs">
+      <DependentUpon>frmRegions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIUtilities.cs" />
+    <Compile Include="frmUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUsers.Designer.cs">
+      <DependentUpon>frmUsers.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFruits.resx">
+      <DependentUpon>frmFruits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MDIParent1.resx">
+      <DependentUpon>MDIParent1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

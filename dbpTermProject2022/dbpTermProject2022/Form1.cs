@@ -21,5 +21,27 @@ namespace dbpTermProject2022
         {
 
         }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+
+
+            string username = txtUsername.Text;
+            string password = txtPassword.Text;
+
+            string sql = $"SELECT Username FROM Users WHERE Username = '{username}' AND Password = '{password}'";
+
+
+            if (DataAccess.ExecuteScaler(sql) != null)
+            {
+                Form landingPage = new MDIParent1();
+                landingPage.Show();
+            }
+            else
+            {
+                MessageBox.Show("Login Failed");
+            }
+
+        }
     }
 }

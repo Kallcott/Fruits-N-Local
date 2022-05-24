@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace dbpTermProject2022
 {
-    class UiUtilities
+    public class UIUtilities
     {
         public static void FillListControl(
             ListControl control,
