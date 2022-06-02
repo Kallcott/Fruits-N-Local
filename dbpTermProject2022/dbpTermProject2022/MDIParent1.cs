@@ -148,5 +148,31 @@ namespace dbpTermProject2022
                 childForm.Close();
             }
         }
+
+        private void MDIParent1_Load(object sender, EventArgs e)
+        {
+            Splash frmSplash = new Splash();
+            login frmLogin = new login();
+
+            frmSplash.ShowDialog();
+
+            if (frmSplash.DialogResult != DialogResult.OK)
+            {
+                this.Close();
+            }
+            else
+            {
+                frmLogin.ShowDialog();
+                if (frmLogin.DialogResult != DialogResult.OK)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    this.Show();
+                }
+            }
+
+        }
     }
 }
