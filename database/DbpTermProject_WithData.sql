@@ -72,17 +72,17 @@ GO
 PRINT('Table Regions Created')
 GO
 
-CREATE TABLE [dbo].[Months](
-	[MonthsId] [int] IDENTITY(1,1) NOT NULL,
-	[Months] [nvarchar](9) NOT NULL,
- CONSTRAINT [PK_Months] PRIMARY KEY CLUSTERED 
-(
-	[MonthsId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-PRINT('Table Months Created')
-GO
+--CREATE TABLE [dbo].[Months](
+--	[MonthsId] [int] IDENTITY(1,1) NOT NULL,
+--	[Months] [nvarchar](9) NOT NULL,
+-- CONSTRAINT [PK_Months] PRIMARY KEY CLUSTERED 
+--(
+--	[MonthsId] ASC
+--)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+--) ON [PRIMARY]
+--GO
+--PRINT('Table Months Created')
+--GO
 
 CREATE TABLE [dbo].[Fruits_Origin](
 	[Fruits_OiginId] [int] IDENTITY(1,1) NOT NULL,
@@ -98,19 +98,19 @@ GO
 PRINT('Table Fruits_Origin Created')
 GO
 
-CREATE TABLE [dbo].[Fruits_Months](
-	[Fruits_MonthsId] [int] IDENTITY(1,1) NOT NULL,
-	[FruitsId] [int] NOT NULL,
-	[MonthsId] [int] NOT NULL,
- CONSTRAINT [PK_Fruits_Months] PRIMARY KEY CLUSTERED 
+----CREATE TABLE [dbo].[Fruits_Months](
+----	[Fruits_MonthsId] [int] IDENTITY(1,1) NOT NULL,
+----	[FruitsId] [int] NOT NULL,
+----	[MonthsId] [int] NOT NULL,
+---- CONSTRAINT [PK_Fruits_Months] PRIMARY KEY CLUSTERED 
 
-(
-	[Fruits_MonthsId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-PRINT('Table Fruits_Months Created')
-GO
+--(
+--	[Fruits_MonthsId] ASC
+--)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+--) ON [PRIMARY]
+--GO
+--PRINT('Table Fruits_Months Created')
+--GO
 
 CREATE TABLE [dbo].[Users](
 	[UserId] [int] IDENTITY(1,1) NOT NULL,
@@ -316,41 +316,41 @@ SELECT @RegionsCount = COUNT(*) FROM Regions;
 PRINT(Convert(VARCHAR, @RegionsCount) + ' rows inserted into Regions');
 GO
 
-SET IDENTITY_INSERT [dbo].[Months] ON 
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (1, N'January')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (2, N'February')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (3, N'March')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (4, N'April')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (5, N'May')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (6, N'June')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (7, N'July')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (8, N'August')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (9, N'September')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (10, N'October')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (11, N'November')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (12, N'December')
-GO
-INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (13, N'All')
-GO
-SET IDENTITY_INSERT [dbo].[Months] OFF
-GO
+--SET IDENTITY_INSERT [dbo].[Months] ON 
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (1, N'January')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (2, N'February')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (3, N'March')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (4, N'April')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (5, N'May')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (6, N'June')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (7, N'July')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (8, N'August')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (9, N'September')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (10, N'October')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (11, N'November')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (12, N'December')
+--GO
+--INSERT [dbo].[Months] ([MonthsId], [Months]) VALUES (13, N'All')
+--GO
+--SET IDENTITY_INSERT [dbo].[Months] OFF
+--GO
 
-DECLARE @MonthsCount AS INT = -1;
-SELECT @MonthsCount = COUNT(*) FROM [Months];
-PRINT(Convert(VARCHAR, @MonthsCount) + ' rows inserted into Months');
-GO
+--DECLARE @MonthsCount AS INT = -1;
+--SELECT @MonthsCount = COUNT(*) FROM [Months];
+--PRINT(Convert(VARCHAR, @MonthsCount) + ' rows inserted into Months');
+--GO
 
 SET IDENTITY_INSERT [dbo].[Fruits_Origin] ON 
 GO
@@ -478,331 +478,331 @@ SELECT @Fruits_OriginCount = COUNT(*) FROM Fruits_Origin;
 PRINT(Convert(VARCHAR, @Fruits_OriginCount) + ' rows inserted into Fruits_Origin');
 GO
 
-SET IDENTITY_INSERT [dbo].[Fruits_Months] ON 
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (1, 1, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (2, 1, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (3, 1, 10)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (4, 2, 5)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (5, 2, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (6, 2, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (7, 3, 13)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (8, 4, 13)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (9, 5, 13)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (10, 6, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (11, 6, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (12, 7, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (13, 7, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (14, 7, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (15, 8, 4)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (16, 8, 5)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (17, 8, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (18, 8, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (19, 9, 12)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (20, 9, 1)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (21, 9, 2)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (22, 9, 3)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (23, 9, 4)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (24, 10, 13)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (25, 11, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (26, 11, 10)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (27, 11, 11)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (28, 12, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (29, 12, 10)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (30, 12, 11)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (31, 12, 12)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (32, 13, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (33, 13, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (34, 13, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (35, 13, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (36, 14, 11)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (37, 14, 12)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (38, 14, 1)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (39, 14, 2)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (40, 14, 3)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (41, 15, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (42, 15, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (43, 15, 10)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (44, 16, 10)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (45, 16, 11)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (46, 16, 12)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (47, 17, 13)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (48, 18, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (49, 18, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (50, 18, 10)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (51, 19, 13)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (52, 20, 1)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (53, 20, 2)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (54, 20, 3)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (55, 20, 4)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (56, 21, 12)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (57, 21, 12)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (58, 21, 1)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (59, 21, 2)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (60, 21, 11)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (61, 22, 5)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (62, 22, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (63, 22, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (64, 22, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (65, 22, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (66, 23, 5)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (67, 23, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (68, 23, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (69, 23, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (70, 23, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (71, 24, 10)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (72, 24, 11)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (73, 24, 12)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (74, 24, 1)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (75, 25, 13)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (76, 26, 5)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (77, 26, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (78, 26, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (79, 26, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (80, 26, 9)  -- Peaches
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (81, 27, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (82, 27, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (83, 27, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (84, 27, 10)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (85, 27, 1) -- Pear
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (86, 28, 3)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (87, 28, 4)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (88, 28, 5)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (89, 28, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (90, 28, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (91, 29, 5)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (92, 29, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (93, 29, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (94, 29, 8)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (95, 29, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (96, 29, 10)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (97, 30, 12)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (98, 30, 1)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (99, 30, 2)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (100, 30, 10)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (101, 30, 11)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (102, 31, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (103, 31, 7)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (104, 31, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (105, 31, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (106, 31, 10)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (107, 31, 11)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (108, 32, 3)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (109, 32, 4)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (110, 32, 5)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (111, 32, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (112, 32, 7)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (113, 32, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (114, 32, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (115, 32, 10)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (116, 32, 11)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (117, 33, 5)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (118, 33, 6)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (119, 33, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (120, 33, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (121, 33, 9)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (123, 33, 10)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (124, 34, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (125, 34, 7)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (126, 34, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (127, 35, 1)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (128, 35, 2)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (129, 35, 3)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (130, 36, 1)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (131, 36, 2)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (132, 36, 3)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (133, 36, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (134, 36, 7)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (135, 36, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (136, 37, 12)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (137, 37, 1)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (138, 37, 2)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (139, 37, 6)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (140, 37, 7)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (141, 37, 8)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (142, 38, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (143, 38, 10)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (144, 38, 11)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (145, 39, 5)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (146, 39, 6)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (147, 39, 7)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (148, 39, 8)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (149, 39, 9)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (150, 40, 13)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (151, 41, 1)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (152, 41, 2)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (153, 41, 3)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (154, 41, 4)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (155, 42, 12)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (156, 42, 1)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (157, 42, 2)
-GO
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (158, 42, 3)
-Go
-INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (159, 42, 11)
-GO
-SET IDENTITY_INSERT [dbo].[Fruits_Months] OFF
-GO
+--SET IDENTITY_INSERT [dbo].[Fruits_Months] ON 
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (1, 1, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (2, 1, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (3, 1, 10)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (4, 2, 5)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (5, 2, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (6, 2, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (7, 3, 13)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (8, 4, 13)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (9, 5, 13)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (10, 6, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (11, 6, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (12, 7, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (13, 7, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (14, 7, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (15, 8, 4)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (16, 8, 5)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (17, 8, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (18, 8, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (19, 9, 12)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (20, 9, 1)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (21, 9, 2)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (22, 9, 3)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (23, 9, 4)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (24, 10, 13)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (25, 11, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (26, 11, 10)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (27, 11, 11)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (28, 12, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (29, 12, 10)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (30, 12, 11)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (31, 12, 12)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (32, 13, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (33, 13, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (34, 13, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (35, 13, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (36, 14, 11)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (37, 14, 12)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (38, 14, 1)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (39, 14, 2)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (40, 14, 3)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (41, 15, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (42, 15, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (43, 15, 10)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (44, 16, 10)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (45, 16, 11)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (46, 16, 12)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (47, 17, 13)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (48, 18, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (49, 18, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (50, 18, 10)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (51, 19, 13)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (52, 20, 1)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (53, 20, 2)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (54, 20, 3)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (55, 20, 4)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (56, 21, 12)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (57, 21, 12)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (58, 21, 1)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (59, 21, 2)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (60, 21, 11)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (61, 22, 5)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (62, 22, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (63, 22, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (64, 22, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (65, 22, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (66, 23, 5)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (67, 23, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (68, 23, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (69, 23, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (70, 23, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (71, 24, 10)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (72, 24, 11)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (73, 24, 12)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (74, 24, 1)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (75, 25, 13)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (76, 26, 5)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (77, 26, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (78, 26, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (79, 26, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (80, 26, 9)  -- Peaches
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (81, 27, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (82, 27, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (83, 27, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (84, 27, 10)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (85, 27, 1) -- Pear
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (86, 28, 3)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (87, 28, 4)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (88, 28, 5)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (89, 28, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (90, 28, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (91, 29, 5)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (92, 29, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (93, 29, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (94, 29, 8)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (95, 29, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (96, 29, 10)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (97, 30, 12)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (98, 30, 1)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (99, 30, 2)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (100, 30, 10)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (101, 30, 11)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (102, 31, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (103, 31, 7)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (104, 31, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (105, 31, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (106, 31, 10)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (107, 31, 11)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (108, 32, 3)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (109, 32, 4)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (110, 32, 5)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (111, 32, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (112, 32, 7)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (113, 32, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (114, 32, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (115, 32, 10)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (116, 32, 11)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (117, 33, 5)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (118, 33, 6)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (119, 33, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (120, 33, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (121, 33, 9)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (123, 33, 10)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (124, 34, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (125, 34, 7)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (126, 34, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (127, 35, 1)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (128, 35, 2)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (129, 35, 3)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (130, 36, 1)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (131, 36, 2)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (132, 36, 3)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (133, 36, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (134, 36, 7)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (135, 36, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (136, 37, 12)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (137, 37, 1)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (138, 37, 2)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (139, 37, 6)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (140, 37, 7)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (141, 37, 8)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (142, 38, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (143, 38, 10)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (144, 38, 11)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (145, 39, 5)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (146, 39, 6)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (147, 39, 7)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (148, 39, 8)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (149, 39, 9)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (150, 40, 13)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (151, 41, 1)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (152, 41, 2)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (153, 41, 3)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (154, 41, 4)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (155, 42, 12)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (156, 42, 1)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (157, 42, 2)
+--GO
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (158, 42, 3)
+--Go
+--INSERT [dbo].[Fruits_Months] ([Fruits_MonthsId], [FruitsId], [MonthsId]) VALUES (159, 42, 11)
+--GO
+--SET IDENTITY_INSERT [dbo].[Fruits_Months] OFF
+--GO
 
-DECLARE @Fruits_MonthsCount AS INT = -1;
-SELECT @Fruits_MonthsCount = COUNT(*) FROM Fruits_Months;
-PRINT(Convert(VARCHAR, @Fruits_MonthsCount) + ' rows inserted into Fruits_Months');
-GO
+--DECLARE @Fruits_MonthsCount AS INT = -1;
+--SELECT @Fruits_MonthsCount = COUNT(*) FROM Fruits_Months;
+--PRINT(Convert(VARCHAR, @Fruits_MonthsCount) + ' rows inserted into Fruits_Months');
+--GO
 
 SET IDENTITY_INSERT [dbo].[Users] ON 
 GO
@@ -851,27 +851,27 @@ GO
 PRINT('FK_Fruits_Origin_Regions - RegionId Foreign Key Created')
 
 
--- Fruits_Months
--- To Fruits ID
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Fruits]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruits_Months]'))
-ALTER TABLE [dbo].[Fruits_Months]  WITH CHECK ADD  CONSTRAINT [FK_Fruits_Months_Fruits] FOREIGN KEY([FruitsId])
-REFERENCES [dbo].[Fruits] ([FruitsId])
-GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Fruits]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruits_Months]'))
-ALTER TABLE [dbo].[Fruits_Months] CHECK CONSTRAINT [FK_Fruits_Months_Fruits]
-GO
-PRINT('FK_Fruits_Months_Fruits - FruitsID Foreign Key Created')
+---- Fruits_Months
+---- To Fruits ID
+--IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Fruits]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruits_Months]'))
+--ALTER TABLE [dbo].[Fruits_Months]  WITH CHECK ADD  CONSTRAINT [FK_Fruits_Months_Fruits] FOREIGN KEY([FruitsId])
+--REFERENCES [dbo].[Fruits] ([FruitsId])
+--GO
+--IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Fruits]') AND parent_object_id = OBJECT_ID(N'[dbo].[Fruits_Months]'))
+--ALTER TABLE [dbo].[Fruits_Months] CHECK CONSTRAINT [FK_Fruits_Months_Fruits]
+--GO
+--PRINT('FK_Fruits_Months_Fruits - FruitsID Foreign Key Created')
 
 
--- To Months ID
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Months]') AND parent_object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Months]'))
-ALTER TABLE [dbo].[Fruits_Months]  WITH CHECK ADD  CONSTRAINT [FK_Fruits_Months_Months] FOREIGN KEY([MonthsId])
-REFERENCES [dbo].[Months] ([MonthsId])
-GO
-IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Months]') AND parent_object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Months]'))
-ALTER TABLE [dbo].[Fruits_Months] CHECK CONSTRAINT [FK_Fruits_Months_Months]
-GO
-PRINT('FK_Fruits_Months_Months - MonthsId Foreign Key Created')
+---- To Months ID
+--IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Months]') AND parent_object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Months]'))
+--ALTER TABLE [dbo].[Fruits_Months]  WITH CHECK ADD  CONSTRAINT [FK_Fruits_Months_Months] FOREIGN KEY([MonthsId])
+--REFERENCES [dbo].[Months] ([MonthsId])
+--GO
+--IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Months]') AND parent_object_id = OBJECT_ID(N'[dbo].[FK_Fruits_Months_Months]'))
+--ALTER TABLE [dbo].[Fruits_Months] CHECK CONSTRAINT [FK_Fruits_Months_Months]
+--GO
+--PRINT('FK_Fruits_Months_Months - MonthsId Foreign Key Created')
 
 
 USE [master]
