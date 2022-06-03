@@ -42,12 +42,12 @@ namespace dbpTermProject2022
                 case "FRUITS":
                     childForm = new frmFruits();
                     break;
-                case "MONTHS":
-                    childForm = new frmMonths();
-                    break;
-                case "REGIONS":
-                    childForm = new frmRegions();
-                    break;
+                //case "MONTHS":
+                //    childForm = new frmMonths();
+                //    break;
+                //case "REGIONS":
+                //    childForm = new frmRegions();
+                //    break;
                  case "USERS":
                     childForm = new frmUsers();
                     break;
@@ -118,7 +118,7 @@ namespace dbpTermProject2022
 
         private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            statusStrip.Visible = statusBarToolStripMenuItem.Checked;
+            MDIstatusStrip.Visible = statusBarToolStripMenuItem.Checked;
         }
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)

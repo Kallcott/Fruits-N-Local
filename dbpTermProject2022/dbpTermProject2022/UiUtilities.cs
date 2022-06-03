@@ -35,5 +35,26 @@ namespace dbpTermProject2022
 
             return;
         }
+
+        public static void ClearControls(Control.ControlCollection controls)
+        {
+            foreach (Control ctl in controls)
+            {
+                switch (ctl)
+                {
+                    case TextBox txt:
+                        txt.Clear();
+                        break;
+                    case CheckBox chk:
+                        chk.Checked = false;
+                        break;
+                    case GroupBox gB:
+                        ClearControls(gB.Controls);
+                        break;
+                }
+            }
+        }
+
+
     }
 }

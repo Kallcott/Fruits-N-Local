@@ -11,41 +11,101 @@ namespace dbpTermProject2022
     class DataAccess
     {
 
-        static private string connString =
+        static private string connectionString =
             System.Configuration.ConfigurationManager
                     .ConnectionStrings["DbpTermProject2022"].ConnectionString;
 
 
-        static public DataTable GetData(string sql)
+        /// <summary>
+        /// Queries a SQL Server database with a provided SELECT statement.
+        /// </summary>
+        /// <param name="sql">The SELECT SQL Statement to execute and query data</param>
+        /// <returns>DataTable containing results from the provided SQL statement</returns>
+        public static DataTable GetData(string sql)
         {
-            SqlConnection conn = new SqlConnection(connString);
-
             DataTable dt = new DataTable();
 
-            using (conn)
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(sql, conn);
-
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
 
                 da.Fill(dt);
             }
+
             return dt;
         }
 
-        static public object ExecuteScaler(string sql)
+        /// <summary>
+        /// Queries a SQL Server database with a provided collection of SELECT statements.
+        /// </summary>
+        /// <param name="sqlStatements">The SELECT SQL Statements to execute and query data</param>
+        /// <returns>DataSet containing results from the proivded SQL Statements. DataTables within the returned DataSet are in the order of the provided SQL statements</returns>
+        public static DataSet GetData(string[] sqlStatements)
         {
-            object retValue = null;
+            DataSet ds = new DataSet();
 
-            using (SqlConnection conn = new SqlConnection(connString))
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string sql = String.Join(";", sqlStatements);
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                for (int i = 0; i < sqlStatements.Length; i++)
+                {
+                    da.TableMappings.Add(i.ToString(), $"Data{i}");
+                }
+
+                da.Fill(ds);
+            }
+
+            return ds;
+        }
+
+        /// <summary>
+        /// Queries a SQL Server database for a scalar (single) value from the provided SELECT statement.
+        /// </summary>
+        /// <param name="sql">The SELECT SQL Statement to execute and query data for a scalar (single) value</param>
+        /// <returns>The scalar value of the result of the SQL Statement execution</returns>
+        public static object GetValue(string sql)
+        {
+            object returnValue;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
                 conn.Open();
-                retValue = cmd.ExecuteScalar();
+                returnValue = cmd.ExecuteScalar();
+                conn.Close();
             }
 
-            return retValue;
+            return returnValue;
         }
+
+        public static int SendData(string sql)
+        {
+            int rowsAffected = -1;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(SQLCleaner(sql), conn);
+                conn.Open();
+                rowsAffected = cmd.ExecuteNonQuery();
+            }
+
+            return rowsAffected;
+        }
+
+        public static string SQLCleaner(string sql)
+        {
+            while (sql.Contains("  "))
+            {
+                sql = sql.Replace("  ", " "); // minimizing spaces
+            }
+            return sql.Replace(Environment.NewLine, ""); //trimming out New line characters
+        }
+
     }
 }
