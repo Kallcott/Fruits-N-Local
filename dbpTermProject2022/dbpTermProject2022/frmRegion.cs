@@ -45,7 +45,7 @@ namespace dbpTermProject2022
 
             string sql = DataAccess.SQLCleaner($@"
                 SELECT 
-                        Fruits_Regions.Fruits_RegionsId,  Fruits.FruitsName AS 'Fruit Name'
+                        Fruits.FruitsName AS 'Fruit Name'
                 FROM Fruits_Regions 
                     INNER JOIN Fruits ON Fruits.FruitsId = Fruits_Regions.FruitsId
                     INNER JOIN Regions ON Regions.RegionsId = Fruits_Regions.RegionsId
