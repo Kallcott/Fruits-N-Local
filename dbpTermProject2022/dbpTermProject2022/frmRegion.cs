@@ -93,6 +93,11 @@ namespace dbpTermProject2022
 
                 $"SELECT COUNT(*) AS 'Fruits Connections' FROM Fruits WHERE RegionsId = '{currentRegionsId}'",
 
+                $@"
+               SELECT FruitsName FROM Regions 
+                    INNER JOIN Fruits ON Fruits.RegionsId = Regions.RegionsId
+               WHERE Regions.RegionsId = {currentRegionsId}"
+
             };
 
             DataSet ds = new DataSet();

@@ -60,6 +60,9 @@ namespace dbpTermProject2022
             this.MDItoolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.prgBar = new System.Windows.Forms.ToolStripProgressBar();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.MDIstatusStrip.SuspendLayout();
@@ -71,7 +74,8 @@ namespace dbpTermProject2022
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.windowsMenu,
             this.helpMenu,
-            this.maintenenceToolStripMenuItem});
+            this.maintenenceToolStripMenuItem,
+            this.toolStripMenuItem1});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.MdiWindowListItem = this.windowsMenu;
             this.menuStrip.Name = "menuStrip";
@@ -292,6 +296,31 @@ namespace dbpTermProject2022
             this.prgBar.Size = new System.Drawing.Size(100, 16);
             this.prgBar.Visible = false;
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4});
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(57, 20);
+            this.toolStripMenuItem1.Text = "Browse";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Tag = "BrowseFruits";
+            this.toolStripMenuItem3.Text = "Fruits";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.ShowNewForm);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem4.Tag = "BrowseRegions";
+            this.toolStripMenuItem4.Text = "Regions";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.ShowNewForm);
+            // 
             // MDIParent1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -347,6 +376,9 @@ namespace dbpTermProject2022
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
     }
 }
 

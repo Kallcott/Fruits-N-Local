@@ -68,11 +68,36 @@ ORDER BY q.Fruits_RegionsId
 SELECT FruitsID, Fruitsname FROM Fruits ORDER BY Fruitsname ASC
 SELECT RegionsID, Regionsname FROM Regions ORDER BY Regionsname ASC
 
-
+WITH FruitsOrder AS
 SELECT 
         Fruits_Regions.Fruits_RegionsId,  Fruits.FruitsName AS 'Fruit Name'
 FROM Fruits_Regions 
     INNER JOIN Fruits ON Fruits.FruitsId = Fruits_Regions.FruitsId
-    INNER JOIN Regions ON Regions.RegionsId = Fruits_Regions.RegionsId
-WHERE Fruits_Regions.RegionsId = '1'
+WHERE Fruits_Regions.FruitsId = '1'
 ORDER BY [Fruit Name];
+
+    SELECT UserId, UserName,
+    LEAD(UserId) OVER(ORDER BY UserName) AS NextUserId,
+    LAG(UserId) OVER(ORDER BY UserName) AS PreviousUserId,
+    ROW_NUMBER() OVER(ORDER BY UserName) AS 'RowNumber'
+    FROM Users
+
+
+    SELECT Fruits_RegionsId,
+    LEAD(Fruits_RegionsId) OVER(ORDER BY FruitsId) AS NextFruits_RegionsId,
+    LAG(Fruits_RegionsId) OVER(ORDER BY FruitsId) AS PreviousFruits_RegionsId,
+    ROW_NUMBER() OVER(ORDER BY FruitsId) AS 'RowNumber'
+    FROM Fruits_Regions
+
+	      INNER JOIN Fruits ON Fruits.FruitsId = Fruits_Regions.FruitsId
+    ORDER BY [Fruit Name]
+
+    SELECT Fruits_Regions.Fruits_RegionsId, Fruits.FruitsName AS 'Fruit Name',
+    LEAD(Fruits_Regions.FruitsId) OVER(ORDER BY Fruits_RegionsId) AS NextFruits_RegionsId,
+    LAG(Fruits_Regions.FruitsId) OVER(ORDER BY Fruits_RegionsId) AS PreviousFruits_RegionsId,
+    ROW_NUMBER() OVER(ORDER BY Fruits.FruitsName) AS 'RowNumber'
+    FROM Fruits_Regions
+        INNER JOIN Fruits ON Fruits.FruitsId = Fruits_Regions.FruitsId
+    ORDER BY [Fruit Name]
+
+

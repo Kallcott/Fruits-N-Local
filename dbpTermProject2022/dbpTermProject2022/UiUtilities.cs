@@ -56,28 +56,44 @@ namespace dbpTermProject2022
             }
         }
 
-        public static DataTable RotateTable(DataTable dtFruitsRegions)
+        /// <summary>
+        /// This will rotate the columns and Rows of a Table. This sets a size constraint of 6, 
+        /// which will create new line every 6 columns, due to this Tables with more than one row will become offset.
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable RotateTable(DataTable dt, int columWidth = 6)
         {
             DataTable tempTable = new DataTable();
 
             tempTable.Columns.Add("Field Name");
 
-            for (int i = 0; i < dtFruitsRegions.Rows.Count; i++)
+            // Fill temp table with dt, limit columns by Width
+            for (int i = 0; i < dt.Rows.Count % columWidth; i++)
             {
                 tempTable.Columns.Add();
             }
 
-            for (int i = 0; i < dtFruitsRegions.Columns.Count; i++)
+            // Loop through Columns
+            for (int i = 0; i < dt.Columns.Count; i++)
             {
                 DataRow NewRow = tempTable.NewRow();
-                NewRow[0] = dtFruitsRegions.Columns[i].Caption;
 
-                for (int j = 0; j < dtFruitsRegions.Rows.Count; j++)
+                // Loop throw Rows
+                for (int j = 0; j < dt.Rows.Count; j++)
                 {
-                    NewRow[j + 1] = dtFruitsRegions.Rows[j][i];
-                }
+                    //New Line every 6 cells, but not on the first pass.
+                    if (j % columWidth == 0 && j != 0)
+                    {
+                        tempTable.Rows.Add(NewRow);
+                        NewRow = tempTable.NewRow();
+                    }
 
+                    NewRow[j % columWidth] = dt.Rows[j][i];
+
+                }
                 tempTable.Rows.Add(NewRow);
+
             }
             return tempTable;
         }

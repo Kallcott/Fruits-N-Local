@@ -51,7 +51,13 @@ namespace dbpTermProject2022
                 case "USERS":
                     childForm = new frmUsers();
                     break;
-               default:
+                case "BROWSEFRUITS":
+                    childForm = new frmBrowseFruits();
+                    break;
+                case "BROWSEREGIONS":
+                    childForm = new frmBrowseRegions();
+                    break;
+                default:
                     break;
             }
 
