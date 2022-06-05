@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,6 +54,40 @@ namespace dbpTermProject2022
                         break;
                 }
             }
+        }
+
+        public static DataTable RotateTable(DataTable dtFruitsRegions)
+        {
+            DataTable tempTable = new DataTable();
+
+            tempTable.Columns.Add("Field Name");
+
+            for (int i = 0; i < dtFruitsRegions.Rows.Count; i++)
+            {
+                tempTable.Columns.Add();
+            }
+
+            for (int i = 0; i < dtFruitsRegions.Columns.Count; i++)
+            {
+                DataRow NewRow = tempTable.NewRow();
+                NewRow[0] = dtFruitsRegions.Columns[i].Caption;
+
+                for (int j = 0; j < dtFruitsRegions.Rows.Count; j++)
+                {
+                    NewRow[j + 1] = dtFruitsRegions.Rows[j][i];
+                }
+
+                tempTable.Rows.Add(NewRow);
+            }
+            return tempTable;
+        }
+
+        public static void AutoResizeDgv(DataGridView dgv)
+        {
+            dgv.AutoResizeColumns();
+            var width = dgv.Columns.GetColumnsWidth(DataGridViewElementStates.None);
+            var height = dgv.Rows.GetRowsHeight(DataGridViewElementStates.None);
+            dgv.ClientSize = new Size(width, height + 20);
         }
 
 

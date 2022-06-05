@@ -48,11 +48,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess.cs" />
-    <Compile Include="frmFruits.cs">
+    <Compile Include="frmRegion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmFruits.Designer.cs">
-      <DependentUpon>frmFruits.cs</DependentUpon>
+    <Compile Include="frmRegion.Designer.cs">
+      <DependentUpon>frmRegion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmFruit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFruit.Designer.cs">
+      <DependentUpon>frmFruit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmFruits_Regions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFruits_Regions.Designer.cs">
+      <DependentUpon>frmFruits_Regions.cs</DependentUpon>
     </Compile>
     <Compile Include="login.cs">
       <SubType>Form</SubType>
@@ -81,11 +93,20 @@
     <Compile Include="frmUsers.Designer.cs">
       <DependentUpon>frmUsers.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="frmFruits.resx">
-      <DependentUpon>frmFruits.cs</DependentUpon>
+    <EmbeddedResource Include="frmRegion.resx">
+      <DependentUpon>frmRegion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFruit.resx">
+      <DependentUpon>frmFruit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFruits_Regions.resx">
+      <DependentUpon>frmFruits_Regions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUsers.resx">
       <DependentUpon>frmUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="login.resx">
+      <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MDIParent1.resx">
       <DependentUpon>MDIParent1.cs</DependentUpon>

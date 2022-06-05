@@ -11,71 +11,92 @@ using System.Windows.Forms;
 
 namespace dbpTermProject2022
 {
-    public partial class frmUsers : Form
+    public partial class frmFruits : Form
     {
-        public frmUsers()
+        public frmFruits()
         {
             InitializeComponent();
         }
 
         // Navigation
         int currentRecord = 0;
-        int currentUserId = 0;
-        int firstUserId = 0;
-        int lastUserId = 0;
-        int? previousUserId;
-        int? nextUserId;
+        int currentFruitsId = 0;
+        int firstFruitsId = 0;
+        int lastFruitsId = 0;
+        int? previousFruitsId;
+        int? nextFruitsId;
 
         // For menuStrips
-        int totalUserCount = 0;
+        int totalFruitCount = 0;
 
-        private void frmUsers_Load(object sender, EventArgs e)
+        private void frmFruits_Load(object sender, EventArgs e)
         {
-            LoadFirstUser();
+            LoadFirstFruit();
 
-            LoadUsersCmb();
+            LoadProducerCmb();
 
-            txtNewUser.Visible = false;
-            txtNewUser.Enabled = false;
+            LoadFruitRegionDgv();
         }
 
-        private void LoadUsersCmb()
+        private void LoadFruitRegionDgv()
         {
-            string sqlUsers = "SELECT UserID, Username FROM Users ORDER BY Username ASC";
-            UIUtilities.FillListControl(cmbUsers, "Username", "UserId", DataAccess.GetData(sqlUsers));
+            DataTable dtFruitsRegions;
+
+
+            dgvFruits_Regions.DataSource = null;
+
+            string sql = DataAccess.SQLCleaner($@"
+                SELECT 
+                        RegionsName AS 'Region Name'
+                FROM Fruits_Regions 
+                    INNER JOIN Fruits ON Fruits.FruitsId = Fruits_Regions.RegionsId
+                    INNER JOIN Regions ON Regions.RegionsId = Fruits_Regions.RegionsId
+                WHERE Fruits_Regions.FruitsId = '{txtFruitId.Text}'
+                ORDER BY [Region Name];");
+
+            dtFruitsRegions = DataAccess.GetData(sql);
+
+            dgvFruits_Regions.DataSource = UIUtilities.RotateTable(dtFruitsRegions);
+            UIUtilities.AutoResizeDgv(dgvFruits_Regions);
         }
 
-        private void LoadUsers()
+        private void LoadProducerCmb()
+        {
+            string sqlFruits = "SELECT RegionsId, RegionsName FROM Regions ORDER BY RegionsName ASC";
+            UIUtilities.FillListControl(cmbLargestProducer, "RegionsName", "RegionsId", DataAccess.GetData(sqlFruits));
+        }
+
+        private void LoadFruits()
         {
             //Clear any errors in the error provider
             errProvider.Clear();
 
             string[] sqlStatements = new string[]
             {
-                $"SELECT * FROM Users WHERE UserId = {currentUserId}",
+                $"SELECT * FROM Fruits WHERE FruitsId = {currentFruitsId}",
 
                 $@"
                 SELECT 
                 (
-                    SELECT TOP(1) UserId as FirstUserId FROM Users ORDER BY UserName
-                ) as FirstUserId,
-                q.PreviousUserId,
-                q.NextUserId,
+                    SELECT TOP(1) FruitsId as FirstFruitsId FROM Fruits ORDER BY FruitsName
+                ) as FirstFruitsId,
+                q.PreviousFruitsId,
+                q.NextFruitsId,
                 (
-                    SELECT TOP(1) UserId as LastUserId FROM Users ORDER BY UserName Desc
-                ) as LastUserId,
+                    SELECT TOP(1) FruitsId as LastFruitsId FROM Fruits ORDER BY FruitsName Desc
+                ) as LastFruitsId,
                 q.RowNumber
                 FROM
                 (
-                    SELECT UserId, UserName,
-                    LEAD(UserId) OVER(ORDER BY UserName) AS NextUserId,
-                    LAG(UserId) OVER(ORDER BY UserName) AS PreviousUserId,
-                    ROW_NUMBER() OVER(ORDER BY UserName) AS 'RowNumber'
-                    FROM Users
+                    SELECT FruitsId, FruitsName,
+                    LEAD(FruitsId) OVER(ORDER BY FruitsName) AS NextFruitsId,
+                    LAG(FruitsId) OVER(ORDER BY FruitsName) AS PreviousFruitsId,
+                    ROW_NUMBER() OVER(ORDER BY FruitsName) AS 'RowNumber'
+                    FROM Fruits
                 ) AS q
-                WHERE q.UserId = {currentUserId}
-                ORDER BY q.UserName".Replace(System.Environment.NewLine," "), // This is for safety on the @ sign
-                "SELECT COUNT(UserId) as UserCount FROM Users"
+                WHERE q.FruitsId = {currentFruitsId}
+                ORDER BY q.FruitsName".Replace(System.Environment.NewLine," "), // This is for safety on the @ sign
+                "SELECT COUNT(FruitsId) as FruitCount FROM Fruits"
             };
 
             DataSet ds = new DataSet();
@@ -84,31 +105,32 @@ namespace dbpTermProject2022
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                DataRow selectedUser = ds.Tables[0].Rows[0];
+                DataRow selectedFruit = ds.Tables[0].Rows[0];
 
-                txtUserId.Text = selectedUser["UserID"].ToString();
-                cmbUsers.SelectedValue = selectedUser["UserId"];
-                txtPassword.Text = selectedUser["Password"].ToString();
+                txtFruitId.Text = selectedFruit["FruitsId"].ToString();
+                cmbLargestProducer.SelectedValue = selectedFruit["RegionsId"];
+                txtFruitsName.Text = selectedFruit["FruitsName"].ToString();
 
-                firstUserId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstUserId"]);
-                previousUserId = ds.Tables[1].Rows[0]["PreviousUserId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousUserId"]) : (int?)null;
-                nextUserId = ds.Tables[1].Rows[0]["NextUserId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["NextUserId"]) : (int?)null;
-                lastUserId = Convert.ToInt32(ds.Tables[1].Rows[0]["LastUserId"]);
+                firstFruitsId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstFruitsId"]);
+                previousFruitsId = ds.Tables[1].Rows[0]["PreviousFruitsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousFruitsId"]) : (int?)null;
+                nextFruitsId = ds.Tables[1].Rows[0]["NextFruitsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["NextFruitsId"]) : (int?)null;
+                lastFruitsId = Convert.ToInt32(ds.Tables[1].Rows[0]["LastFruitsId"]);
                 currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
 
-                totalUserCount = Convert.ToInt32(ds.Tables[2].Rows[0]["UserCount"]);
+                totalFruitCount = Convert.ToInt32(ds.Tables[2].Rows[0]["FruitCount"]);
+                LoadFruitRegionDgv();
             }
             else
             {
-                MessageBox.Show($"The User is no longer available: {currentUserId}");
+                MessageBox.Show($"The Fruit is no longer available: {currentFruitsId}");
 
-                LoadFirstUser();
+                LoadFirstFruit();
             }
 
             //Which item we are on in the count
 
             MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = $"Displaying User {currentRecord} of {totalUserCount}";
+            parent.MDItoolStripStatusLabel1.Text = $"Displaying Fruit {currentRecord} of {totalFruitCount}";
             NextPreviousButtonManagement();
         }
 
@@ -123,10 +145,10 @@ namespace dbpTermProject2022
         private void btnAdd_Click(object sender, EventArgs e)
         {
             MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = "Adding a new User";
+            parent.MDItoolStripStatusLabel1.Text = "Adding a new Fruit";
             parent.MDItoolStripStatusLabel2.Text = "";
 
-            UIUtilities.ClearControls(grpRegisterFruits.Controls);
+            UIUtilities.ClearControls(grpEditFruit.Controls);
 
             //btn save
             // Disable navigation controlls when adding. 
@@ -136,38 +158,23 @@ namespace dbpTermProject2022
             btnAdd.Enabled = false;
             btnDelete.Enabled = false;
 
-            // Toggle Between New user and Select User
-            ToggleUsernameInput();
-
         }
 
-        private void ToggleUsernameInput()
-        {
-            cmbUsers.Enabled = cmbUsers.Visible
-                = !cmbUsers.Visible;
-            txtNewUser.Visible = txtNewUser.Enabled
-                = !cmbUsers.Visible;
-        }
 
         /// <summary>
-        /// Cancel any changes to an existin selected User or the beginnings of the newly created User
-        /// We will reload the last active User
+        /// Cancel any changes to an existin selected Fruit or the beginnings of the newly created Fruit
+        /// We will reload the last active Fruit
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            LoadUsers();
+            LoadFruits();
             btnSave.Text = "&Save";
             btnAdd.Enabled = true;
             btnDelete.Enabled = true;
 
-            txtNewUser.Text = "";
             NavigationState(true);
-            if (cmbUsers.Enabled == false)
-            {
-                ToggleUsernameInput();
-            }
             NextPreviousButtonManagement();
         }
 
@@ -186,14 +193,14 @@ namespace dbpTermProject2022
 
                 // Step #2 Create! 
 
-                if (txtUserId.Text == string.Empty)
+                if (txtFruitId.Text == string.Empty)
                 {
-                    CreateUser();
+                    CreateFruit();
 
                 }
                 else
                 {
-                    SaveUser();
+                    SaveFruit();
                 }
             }
             else
@@ -203,61 +210,60 @@ namespace dbpTermProject2022
 
         }
 
-        private void SaveUser()
+        private void SaveFruit()
         {
-            string sqlUpdateUser = DataAccess.SQLCleaner($@"
-                UPDATE Users 
+            string sqlUpdateFruit = DataAccess.SQLCleaner($@"
+                UPDATE Fruits 
                 SET 
-                    Password = '{txtPassword.Text.Trim()}'
-                WHERE UserID = '{txtUserId.Text.Trim()}'; 
+                    FruitsName = '{txtFruitsName.Text.Trim()}',
+                    RegionsId = '{(int)cmbLargestProducer.SelectedValue}'
+                WHERE FruitsId = '{txtFruitId.Text.Trim()}'; 
             ");
-            // Note the Quotes on string values of UserName and QuantityPer Unit
+            // Note the Quotes on string values of FruitsName and QuantityPer Unit
 
-            int rowsAffected = DataAccess.SendData(sqlUpdateUser);
+            int rowsAffected = DataAccess.SendData(sqlUpdateFruit);
 
             if (rowsAffected == 1)
             {
-                MessageBox.Show($"User {txtUserId.Text.Trim()} Updated.");
+                MessageBox.Show($"Fruit {txtFruitId.Text.Trim()} Updated.");
             }
             else
             {
                 MessageBox.Show("The Database reported no Rows Affected.");
             }
 
-            LoadUsers();
+            LoadFruits();
 
             return;
         }
 
-        private void CreateUser()
+        private void CreateFruit()
         {
-            string sqlInsertUsers = DataAccess.SQLCleaner($@"
-                        INSERT INTO Users
+            string sqlInsertFruits = DataAccess.SQLCleaner($@"
+                        INSERT INTO Fruits
                         (
-                            Username, 
-                            Password 
+                            FruitsName, 
+                            RegionsId 
                         )
                         VALUES
                         (
-                            '{txtNewUser.Text.Trim()}',
-                            '{txtPassword.Text.Trim()}'
-                        ) ;
+                            '{txtFruitsName.Text.Trim()}',
+                            '{(int)cmbLargestProducer.SelectedValue}'
+                        );
                        ");
-            int rowsAffected = DataAccess.SendData(sqlInsertUsers);
+            int rowsAffected = DataAccess.SendData(sqlInsertFruits);
 
             if (rowsAffected == 1)
             {
-                MessageBox.Show("User Created!");
+                MessageBox.Show("Fruit Created!");
                 btnAdd.Enabled = true;
                 btnDelete.Enabled = true;
 
                 btnSave.Text = "Save";
                 NavigationState(true);
 
-
-                ToggleUsernameInput();
-                LoadUsersCmb();
-                LoadFirstUser();
+                LoadProducerCmb();
+                LoadFirstFruit();
             }
             else
             {
@@ -273,19 +279,19 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            //string sqlNumberOfTimeOrdered = $"SELECT COUNT(*) FROM Users WHERE UserId = {txtUserId.Text}";
+            //string sqlNumberOfTimeOrdered = $"SELECT COUNT(*) FROM Fruits WHERE FruitsId = {txtFruitsId.Text}";
             //int numberOfTimesOrdered = Convert.ToInt32(DataAccess.GetValue(sqlNumberOfTimeOrdered));
 
             //if (numberOfTimesOrdered == 0)
             //{
-            string sqlDeleteUser = $"DELETE FROM Users WHERE UserID = '{txtUserId.Text}'";
+            string sqlDeleteFruit = $"DELETE FROM Fruits WHERE FruitsId = '{txtFruitId.Text}'";
 
-            int rowAffected = DataAccess.SendData(sqlDeleteUser);
+            int rowAffected = DataAccess.SendData(sqlDeleteFruit);
 
             if (rowAffected == 1)
             {
-                MessageBox.Show($"User {txtUserId.Text} was deleted!");
-                LoadFirstUser();
+                MessageBox.Show($"Fruit {txtFruitId.Text} was deleted!");
+                LoadFirstFruit();
             }
             else
             {
@@ -295,7 +301,7 @@ namespace dbpTermProject2022
             //else
             //{
             //    // Unused, but retained in case of future proofing
-            //    MessageBox.Show($"User {txtUserId.Text} could not be deleted as it is within a connected structure.");
+            //    MessageBox.Show($"Fruit {txtFruitsId.Text} could not be deleted as it is within a connected structure.");
             //}
         }
 
@@ -303,23 +309,23 @@ namespace dbpTermProject2022
 
         #region Navigation Helpers
 
-        private void LoadFirstUser()
+        private void LoadFirstFruit()
         {
-            currentUserId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 UserId FROM Users ORDER BY Username ASC"));
+            currentFruitsId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 FruitsId FROM Fruits ORDER BY FruitsName ASC"));
 
-            LoadUsers();
+            LoadFruits();
             return;
         }
 
         /// <summary>
         /// Helps manage the enable state of our next and previous navigation buttons
-        /// Depending on where we are in Users we may need to set enable state based on position
-        /// navigation through User records
+        /// Depending on where we are in Fruits we may need to set enable state based on position
+        /// navigation through Fruit records
         /// </summary>
         private void NextPreviousButtonManagement()
         {
-            btnPrevious.Enabled = previousUserId != null;
-            btnNext.Enabled = nextUserId != null;
+            btnPrevious.Enabled = previousFruitsId != null;
+            btnNext.Enabled = nextFruitsId != null;
         }
 
         /// <summary>
@@ -332,6 +338,7 @@ namespace dbpTermProject2022
             btnLast.Enabled = enableState;
             btnNext.Enabled = enableState;
             btnPrevious.Enabled = enableState;
+
         }
 
 
@@ -350,26 +357,26 @@ namespace dbpTermProject2022
             switch (b.Name)
             {
                 case "btnFirst":
-                    currentUserId = firstUserId;
-                    parent.MDItoolStripStatusLabel2.Text = "The first user is currently displayed";
+                    currentFruitsId = firstFruitsId;
+                    parent.MDItoolStripStatusLabel2.Text = "The first Fruit is currently displayed";
                     break;
                 case "btnLast":
-                    currentUserId = lastUserId;
-                    parent.MDItoolStripStatusLabel2.Text = "The last user is currently displayed";
+                    currentFruitsId = lastFruitsId;
+                    parent.MDItoolStripStatusLabel2.Text = "The last Fruit is currently displayed";
                     break;
                 case "btnPrevious":
-                    currentUserId = previousUserId.Value;
+                    currentFruitsId = previousFruitsId.Value;
 
                     if (currentRecord == 1)
-                        parent.MDItoolStripStatusLabel2.Text = "The first user is currently displayed";
+                        parent.MDItoolStripStatusLabel2.Text = "The first Fruit is currently displayed";
                     break;
                 case "btnNext":
-                    currentUserId = nextUserId.Value;
+                    currentFruitsId = nextFruitsId.Value;
 
                     break;
             }
 
-            LoadUsers();
+            LoadFruits();
         }
 
         #endregion
@@ -487,17 +494,12 @@ namespace dbpTermProject2022
             parent.prgBar.Visible = false;
         }
 
-        private void frmUsers_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmFruits_FormClosing(object sender, FormClosingEventArgs e)
         {
             //e.Cancel = false;
         }
 
         #endregion
 
-        private void cmbUsers_SelectedValueChanged(object sender, EventArgs e)
-        {
-            currentUserId = (int)cmbUsers.SelectedValue;
-            LoadUsers();
-        }
     }
 }

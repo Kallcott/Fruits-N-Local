@@ -11,71 +11,88 @@ using System.Windows.Forms;
 
 namespace dbpTermProject2022
 {
-    public partial class frmUsers : Form
+    public partial class frmRegions : Form
     {
-        public frmUsers()
+        public frmRegions()
         {
             InitializeComponent();
         }
 
         // Navigation
         int currentRecord = 0;
-        int currentUserId = 0;
-        int firstUserId = 0;
-        int lastUserId = 0;
-        int? previousUserId;
-        int? nextUserId;
+        int currentRegionsId = 0;
+        int firstRegionsId = 0;
+        int lastRegionsId = 0;
+        int? previousRegionsId;
+        int? nextRegionsId;
 
         // For menuStrips
-        int totalUserCount = 0;
+        int totalRegionCount = 0;
 
-        private void frmUsers_Load(object sender, EventArgs e)
+        private void frmRegions_Load(object sender, EventArgs e)
         {
-            LoadFirstUser();
+            LoadFirstRegion();
 
-            LoadUsersCmb();
-
-            txtNewUser.Visible = false;
-            txtNewUser.Enabled = false;
+            LoadFruitRegionDgv();
         }
 
-        private void LoadUsersCmb()
+        private void LoadFruitRegionDgv()
         {
-            string sqlUsers = "SELECT UserID, Username FROM Users ORDER BY Username ASC";
-            UIUtilities.FillListControl(cmbUsers, "Username", "UserId", DataAccess.GetData(sqlUsers));
+            DataTable dtFruitsRegions;
+
+
+            dgvFruits_Regions.DataSource = null;
+
+            string sql = DataAccess.SQLCleaner($@"
+                SELECT 
+                        Fruits_Regions.Fruits_RegionsId,  Fruits.FruitsName AS 'Fruit Name'
+                FROM Fruits_Regions 
+                    INNER JOIN Fruits ON Fruits.FruitsId = Fruits_Regions.FruitsId
+                    INNER JOIN Regions ON Regions.RegionsId = Fruits_Regions.RegionsId
+                WHERE Fruits_Regions.RegionsId = '{txtRegionsId.Text}'
+                ORDER BY [Fruit Name];");
+
+            dtFruitsRegions = DataAccess.GetData(sql);
+
+            dgvFruits_Regions.DataSource = UIUtilities.RotateTable(dtFruitsRegions);
+            UIUtilities.AutoResizeDgv(dgvFruits_Regions);
         }
 
-        private void LoadUsers()
+        private void LoadRegions()
         {
             //Clear any errors in the error provider
             errProvider.Clear();
 
             string[] sqlStatements = new string[]
             {
-                $"SELECT * FROM Users WHERE UserId = {currentUserId}",
+                $"SELECT * FROM Regions WHERE RegionsId = {currentRegionsId}",
 
-                $@"
+            $@"
                 SELECT 
                 (
-                    SELECT TOP(1) UserId as FirstUserId FROM Users ORDER BY UserName
-                ) as FirstUserId,
-                q.PreviousUserId,
-                q.NextUserId,
+                    SELECT TOP(1) RegionsId as FirstRegionsId FROM Regions ORDER BY RegionsName
+                ) as FirstRegionsId,
+                q.PreviousRegionsId,
+                q.NextRegionsId,
                 (
-                    SELECT TOP(1) UserId as LastUserId FROM Users ORDER BY UserName Desc
-                ) as LastUserId,
+                    SELECT TOP(1) RegionsId as LastRegionsId FROM Regions ORDER BY RegionsName Desc
+                ) as LastRegionsId,
                 q.RowNumber
                 FROM
                 (
-                    SELECT UserId, UserName,
-                    LEAD(UserId) OVER(ORDER BY UserName) AS NextUserId,
-                    LAG(UserId) OVER(ORDER BY UserName) AS PreviousUserId,
-                    ROW_NUMBER() OVER(ORDER BY UserName) AS 'RowNumber'
-                    FROM Users
+                    SELECT RegionsId, RegionsName,
+                    LEAD(RegionsId) OVER(ORDER BY RegionsName) AS NextRegionsId,
+                    LAG(RegionsId) OVER(ORDER BY RegionsName) AS PreviousRegionsId,
+                    ROW_NUMBER() OVER(ORDER BY RegionsName) AS 'RowNumber'
+                    FROM Regions
                 ) AS q
-                WHERE q.UserId = {currentUserId}
-                ORDER BY q.UserName".Replace(System.Environment.NewLine," "), // This is for safety on the @ sign
-                "SELECT COUNT(UserId) as UserCount FROM Users"
+                WHERE q.RegionsId = {currentRegionsId}
+                ORDER BY q.RegionsName".Replace(System.Environment.NewLine," "), // This is for safety on the @ sign
+
+                "SELECT COUNT(RegionsId) as RegionCount FROM Regions",
+
+                $"SELECT COUNT(*) AS 'Fruits Connections' FROM Fruits WHERE RegionsId = '{currentRegionsId}'",
+
             };
 
             DataSet ds = new DataSet();
@@ -84,31 +101,32 @@ namespace dbpTermProject2022
 
             if (ds.Tables[0].Rows.Count > 0)
             {
-                DataRow selectedUser = ds.Tables[0].Rows[0];
+                DataRow selectedRegion = ds.Tables[0].Rows[0];
 
-                txtUserId.Text = selectedUser["UserID"].ToString();
-                cmbUsers.SelectedValue = selectedUser["UserId"];
-                txtPassword.Text = selectedUser["Password"].ToString();
+                txtRegionsId.Text = selectedRegion["RegionsId"].ToString();
+                txtRegionsName.Text = selectedRegion["RegionsName"].ToString();
+                chkProducer.Checked = Convert.ToInt32(ds.Tables[3].Rows[0]["Fruits Connections"]) == 0 ? false : true;
 
-                firstUserId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstUserId"]);
-                previousUserId = ds.Tables[1].Rows[0]["PreviousUserId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousUserId"]) : (int?)null;
-                nextUserId = ds.Tables[1].Rows[0]["NextUserId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["NextUserId"]) : (int?)null;
-                lastUserId = Convert.ToInt32(ds.Tables[1].Rows[0]["LastUserId"]);
+                firstRegionsId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstRegionsId"]);
+                previousRegionsId = ds.Tables[1].Rows[0]["PreviousRegionsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousRegionsId"]) : (int?)null;
+                nextRegionsId = ds.Tables[1].Rows[0]["NextRegionsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["NextRegionsId"]) : (int?)null;
+                lastRegionsId = Convert.ToInt32(ds.Tables[1].Rows[0]["LastRegionsId"]);
                 currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
 
-                totalUserCount = Convert.ToInt32(ds.Tables[2].Rows[0]["UserCount"]);
+                totalRegionCount = Convert.ToInt32(ds.Tables[2].Rows[0]["RegionCount"]);
+                LoadFruitRegionDgv();
             }
             else
             {
-                MessageBox.Show($"The User is no longer available: {currentUserId}");
+                MessageBox.Show($"The Region is no longer available: {currentRegionsId}");
 
-                LoadFirstUser();
+                LoadFirstRegion();
             }
 
             //Which item we are on in the count
 
             MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = $"Displaying User {currentRecord} of {totalUserCount}";
+            parent.MDItoolStripStatusLabel1.Text = $"Displaying Region {currentRecord} of {totalRegionCount}";
             NextPreviousButtonManagement();
         }
 
@@ -123,10 +141,10 @@ namespace dbpTermProject2022
         private void btnAdd_Click(object sender, EventArgs e)
         {
             MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = "Adding a new User";
+            parent.MDItoolStripStatusLabel1.Text = "Adding a new Region";
             parent.MDItoolStripStatusLabel2.Text = "";
 
-            UIUtilities.ClearControls(grpRegisterFruits.Controls);
+            UIUtilities.ClearControls(grpEditRegions.Controls);
 
             //btn save
             // Disable navigation controlls when adding. 
@@ -136,38 +154,23 @@ namespace dbpTermProject2022
             btnAdd.Enabled = false;
             btnDelete.Enabled = false;
 
-            // Toggle Between New user and Select User
-            ToggleUsernameInput();
-
         }
 
-        private void ToggleUsernameInput()
-        {
-            cmbUsers.Enabled = cmbUsers.Visible
-                = !cmbUsers.Visible;
-            txtNewUser.Visible = txtNewUser.Enabled
-                = !cmbUsers.Visible;
-        }
 
         /// <summary>
-        /// Cancel any changes to an existin selected User or the beginnings of the newly created User
-        /// We will reload the last active User
+        /// Cancel any changes to an existin selected Region or the beginnings of the newly created Region
+        /// We will reload the last active Region
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            LoadUsers();
+            LoadRegions();
             btnSave.Text = "&Save";
             btnAdd.Enabled = true;
             btnDelete.Enabled = true;
 
-            txtNewUser.Text = "";
             NavigationState(true);
-            if (cmbUsers.Enabled == false)
-            {
-                ToggleUsernameInput();
-            }
             NextPreviousButtonManagement();
         }
 
@@ -186,14 +189,14 @@ namespace dbpTermProject2022
 
                 // Step #2 Create! 
 
-                if (txtUserId.Text == string.Empty)
+                if (txtRegionsId.Text == string.Empty)
                 {
-                    CreateUser();
+                    CreateRegion();
 
                 }
                 else
                 {
-                    SaveUser();
+                    SaveRegion();
                 }
             }
             else
@@ -203,61 +206,56 @@ namespace dbpTermProject2022
 
         }
 
-        private void SaveUser()
+        private void SaveRegion()
         {
-            string sqlUpdateUser = DataAccess.SQLCleaner($@"
-                UPDATE Users 
+            string sqlUpdateRegion = DataAccess.SQLCleaner($@"
+                UPDATE Regions 
                 SET 
-                    Password = '{txtPassword.Text.Trim()}'
-                WHERE UserID = '{txtUserId.Text.Trim()}'; 
+                    RegionsName = '{txtRegionsName.Text.Trim()}'
+                WHERE RegionsId = '{txtRegionsId.Text.Trim()}'; 
             ");
-            // Note the Quotes on string values of UserName and QuantityPer Unit
+            // Note the Quotes on string values of RegionsName and QuantityPer Unit
 
-            int rowsAffected = DataAccess.SendData(sqlUpdateUser);
+            int rowsAffected = DataAccess.SendData(sqlUpdateRegion);
 
             if (rowsAffected == 1)
             {
-                MessageBox.Show($"User {txtUserId.Text.Trim()} Updated.");
+                MessageBox.Show($"Region {txtRegionsId.Text.Trim()} Updated.");
             }
             else
             {
                 MessageBox.Show("The Database reported no Rows Affected.");
             }
 
-            LoadUsers();
+            LoadRegions();
 
             return;
         }
 
-        private void CreateUser()
+        private void CreateRegion()
         {
-            string sqlInsertUsers = DataAccess.SQLCleaner($@"
-                        INSERT INTO Users
+            string sqlInsertRegions = DataAccess.SQLCleaner($@"
+                        INSERT INTO Regions
                         (
-                            Username, 
-                            Password 
+                            RegionsName 
                         )
                         VALUES
                         (
-                            '{txtNewUser.Text.Trim()}',
-                            '{txtPassword.Text.Trim()}'
-                        ) ;
+                            '{txtRegionsName.Text.Trim()}'
+                        );
                        ");
-            int rowsAffected = DataAccess.SendData(sqlInsertUsers);
+            int rowsAffected = DataAccess.SendData(sqlInsertRegions);
 
             if (rowsAffected == 1)
             {
-                MessageBox.Show("User Created!");
+                MessageBox.Show("Region Created!");
                 btnAdd.Enabled = true;
                 btnDelete.Enabled = true;
 
                 btnSave.Text = "Save";
                 NavigationState(true);
 
-
-                ToggleUsernameInput();
-                LoadUsersCmb();
-                LoadFirstUser();
+                LoadFirstRegion();
             }
             else
             {
@@ -273,53 +271,56 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            //string sqlNumberOfTimeOrdered = $"SELECT COUNT(*) FROM Users WHERE UserId = {txtUserId.Text}";
-            //int numberOfTimesOrdered = Convert.ToInt32(DataAccess.GetValue(sqlNumberOfTimeOrdered));
+            int numberofTimesLinked = 0;
+            string sqlFKFruitRegions = $"SELECT COUNT(*) FROM Fruits_Regions WHERE RegionsId = '{txtRegionsId.Text}'";
+            numberofTimesLinked += Convert.ToInt32(DataAccess.GetValue(sqlFKFruitRegions));
 
-            //if (numberOfTimesOrdered == 0)
-            //{
-            string sqlDeleteUser = $"DELETE FROM Users WHERE UserID = '{txtUserId.Text}'";
+            string sqlFKFruit = $"SELECT COUNT(*) FROM Fruits WHERE RegionsId = '{txtRegionsId.Text}'";
+            numberofTimesLinked += Convert.ToInt32(DataAccess.GetValue(sqlFKFruit));
 
-            int rowAffected = DataAccess.SendData(sqlDeleteUser);
-
-            if (rowAffected == 1)
+            if (numberofTimesLinked == 0)
             {
-                MessageBox.Show($"User {txtUserId.Text} was deleted!");
-                LoadFirstUser();
+                string sqlDeleteRegion = $"DELETE FROM Regions WHERE RegionsId = '{txtRegionsId.Text}'";
+
+                int rowAffected = DataAccess.SendData(sqlDeleteRegion);
+
+                if (rowAffected == 1)
+                {
+                    MessageBox.Show($"Region {txtRegionsId.Text} was deleted!");
+                    LoadFirstRegion();
+                }
+                else
+                {
+                    MessageBox.Show("The Database reported no rows affected.");
+                }
             }
             else
             {
-                MessageBox.Show("The Database reported no rows affected.");
+                MessageBox.Show($"Region {txtRegionsId.Text} could not be deleted as it is used {numberofTimesLinked} times.");
             }
-            //}
-            //else
-            //{
-            //    // Unused, but retained in case of future proofing
-            //    MessageBox.Show($"User {txtUserId.Text} could not be deleted as it is within a connected structure.");
-            //}
         }
 
         #endregion
 
         #region Navigation Helpers
 
-        private void LoadFirstUser()
+        private void LoadFirstRegion()
         {
-            currentUserId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 UserId FROM Users ORDER BY Username ASC"));
+            currentRegionsId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 RegionsId FROM Regions ORDER BY RegionsName ASC"));
 
-            LoadUsers();
+            LoadRegions();
             return;
         }
 
         /// <summary>
         /// Helps manage the enable state of our next and previous navigation buttons
-        /// Depending on where we are in Users we may need to set enable state based on position
-        /// navigation through User records
+        /// Depending on where we are in Regions we may need to set enable state based on position
+        /// navigation through Regionrecords
         /// </summary>
         private void NextPreviousButtonManagement()
         {
-            btnPrevious.Enabled = previousUserId != null;
-            btnNext.Enabled = nextUserId != null;
+            btnPrevious.Enabled = previousRegionsId != null;
+            btnNext.Enabled = nextRegionsId != null;
         }
 
         /// <summary>
@@ -332,6 +333,7 @@ namespace dbpTermProject2022
             btnLast.Enabled = enableState;
             btnNext.Enabled = enableState;
             btnPrevious.Enabled = enableState;
+
         }
 
 
@@ -350,26 +352,26 @@ namespace dbpTermProject2022
             switch (b.Name)
             {
                 case "btnFirst":
-                    currentUserId = firstUserId;
-                    parent.MDItoolStripStatusLabel2.Text = "The first user is currently displayed";
+                    currentRegionsId = firstRegionsId;
+                    parent.MDItoolStripStatusLabel2.Text = "The first Region is currently displayed";
                     break;
                 case "btnLast":
-                    currentUserId = lastUserId;
-                    parent.MDItoolStripStatusLabel2.Text = "The last user is currently displayed";
+                    currentRegionsId = lastRegionsId;
+                    parent.MDItoolStripStatusLabel2.Text = "The last Region is currently displayed";
                     break;
                 case "btnPrevious":
-                    currentUserId = previousUserId.Value;
+                    currentRegionsId = previousRegionsId.Value;
 
                     if (currentRecord == 1)
-                        parent.MDItoolStripStatusLabel2.Text = "The first user is currently displayed";
+                        parent.MDItoolStripStatusLabel2.Text = "The first Region is currently displayed";
                     break;
                 case "btnNext":
-                    currentUserId = nextUserId.Value;
+                    currentRegionsId = nextRegionsId.Value;
 
                     break;
             }
 
-            LoadUsers();
+            LoadRegions();
         }
 
         #endregion
@@ -487,17 +489,12 @@ namespace dbpTermProject2022
             parent.prgBar.Visible = false;
         }
 
-        private void frmUsers_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmRegions_FormClosing(object sender, FormClosingEventArgs e)
         {
             //e.Cancel = false;
         }
 
         #endregion
 
-        private void cmbUsers_SelectedValueChanged(object sender, EventArgs e)
-        {
-            currentUserId = (int)cmbUsers.SelectedValue;
-            LoadUsers();
-        }
     }
 }

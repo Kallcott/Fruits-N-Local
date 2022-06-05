@@ -20,9 +20,6 @@ namespace dbpTermProject2022
 
         private void login_Load(object sender, EventArgs e)
         {
-            this.Text = Application.ProductName + " - Login";
-
-            txtUsername.Text = Environment.UserName;
 
             txtPassword.UseSystemPasswordChar = true;
         }
@@ -32,8 +29,11 @@ namespace dbpTermProject2022
 
             try
             {
-                if (txtUsername.Text == Environment.UserName &&
-                    txtPassword.Text == ConfigurationManager.AppSettings["DefaultPassword"].ToString())
+                string sqlCredentials = $"SELECT Count(*) FROM Users WHERE Username = '{txtUsername.Text}' AND Password = '{txtPassword.Text}'";
+                bool isUserThere = Convert.ToInt32(DataAccess.GetValue(sqlCredentials)) == 0 ? false : true;
+                
+
+                if (isUserThere)
                 {
                     //Login successful
                     DialogResult = DialogResult.OK;
