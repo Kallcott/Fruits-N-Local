@@ -116,6 +116,7 @@ CREATE TABLE [dbo].[Users](
 	[UserId] [int] IDENTITY(1,1) NOT NULL,
 	[Username] [nvarchar](100) NOT NULL,
 	[Password] [nvarchar](100) NOT NULL,
+	[isAdmin] [BIT] NOT NULL,
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
 
 (
@@ -806,9 +807,11 @@ GO
 
 SET IDENTITY_INSERT [dbo].[Users] ON 
 GO
-INSERT [dbo].[Users] ([UserId], [Username], [Password]) VALUES (1, N'jmurray', N'12345')
+INSERT [dbo].[Users] ([UserId], [Username], [Password], [isAdmin]) VALUES (1, N'jmurray', N'12345', 1)
 GO
-INSERT [dbo].[Users] ([UserId], [Username], [Password]) VALUES (2, N'admin', N'admin')
+INSERT [dbo].[Users] ([UserId], [Username], [Password], [isAdmin]) VALUES (2, N'admin', N'admin', 1)
+GO
+INSERT [dbo].[Users] ([UserId], [Username], [Password], [isAdmin]) VALUES (3, N'user', N'user', 0)
 GO
 SET IDENTITY_INSERT [dbo].[Users] OFF
 GO
