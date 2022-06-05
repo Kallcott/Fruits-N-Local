@@ -29,6 +29,7 @@ namespace dbpTermProject2022
         // For menuStrips
         int totalUserCount = 0;
 
+
         private void frmUsers_Load(object sender, EventArgs e)
         {
             LoadFirstUser();
@@ -37,6 +38,31 @@ namespace dbpTermProject2022
 
             txtNewUser.Visible = false;
             txtNewUser.Enabled = false;
+
+            DisableNonAdminFeatures();
+        }
+
+        private void DisableNonAdminFeatures()
+        {
+            
+            MDIParent1 parent = (MDIParent1)this.MdiParent;
+            if (!parent.IsAdmin)
+            {
+                btnAdd.Enabled = false;
+                btnFirst.Enabled = false;
+                btnNext.Enabled = false;
+                btnPrevious.Enabled = false;
+                btnLast.Enabled = false;
+                btnDelete.Enabled = false;
+
+                cmbUsers.Enabled = false;
+                grpUser.Text = "Change Password";
+     
+
+                cmbUsers.SelectedValue = parent.CurrentUser;
+                cmbUsers_SelectedValueChanged(parent, EventArgs.Empty);
+
+            }
         }
 
         private void LoadUsersCmb()
@@ -109,6 +135,10 @@ namespace dbpTermProject2022
 
             MDIParent1 parent = (MDIParent1)this.MdiParent;
             parent.MDItoolStripStatusLabel1.Text = $"Displaying User {currentRecord} of {totalUserCount}";
+            if (!parent.IsAdmin)
+            {
+                return;
+            }
             NextPreviousButtonManagement();
         }
 
@@ -126,7 +156,7 @@ namespace dbpTermProject2022
             parent.MDItoolStripStatusLabel1.Text = "Adding a new User";
             parent.MDItoolStripStatusLabel2.Text = "";
 
-            UIUtilities.ClearControls(grpRegisterFruits.Controls);
+            UIUtilities.ClearControls(grpUser.Controls);
 
             //btn save
             // Disable navigation controlls when adding. 
@@ -158,6 +188,12 @@ namespace dbpTermProject2022
         private void btnCancel_Click(object sender, EventArgs e)
         {
             LoadUsers();
+            MDIParent1 parent = (MDIParent1)this.MdiParent;
+            if (!parent.IsAdmin)
+            {
+                return;
+            }
+
             btnSave.Text = "&Save";
             btnAdd.Enabled = true;
             btnDelete.Enabled = true;
@@ -483,13 +519,13 @@ namespace dbpTermProject2022
             {
                 Thread.Sleep(3000);
             });
-            parent.MDItoolStripStatusLabel3.Text = "";
+            parent.MDItoolStripStatusLabel3.Text = $"Form: {this.Tag} Ready...";
             parent.prgBar.Visible = false;
         }
 
         private void frmUsers_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //e.Cancel = false;
+            e.Cancel = false;
         }
 
         #endregion

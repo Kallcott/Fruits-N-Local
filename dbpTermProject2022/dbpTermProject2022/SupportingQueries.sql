@@ -4,6 +4,7 @@ GO
 
 SELECT * FROM Users
 SELECT * FROM Users WHERE Username = 'jmurray' AND [Password]= '12345';
+SELECT UserId FROM Users WHERE Username = 'user' AND Password = 'user'
 
 SELECT * FROM Fruits;
 
@@ -100,4 +101,35 @@ ORDER BY [Fruit Name];
         INNER JOIN Fruits ON Fruits.FruitsId = Fruits_Regions.FruitsId
     ORDER BY [Fruit Name]
 
+
+SELECT * FROM  
+    INNER JOIN Fruits ON Fruits.RegionsId = Regions.RegionsId
+WHERE Fruits.RegionsId = 10
+
+SELECT 
+q.RowNumber
+FROM
+(
+    SELECT RegionsId, RegionsName,
+    ROW_NUMBER() OVER(ORDER BY RegionsName) AS 'RowNumber'
+    FROM Regions
+) AS q
+WHERE q.RegionsId = 10
+ORDER BY q.RegionsName
+
+SELECT COUNT(RegionsId) as RegionCount FROM Regions
+
+SELECT COUNT(*) AS 'Regions Connections' FROM Regions WHERE RegionsId = 10
+
+SELECT FruitsName FROM Regions 
+	INNER JOIN Fruits ON Fruits.RegionsId = Regions.RegionsId
+WHERE Regions.RegionsId = 1
+ORDER BY FruitsName;
+
+SELECT * 
+FROM Regions 
+INNER JOIN Fruits_Regions ON Fruits_Regions.RegionsId = Regions.RegionsId
+WHERE Regions.RegionsId = '1'
+
+SELECT COUNT(*) AS 'Regions Connections' FROM Regions WHERE RegionsId = '1'
 

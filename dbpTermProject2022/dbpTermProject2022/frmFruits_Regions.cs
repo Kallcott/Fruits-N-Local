@@ -457,13 +457,13 @@ namespace dbpTermProject2022
             {
                 Thread.Sleep(3000);
             });
-            parent.MDItoolStripStatusLabel3.Text = "";
+            parent.MDItoolStripStatusLabel3.Text = $"Form: {this.Tag} Ready...";
             parent.prgBar.Visible = false;
         }
 
         private void frmFruits_Regions_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //e.Cancel = false;
+            e.Cancel = false;
         }
 
         #endregion

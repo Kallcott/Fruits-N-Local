@@ -31,6 +31,7 @@ namespace dbpTermProject2022
         {
             this.components = new System.ComponentModel.Container();
             this.grpEditRegions = new System.Windows.Forms.GroupBox();
+            this.chkProducer = new System.Windows.Forms.CheckBox();
             this.dgvFruits_Regions = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -46,7 +47,6 @@ namespace dbpTermProject2022
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.chkProducer = new System.Windows.Forms.CheckBox();
             this.grpEditRegions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFruits_Regions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).BeginInit();
@@ -71,10 +71,21 @@ namespace dbpTermProject2022
             this.grpEditRegions.Controls.Add(this.label1);
             this.grpEditRegions.Location = new System.Drawing.Point(64, 12);
             this.grpEditRegions.Name = "grpEditRegions";
-            this.grpEditRegions.Size = new System.Drawing.Size(384, 368);
+            this.grpEditRegions.Size = new System.Drawing.Size(389, 368);
             this.grpEditRegions.TabIndex = 0;
             this.grpEditRegions.TabStop = false;
             this.grpEditRegions.Text = "Edit Regions";
+            // 
+            // chkProducer
+            // 
+            this.chkProducer.AutoCheck = false;
+            this.chkProducer.AutoSize = true;
+            this.chkProducer.Location = new System.Drawing.Point(100, 125);
+            this.chkProducer.Name = "chkProducer";
+            this.chkProducer.Size = new System.Drawing.Size(166, 22);
+            this.chkProducer.TabIndex = 39;
+            this.chkProducer.Text = "Is a Primary Producer";
+            this.chkProducer.UseVisualStyleBackColor = true;
             // 
             // dgvFruits_Regions
             // 
@@ -87,20 +98,20 @@ namespace dbpTermProject2022
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvFruits_Regions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFruits_Regions.ColumnHeadersVisible = false;
-            this.dgvFruits_Regions.Location = new System.Drawing.Point(20, 181);
+            this.dgvFruits_Regions.Location = new System.Drawing.Point(9, 181);
             this.dgvFruits_Regions.MultiSelect = false;
             this.dgvFruits_Regions.Name = "dgvFruits_Regions";
             this.dgvFruits_Regions.ReadOnly = true;
             this.dgvFruits_Regions.RowHeadersVisible = false;
-            this.dgvFruits_Regions.Size = new System.Drawing.Size(342, 42);
+            this.dgvFruits_Regions.Size = new System.Drawing.Size(363, 42);
             this.dgvFruits_Regions.TabIndex = 37;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 165);
+            this.label4.Location = new System.Drawing.Point(6, 151);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.Size = new System.Drawing.Size(85, 18);
             this.label4.TabIndex = 36;
             this.label4.Text = "Fruit Origns";
             // 
@@ -190,9 +201,9 @@ namespace dbpTermProject2022
             // 
             // txtRegionsName
             // 
-            this.txtRegionsName.Location = new System.Drawing.Point(100, 81);
+            this.txtRegionsName.Location = new System.Drawing.Point(108, 81);
             this.txtRegionsName.Name = "txtRegionsName";
-            this.txtRegionsName.Size = new System.Drawing.Size(121, 20);
+            this.txtRegionsName.Size = new System.Drawing.Size(121, 25);
             this.txtRegionsName.TabIndex = 4;
             this.txtRegionsName.Tag = "";
             this.txtRegionsName.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
@@ -200,9 +211,9 @@ namespace dbpTermProject2022
             // txtRegionsId
             // 
             this.txtRegionsId.Enabled = false;
-            this.txtRegionsId.Location = new System.Drawing.Point(100, 35);
+            this.txtRegionsId.Location = new System.Drawing.Point(108, 35);
             this.txtRegionsId.Name = "txtRegionsId";
-            this.txtRegionsId.Size = new System.Drawing.Size(121, 20);
+            this.txtRegionsId.Size = new System.Drawing.Size(121, 25);
             this.txtRegionsId.TabIndex = 1;
             // 
             // label3
@@ -210,41 +221,31 @@ namespace dbpTermProject2022
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 84);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 13);
+            this.label3.Size = new System.Drawing.Size(100, 18);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Region Name";
+            this.label3.Text = "Region Name:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.Size = new System.Drawing.Size(74, 18);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Region Id";
+            this.label1.Text = "Region Id:";
             // 
             // errProvider
             // 
             this.errProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errProvider.ContainerControl = this;
             // 
-            // chkProducer
-            // 
-            this.chkProducer.AutoCheck = false;
-            this.chkProducer.AutoSize = true;
-            this.chkProducer.Location = new System.Drawing.Point(100, 125);
-            this.chkProducer.Name = "chkProducer";
-            this.chkProducer.Size = new System.Drawing.Size(126, 17);
-            this.chkProducer.TabIndex = 39;
-            this.chkProducer.Text = "Is a Primary Producer";
-            this.chkProducer.UseVisualStyleBackColor = true;
-            // 
             // frmRegions
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(538, 432);
             this.Controls.Add(this.grpEditRegions);
+            this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmRegions";
             this.Text = "Edit Fruits";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmRegions_FormClosing);

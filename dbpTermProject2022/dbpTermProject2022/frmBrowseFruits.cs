@@ -64,7 +64,6 @@ namespace dbpTermProject2022
         private void LoadFruits()
         {
             //Clear any errors in the error provider
-            errProvider.Clear();
 
             string[] sqlStatements = new string[]
             {

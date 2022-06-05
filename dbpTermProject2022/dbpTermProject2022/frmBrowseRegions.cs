@@ -84,7 +84,6 @@ namespace dbpTermProject2022
         private void LoadRegions()
         {
             //Clear any errors in the error provider
-            errProvider.Clear();
 
             string[] sqlStatements = new string[]
             {
@@ -138,6 +137,7 @@ namespace dbpTermProject2022
 
             MDIParent1 parent = (MDIParent1)this.MdiParent;
             parent.MDItoolStripStatusLabel1.Text = $"Displaying Region {currentRecord} of {totalRegionCount}";
+
         }
 
 
@@ -163,6 +163,5 @@ namespace dbpTermProject2022
             LoadRegions();
         }
         #endregion
-
     }
 }

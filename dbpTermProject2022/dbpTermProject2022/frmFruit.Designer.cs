@@ -71,9 +71,9 @@ namespace dbpTermProject2022
             this.grpEditFruit.Controls.Add(this.label3);
             this.grpEditFruit.Controls.Add(this.label2);
             this.grpEditFruit.Controls.Add(this.label1);
-            this.grpEditFruit.Location = new System.Drawing.Point(64, 12);
+            this.grpEditFruit.Location = new System.Drawing.Point(40, 12);
             this.grpEditFruit.Name = "grpEditFruit";
-            this.grpEditFruit.Size = new System.Drawing.Size(384, 368);
+            this.grpEditFruit.Size = new System.Drawing.Size(408, 368);
             this.grpEditFruit.TabIndex = 0;
             this.grpEditFruit.TabStop = false;
             this.grpEditFruit.Text = "Edit Fruit";
@@ -89,12 +89,12 @@ namespace dbpTermProject2022
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvFruits_Regions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFruits_Regions.ColumnHeadersVisible = false;
-            this.dgvFruits_Regions.Location = new System.Drawing.Point(20, 181);
+            this.dgvFruits_Regions.Location = new System.Drawing.Point(9, 186);
             this.dgvFruits_Regions.MultiSelect = false;
             this.dgvFruits_Regions.Name = "dgvFruits_Regions";
             this.dgvFruits_Regions.ReadOnly = true;
             this.dgvFruits_Regions.RowHeadersVisible = false;
-            this.dgvFruits_Regions.Size = new System.Drawing.Size(342, 42);
+            this.dgvFruits_Regions.Size = new System.Drawing.Size(384, 42);
             this.dgvFruits_Regions.TabIndex = 37;
             // 
             // label4
@@ -102,7 +102,7 @@ namespace dbpTermProject2022
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 165);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(90, 13);
+            this.label4.Size = new System.Drawing.Size(127, 18);
             this.label4.TabIndex = 36;
             this.label4.Text = "Regions Of Origin";
             // 
@@ -194,18 +194,18 @@ namespace dbpTermProject2022
             // 
             this.cmbLargestProducer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLargestProducer.FormattingEnabled = true;
-            this.cmbLargestProducer.Location = new System.Drawing.Point(100, 126);
+            this.cmbLargestProducer.Location = new System.Drawing.Point(131, 129);
             this.cmbLargestProducer.Name = "cmbLargestProducer";
-            this.cmbLargestProducer.Size = new System.Drawing.Size(121, 21);
+            this.cmbLargestProducer.Size = new System.Drawing.Size(121, 26);
             this.cmbLargestProducer.TabIndex = 2;
             this.cmbLargestProducer.Tag = "Username";
             this.cmbLargestProducer.Validating += new System.ComponentModel.CancelEventHandler(this.cmb_Validating);
             // 
             // txtFruitsName
             // 
-            this.txtFruitsName.Location = new System.Drawing.Point(100, 81);
+            this.txtFruitsName.Location = new System.Drawing.Point(131, 81);
             this.txtFruitsName.Name = "txtFruitsName";
-            this.txtFruitsName.Size = new System.Drawing.Size(121, 20);
+            this.txtFruitsName.Size = new System.Drawing.Size(121, 25);
             this.txtFruitsName.TabIndex = 4;
             this.txtFruitsName.Tag = "";
             this.txtFruitsName.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
@@ -213,9 +213,9 @@ namespace dbpTermProject2022
             // txtFruitId
             // 
             this.txtFruitId.Enabled = false;
-            this.txtFruitId.Location = new System.Drawing.Point(100, 35);
+            this.txtFruitId.Location = new System.Drawing.Point(131, 35);
             this.txtFruitId.Name = "txtFruitId";
-            this.txtFruitId.Size = new System.Drawing.Size(121, 20);
+            this.txtFruitId.Size = new System.Drawing.Size(121, 25);
             this.txtFruitId.TabIndex = 1;
             // 
             // label3
@@ -223,7 +223,7 @@ namespace dbpTermProject2022
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 84);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.Size = new System.Drawing.Size(79, 18);
             this.label3.TabIndex = 2;
             this.label3.Text = "Fruit Name";
             // 
@@ -232,7 +232,7 @@ namespace dbpTermProject2022
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 129);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 13);
+            this.label2.Size = new System.Drawing.Size(119, 18);
             this.label2.TabIndex = 1;
             this.label2.Text = "Largest Producer";
             // 
@@ -241,7 +241,7 @@ namespace dbpTermProject2022
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.Size = new System.Drawing.Size(56, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "Fruit ID";
             // 
@@ -252,10 +252,11 @@ namespace dbpTermProject2022
             // 
             // frmFruits
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(538, 432);
             this.Controls.Add(this.grpEditFruit);
+            this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmFruits";
             this.Text = "Edit Fruits";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFruits_FormClosing);

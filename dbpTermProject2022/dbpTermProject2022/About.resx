@@ -117,4 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lblBody.Text" xml:space="preserve">
+    <value>Hello Thank you for using our app! 
+
+ - Hold Alt to see hotkeys within menu items.
+
+We are small development team based out of Moncton area. Our passionate individuals 
+strive to give you value. Whether you find this app informative, or helps you plan
+meal within the worldwide growing season we are glad our app made an impact!
+</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Our features include:
+ - Fruits, their largest producers and regions of origin
+ - Only admins may perform maintenance on the database
+     - including: editing Fruits, Users, Linking Table, 
+          and managing Users
+ - Users may change their password. 
+</value>
+  </data>
 </root>

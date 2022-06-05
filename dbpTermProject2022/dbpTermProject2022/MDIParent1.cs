@@ -14,6 +14,9 @@ namespace dbpTermProject2022
     {
         private int childFormNumber = 0;
 
+        public bool IsAdmin;
+        public int CurrentUser;
+
         public MDIParent1()
         {
             InitializeComponent();
@@ -51,11 +54,14 @@ namespace dbpTermProject2022
                 case "USERS":
                     childForm = new frmUsers();
                     break;
-                case "BROWSEFRUITS":
+                case "BROWSE FRUITS":
                     childForm = new frmBrowseFruits();
                     break;
-                case "BROWSEREGIONS":
+                case "BROWSE REGIONS":
                     childForm = new frmBrowseRegions();
+                    break;
+                case "ABOUT":
+                    childForm = new frmAbout();
                     break;
                 default:
                     break;
@@ -159,17 +165,45 @@ namespace dbpTermProject2022
             }
             else
             {
-                frmLogin.ShowDialog();
+                frmLogin.ShowDialog(this);
                 if (frmLogin.DialogResult != DialogResult.OK)
                 {
                     this.Close();
                 }
                 else
                 {
+                    IsAdmin = frmLogin.AdminResult;
+                    CurrentUser = frmLogin.UserInfo;
                     this.Show();
                 }
             }
+            frmSplash.Dispose();
+            frmLogin.Dispose();
 
+            if (!IsAdmin)
+            {
+                maintenenceToolStripMenuItem.Visible = false;
+                lblAdmin.Visible = btnFruits.Visible = btnFruits_Regions.Visible = btnRegions.Visible = spAdmin.Visible = false;
+            }
+
+        }
+
+        private void MDIParent1_MdiChildActivate(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild != null)
+            {
+                MDItoolStripStatusLabel3.Text = $" || Form: {ActiveMdiChild.Text} Ready...";
+                MDItoolStripStatusLabel2.Text = "";
+                MDItoolStripStatusLabel1.Text = "";
+
+                ActiveMdiChild.WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                MDItoolStripStatusLabel3.Text = "";
+                MDItoolStripStatusLabel2.Text = "";
+                MDItoolStripStatusLabel1.Text = "";
+            }
         }
     }
 }

@@ -30,7 +30,7 @@ namespace dbpTermProject2022
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.grpRegisterFruits = new System.Windows.Forms.GroupBox();
+            this.grpUser = new System.Windows.Forms.GroupBox();
             this.txtNewUser = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnLast = new System.Windows.Forms.Button();
@@ -47,39 +47,39 @@ namespace dbpTermProject2022
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.grpRegisterFruits.SuspendLayout();
+            this.grpUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).BeginInit();
             this.SuspendLayout();
             // 
-            // grpRegisterFruits
+            // grpUser
             // 
-            this.grpRegisterFruits.Controls.Add(this.txtNewUser);
-            this.grpRegisterFruits.Controls.Add(this.btnCancel);
-            this.grpRegisterFruits.Controls.Add(this.btnLast);
-            this.grpRegisterFruits.Controls.Add(this.btnAdd);
-            this.grpRegisterFruits.Controls.Add(this.btnDelete);
-            this.grpRegisterFruits.Controls.Add(this.btnFirst);
-            this.grpRegisterFruits.Controls.Add(this.btnSave);
-            this.grpRegisterFruits.Controls.Add(this.btnPrevious);
-            this.grpRegisterFruits.Controls.Add(this.btnNext);
-            this.grpRegisterFruits.Controls.Add(this.cmbUsers);
-            this.grpRegisterFruits.Controls.Add(this.txtPassword);
-            this.grpRegisterFruits.Controls.Add(this.txtUserId);
-            this.grpRegisterFruits.Controls.Add(this.label3);
-            this.grpRegisterFruits.Controls.Add(this.label2);
-            this.grpRegisterFruits.Controls.Add(this.label1);
-            this.grpRegisterFruits.Location = new System.Drawing.Point(65, 52);
-            this.grpRegisterFruits.Name = "grpRegisterFruits";
-            this.grpRegisterFruits.Size = new System.Drawing.Size(384, 295);
-            this.grpRegisterFruits.TabIndex = 0;
-            this.grpRegisterFruits.TabStop = false;
-            this.grpRegisterFruits.Text = "Register User";
+            this.grpUser.Controls.Add(this.txtNewUser);
+            this.grpUser.Controls.Add(this.btnCancel);
+            this.grpUser.Controls.Add(this.btnLast);
+            this.grpUser.Controls.Add(this.btnAdd);
+            this.grpUser.Controls.Add(this.btnDelete);
+            this.grpUser.Controls.Add(this.btnFirst);
+            this.grpUser.Controls.Add(this.btnSave);
+            this.grpUser.Controls.Add(this.btnPrevious);
+            this.grpUser.Controls.Add(this.btnNext);
+            this.grpUser.Controls.Add(this.cmbUsers);
+            this.grpUser.Controls.Add(this.txtPassword);
+            this.grpUser.Controls.Add(this.txtUserId);
+            this.grpUser.Controls.Add(this.label3);
+            this.grpUser.Controls.Add(this.label2);
+            this.grpUser.Controls.Add(this.label1);
+            this.grpUser.Location = new System.Drawing.Point(53, 43);
+            this.grpUser.Name = "grpUser";
+            this.grpUser.Size = new System.Drawing.Size(384, 295);
+            this.grpUser.TabIndex = 0;
+            this.grpUser.TabStop = false;
+            this.grpUser.Text = "Register User";
             // 
             // txtNewUser
             // 
             this.txtNewUser.Location = new System.Drawing.Point(85, 81);
             this.txtNewUser.Name = "txtNewUser";
-            this.txtNewUser.Size = new System.Drawing.Size(121, 20);
+            this.txtNewUser.Size = new System.Drawing.Size(121, 25);
             this.txtNewUser.TabIndex = 2;
             this.txtNewUser.Tag = "Username";
             this.txtNewUser.Text = " ";
@@ -175,7 +175,7 @@ namespace dbpTermProject2022
             this.cmbUsers.FormattingEnabled = true;
             this.cmbUsers.Location = new System.Drawing.Point(85, 81);
             this.cmbUsers.Name = "cmbUsers";
-            this.cmbUsers.Size = new System.Drawing.Size(121, 21);
+            this.cmbUsers.Size = new System.Drawing.Size(121, 26);
             this.cmbUsers.TabIndex = 2;
             this.cmbUsers.Tag = "Username";
             this.cmbUsers.SelectionChangeCommitted += new System.EventHandler(this.cmbUsers_SelectedValueChanged);
@@ -184,7 +184,7 @@ namespace dbpTermProject2022
             // 
             this.txtPassword.Location = new System.Drawing.Point(85, 126);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(121, 20);
+            this.txtPassword.Size = new System.Drawing.Size(121, 25);
             this.txtPassword.TabIndex = 4;
             this.txtPassword.Tag = "Password";
             this.txtPassword.UseSystemPasswordChar = true;
@@ -195,7 +195,7 @@ namespace dbpTermProject2022
             this.txtUserId.Enabled = false;
             this.txtUserId.Location = new System.Drawing.Point(85, 35);
             this.txtUserId.Name = "txtUserId";
-            this.txtUserId.Size = new System.Drawing.Size(121, 20);
+            this.txtUserId.Size = new System.Drawing.Size(121, 25);
             this.txtUserId.TabIndex = 1;
             // 
             // label3
@@ -203,7 +203,7 @@ namespace dbpTermProject2022
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 129);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 13);
+            this.label3.Size = new System.Drawing.Size(72, 18);
             this.label3.TabIndex = 2;
             this.label3.Text = "Password";
             // 
@@ -212,7 +212,7 @@ namespace dbpTermProject2022
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 84);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
+            this.label2.Size = new System.Drawing.Size(74, 18);
             this.label2.TabIndex = 1;
             this.label2.Text = "Username";
             // 
@@ -221,7 +221,7 @@ namespace dbpTermProject2022
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 38);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
+            this.label1.Size = new System.Drawing.Size(58, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "User ID";
             // 
@@ -232,16 +232,18 @@ namespace dbpTermProject2022
             // 
             // frmUsers
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 432);
-            this.Controls.Add(this.grpRegisterFruits);
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(496, 396);
+            this.Controls.Add(this.grpUser);
+            this.Font = new System.Drawing.Font("Lato", 11F);
             this.Name = "frmUsers";
             this.Text = "Edit User";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmUsers_FormClosing);
             this.Load += new System.EventHandler(this.frmUsers_Load);
-            this.grpRegisterFruits.ResumeLayout(false);
-            this.grpRegisterFruits.PerformLayout();
+            this.grpUser.ResumeLayout(false);
+            this.grpUser.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).EndInit();
             this.ResumeLayout(false);
 
@@ -249,7 +251,7 @@ namespace dbpTermProject2022
 
         #endregion
 
-        private System.Windows.Forms.GroupBox grpRegisterFruits;
+        private System.Windows.Forms.GroupBox grpUser;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;

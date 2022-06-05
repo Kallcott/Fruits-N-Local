@@ -13,6 +13,9 @@ namespace dbpTermProject2022
 {
     public partial class login : Form
     {
+        public bool AdminResult;
+        public int UserInfo;
+
         public login()
         {
             InitializeComponent();
@@ -31,11 +34,19 @@ namespace dbpTermProject2022
             {
                 string sqlCredentials = $"SELECT Count(*) FROM Users WHERE Username = '{txtUsername.Text}' AND Password = '{txtPassword.Text}'";
                 bool isUserThere = Convert.ToInt32(DataAccess.GetValue(sqlCredentials)) == 0 ? false : true;
-                
+
+                string sqlIsAdmin = $"SELECT IsAdmin FROM Users WHERE Username = '{txtUsername.Text}' AND Password = '{txtPassword.Text}'";
+                AdminResult = Convert.ToInt32(DataAccess.GetValue(sqlIsAdmin)) == 0 ? false : true;
+
+
+                string sqlUser = $"SELECT UserId FROM Users WHERE Username = '{txtUsername.Text}' AND Password = '{txtPassword.Text}'";
+                UserInfo = Convert.ToInt32(DataAccess.GetValue(sqlUser));
+
 
                 if (isUserThere)
                 {
                     //Login successful
+
                     DialogResult = DialogResult.OK;
                 }
                 else
@@ -54,5 +65,6 @@ namespace dbpTermProject2022
         {
             DialogResult = DialogResult.Cancel;
         }
+
     }
 }

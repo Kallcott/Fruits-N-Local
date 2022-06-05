@@ -62,14 +62,14 @@ namespace dbpTermProject2022
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
-        public static DataTable RotateTable(DataTable dt, int columWidth = 6)
+        public static DataTable RotateTable(DataTable dt, int columWidth = 5)
         {
             DataTable tempTable = new DataTable();
 
-            tempTable.Columns.Add("Field Name");
+            //tempTable.Columns.Add("Field Name");
 
             // Fill temp table with dt, limit columns by Width
-            for (int i = 0; i < dt.Rows.Count % columWidth; i++)
+            for (int i = 0; i < ((dt.Rows.Count >= columWidth) ?columWidth : dt.Rows.Count); i++)
             {
                 tempTable.Columns.Add();
             }
@@ -105,7 +105,6 @@ namespace dbpTermProject2022
             var height = dgv.Rows.GetRowsHeight(DataGridViewElementStates.None);
             dgv.ClientSize = new Size(width, height + 20);
         }
-
 
     }
 }
