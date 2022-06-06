@@ -49,6 +49,7 @@ CREATE TABLE [dbo].[Fruits](
 	[FruitsId] [int] IDENTITY(1,1) NOT NULL,
 	[RegionsId] [int] NOT NULL,
 	[FruitsName] [nvarchar](100) NOT NULL,
+	[Season] [nvarchar](21) NOT NULL,
  CONSTRAINT [PK_Fruits] PRIMARY KEY CLUSTERED 
  -- Clustered ensures the primaray keys will be sorterd ASC
 (
@@ -130,89 +131,89 @@ GO
 
 SET IDENTITY_INSERT [dbo].[Fruits] ON 
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (1, 1, 'Apples')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (1, 1, 'Apples', 'Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (2, 37, 'Apricots')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (2, 37, 'Apricots', 'Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (3, 6, 'Avocados')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (3, 6, 'Avocados', 'All')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (4, 5, 'Bananas')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (4, 5, 'Bananas', 'All')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (5, 5, 'Plantains')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (5, 5, 'Plantains', 'All')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (6, 18, 'Blueberries')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (6, 18, 'Blueberries', 'Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (7, 1, 'Cantaloupes')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (7, 1, 'Cantaloupes', 'Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (8, 31, 'Cherries')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (8, 31, 'Cherries', 'Spring-Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (9, 1, 'Clementines')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (9, 1, 'Clementines', 'Winter-Autum')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (10, 42, 'Coconut')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (10, 42, 'Coconut', 'All')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (11, 18, 'Cranberries')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (11, 18, 'Cranberries', 'Autum')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (12, 38, 'Dates')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (12, 38, 'Dates', 'Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (13, 31, 'Fig')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (13, 31, 'Fig', 'Summer-Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (14, 1, 'Grapefruit')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (14, 1, 'Grapefruit', 'Winter')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (15, 1, 'Grapes')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (15, 1, 'Grapes', 'Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (16, 5, 'Guavas')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (16, 5, 'Guavas', 'Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (17, 5, 'Papayas')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (17, 5, 'Papayas', 'All')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (18, 1, 'Honeydew')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (18, 1, 'Honeydew', 'Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (19, 1, 'Kiwis')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (19, 1, 'Kiwis', 'All')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (20, 5, 'Kumquat')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (20, 5, 'Kumquat', 'Winter-Spring')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (21, 5, 'Lemons')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (21, 5, 'Lemons', 'Winter-Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (22, 5, 'Limes')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (22, 5, 'Limes', 'Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (23, 5, 'Mango')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (23, 5, 'Mango', 'Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (24, 39, 'Olives')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (24, 39, 'Olives', 'Winter-Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (25, 25, 'Passionfruit')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (25, 25, 'Passionfruit', 'All')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (26, 1, 'Peaches')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (26, 1, 'Peaches', 'Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (27, 1, 'Pear')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (27, 1, 'Pear', 'Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (28, 43, 'Pineapples')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (28, 43, 'Pineapples', 'Spring-Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (29, 1, 'Plums')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (29, 1, 'Plums', 'Summer-Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (30, 30, 'Pomegranates')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (30, 30, 'Pomegranates', 'Winter-Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (31, 40, 'Raspberries')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (31, 40, 'Raspberries', 'Summer-Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (32, 18, 'Strawberry')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (32, 18, 'Strawberry', 'Spring-Summer-Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (33, 1, 'Tomatoes')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (33, 1, 'Tomatoes', 'Summer-Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (34, 1, 'Watermelon')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (34, 1, 'Watermelon', 'Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (35, 5, 'Tamarind')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (35, 5, 'Tamarind', 'Winter')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (36, 11, 'Aki')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (36, 11, 'Aki', 'Winter-Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (37, 1, 'Squash')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (37, 1, 'Squash', 'Winter-Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (38, 1, 'Pumpkins')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (38, 1, 'Pumpkins', 'Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (39, 1, 'Zucchini')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (39, 1, 'Zucchini', 'Summer-Autumn')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (40, 1, 'Peppers')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (40, 1, 'Peppers', 'All')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (41, 41, 'Dragon Fruits')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (41, 41, 'Dragon Fruits', 'Winter-Spring')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName]) VALUES (42, 1, 'Mandarin')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (42, 1, 'Mandarin', 'Winter')
 GO
 SET IDENTITY_INSERT [dbo].[Fruits] OFF
 GO
@@ -375,7 +376,7 @@ INSERT [dbo].[Fruits_Regions] ([Fruits_RegionsId], [FruitsId], [RegionsId]) VALU
 GO
 INSERT [dbo].[Fruits_Regions] ([Fruits_RegionsId], [FruitsId], [RegionsId]) VALUES (10, 6, 8)
 GO
-INSERT [dbo].[Fruits_Regions] ([Fruits_RegionsId], [FruitsId], [RegionsId]) VALUES (11, 7, 9)  -- 7 is Cantaloupes
+INSERT [dbo].[Fruits_Regions] ([Fruits_RegionsId], [FruitsId], [RegionsId]) VALUES (11, 7, 9) 
 GO
 INSERT [dbo].[Fruits_Regions] ([Fruits_RegionsId], [FruitsId], [RegionsId]) VALUES (12, 7, 10)
 GO
@@ -419,7 +420,7 @@ INSERT [dbo].[Fruits_Regions] ([Fruits_RegionsId], [FruitsId], [RegionsId]) VALU
 GO
 INSERT [dbo].[Fruits_Regions] ([Fruits_RegionsId], [FruitsId], [RegionsId]) VALUES (32, 20, 23)
 GO
-INSERT [dbo].[Fruits_Regions] ([Fruits_RegionsId], [FruitsId], [RegionsId]) VALUES (33, 21, 5) -- 21 is lemons
+INSERT [dbo].[Fruits_Regions] ([Fruits_RegionsId], [FruitsId], [RegionsId]) VALUES (33, 21, 5)
 GO
 INSERT [dbo].[Fruits_Regions] ([Fruits_RegionsId], [FruitsId], [RegionsId]) VALUES (34, 22, 23)
 GO

@@ -19,10 +19,9 @@ namespace dbpTermProject2022
 
         private void Splash_Load(object sender, EventArgs e)
         {
-            label1.Text = "https://www.nfi.edu/night-photography/";
-            label2.Text = Application.ProductName;
-            label3.Text = Application.ProductVersion;
-            label4.Text = Application.CompanyName;
+            lblProductName.Text = Application.ProductName;
+            lblVersion.Text = Application.ProductVersion;
+            lblCompany.Text = Application.CompanyName;
 
         }
 

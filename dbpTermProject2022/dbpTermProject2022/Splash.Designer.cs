@@ -31,57 +31,54 @@ namespace dbpTermProject2022
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Splash));
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblProductName = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.lblCompany = new System.Windows.Forms.Label();
             this.btnX = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // lblProductName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 421);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 18);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "label1";
+            this.lblProductName.AutoSize = true;
+            this.lblProductName.Location = new System.Drawing.Point(27, 371);
+            this.lblProductName.Name = "lblProductName";
+            this.lblProductName.Padding = new System.Windows.Forms.Padding(2);
+            this.lblProductName.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblProductName.Size = new System.Drawing.Size(101, 22);
+            this.lblProductName.TabIndex = 2;
+            this.lblProductName.Text = "ProductName";
+            this.lblProductName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label2
+            // lblVersion
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(602, 67);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 18);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "label2";
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(27, 308);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Padding = new System.Windows.Forms.Padding(2);
+            this.lblVersion.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblVersion.Size = new System.Drawing.Size(62, 22);
+            this.lblVersion.TabIndex = 3;
+            this.lblVersion.Text = "Version";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label3
+            // lblCompany
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(602, 152);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 18);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "label3";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(602, 254);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 18);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "label4";
+            this.lblCompany.AutoSize = true;
+            this.lblCompany.Location = new System.Drawing.Point(27, 339);
+            this.lblCompany.Name = "lblCompany";
+            this.lblCompany.Padding = new System.Windows.Forms.Padding(2);
+            this.lblCompany.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblCompany.Size = new System.Drawing.Size(74, 22);
+            this.lblCompany.TabIndex = 4;
+            this.lblCompany.Text = "Company";
+            this.lblCompany.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnX
             // 
             this.btnX.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnX.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnX.Location = new System.Drawing.Point(702, 12);
+            this.btnX.Location = new System.Drawing.Point(547, 21);
             this.btnX.Name = "btnX";
             this.btnX.Size = new System.Drawing.Size(44, 36);
             this.btnX.TabIndex = 5;
@@ -95,30 +92,19 @@ namespace dbpTermProject2022
             this.timer1.Interval = 3000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.ErrorImage = null;
-            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(584, 392);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // Splash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(758, 443);
+            this.BackgroundImage = global::dbpTermProject2022.Properties.Resources.Logo1;
+            this.ClientSize = new System.Drawing.Size(627, 436);
             this.ControlBox = false;
             this.Controls.Add(this.btnX);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.lblCompany);
+            this.Controls.Add(this.lblVersion);
+            this.Controls.Add(this.lblProductName);
             this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -129,19 +115,15 @@ namespace dbpTermProject2022
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Splash";
             this.Load += new System.EventHandler(this.Splash_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblProductName;
+        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label lblCompany;
         private System.Windows.Forms.Button btnX;
         private System.Windows.Forms.Timer timer1;
     }

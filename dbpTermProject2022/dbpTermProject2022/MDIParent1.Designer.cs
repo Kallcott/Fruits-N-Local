@@ -83,7 +83,7 @@ namespace dbpTermProject2022
             this.menuStrip.MdiWindowListItem = this.windowsMenu;
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
-            this.menuStrip.Size = new System.Drawing.Size(948, 25);
+            this.menuStrip.Size = new System.Drawing.Size(583, 25);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
@@ -138,12 +138,12 @@ namespace dbpTermProject2022
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(128, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.aboutToolStripMenuItem.Tag = "About";
             this.aboutToolStripMenuItem.Text = "&About ... ...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.ShowNewForm);
@@ -221,10 +221,10 @@ namespace dbpTermProject2022
             this.toolStrip.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton4,
+            this.toolStripSeparator1,
             this.toolStripButton1,
             this.toolStripButton2,
-            this.toolStripSeparator1,
-            this.toolStripButton4,
             this.toolStripButton3,
             this.spAdmin,
             this.lblAdmin,
@@ -234,7 +234,7 @@ namespace dbpTermProject2022
             this.toolStrip.Location = new System.Drawing.Point(0, 25);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.toolStrip.Size = new System.Drawing.Size(948, 31);
+            this.toolStrip.Size = new System.Drawing.Size(583, 31);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "ToolStrip";
             // 
@@ -340,10 +340,10 @@ namespace dbpTermProject2022
             this.MDItoolStripStatusLabel2,
             this.MDItoolStripStatusLabel3,
             this.prgBar});
-            this.MDIstatusStrip.Location = new System.Drawing.Point(0, 605);
+            this.MDIstatusStrip.Location = new System.Drawing.Point(0, 358);
             this.MDIstatusStrip.Name = "MDIstatusStrip";
             this.MDIstatusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.MDIstatusStrip.Size = new System.Drawing.Size(948, 22);
+            this.MDIstatusStrip.Size = new System.Drawing.Size(583, 22);
             this.MDIstatusStrip.TabIndex = 2;
             this.MDIstatusStrip.Text = "Status: ";
             // 
@@ -375,7 +375,7 @@ namespace dbpTermProject2022
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(948, 627);
+            this.ClientSize = new System.Drawing.Size(583, 380);
             this.Controls.Add(this.MDIstatusStrip);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.menuStrip);

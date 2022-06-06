@@ -12,7 +12,6 @@ namespace dbpTermProject2022
 {
     public partial class MDIParent1 : Form
     {
-        private int childFormNumber = 0;
 
         public bool IsAdmin;
         public int CurrentUser;
@@ -156,6 +155,7 @@ namespace dbpTermProject2022
         {
             Splash frmSplash = new Splash();
             login frmLogin = new login();
+            frmAbout frmAbout = new frmAbout();
 
             frmSplash.ShowDialog();
 
@@ -175,6 +175,17 @@ namespace dbpTermProject2022
                     IsAdmin = frmLogin.AdminResult;
                     CurrentUser = frmLogin.UserInfo;
                     this.Show();
+
+                    frmAbout.MdiParent = this;
+                    frmAbout.Show();
+
+                    MdiClient mc = this.Controls.OfType<MdiClient>().First();
+                    int otherHeight = this.ClientSize.Height + ActiveMdiChild.Height;
+                    int otherWidth = this.ClientSize.Width;
+                    this.ClientSize = new Size(717 - 15,
+                                               473 + 50);
+
+                    ActiveMdiChild.WindowState = FormWindowState.Maximized;
                 }
             }
             frmSplash.Dispose();
