@@ -102,7 +102,7 @@ ORDER BY [Fruit Name];
     ORDER BY [Fruit Name]
 
 
-SELECT * FROM  
+SELECT * FROM  Regions
     INNER JOIN Fruits ON Fruits.RegionsId = Regions.RegionsId
 WHERE Fruits.RegionsId = 10
 
