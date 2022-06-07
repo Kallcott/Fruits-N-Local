@@ -55,7 +55,7 @@ namespace dbpTermProject2022
             this.grpBrowseFruit.Controls.Add(this.label4);
             this.grpBrowseFruit.Location = new System.Drawing.Point(12, 12);
             this.grpBrowseFruit.Name = "grpBrowseFruit";
-            this.grpBrowseFruit.Size = new System.Drawing.Size(437, 376);
+            this.grpBrowseFruit.Size = new System.Drawing.Size(456, 376);
             this.grpBrowseFruit.TabIndex = 0;
             this.grpBrowseFruit.TabStop = false;
             this.grpBrowseFruit.Text = "Browse Region";
@@ -66,8 +66,6 @@ namespace dbpTermProject2022
             this.dgvProducer.AllowUserToDeleteRows = false;
             this.dgvProducer.AllowUserToResizeColumns = false;
             this.dgvProducer.AllowUserToResizeRows = false;
-            this.dgvProducer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProducer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProducer.ColumnHeadersVisible = false;
             this.dgvProducer.Location = new System.Drawing.Point(17, 256);
@@ -135,8 +133,6 @@ namespace dbpTermProject2022
             this.dgvFruits_Regions.AllowUserToDeleteRows = false;
             this.dgvFruits_Regions.AllowUserToResizeColumns = false;
             this.dgvFruits_Regions.AllowUserToResizeRows = false;
-            this.dgvFruits_Regions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvFruits_Regions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFruits_Regions.ColumnHeadersVisible = false;
             this.dgvFruits_Regions.Location = new System.Drawing.Point(17, 169);
@@ -161,7 +157,7 @@ namespace dbpTermProject2022
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(461, 400);
+            this.ClientSize = new System.Drawing.Size(510, 400);
             this.Controls.Add(this.grpBrowseFruit);
             this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmBrowseRegions";

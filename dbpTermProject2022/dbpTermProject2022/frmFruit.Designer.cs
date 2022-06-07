@@ -259,7 +259,7 @@ namespace dbpTermProject2022
             this.cmbLargestProducer.Name = "cmbLargestProducer";
             this.cmbLargestProducer.Size = new System.Drawing.Size(144, 26);
             this.cmbLargestProducer.TabIndex = 2;
-            this.cmbLargestProducer.Tag = "Largest roducer";
+            this.cmbLargestProducer.Tag = "Largest producer";
             this.cmbLargestProducer.Validating += new System.ComponentModel.CancelEventHandler(this.cmb_Validating);
             // 
             // txtFruitsName

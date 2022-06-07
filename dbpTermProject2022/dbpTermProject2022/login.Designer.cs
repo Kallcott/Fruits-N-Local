@@ -61,7 +61,7 @@ namespace dbpTermProject2022
             // txtUsername
             // 
             this.txtUsername.Location = new System.Drawing.Point(120, 19);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(4);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(148, 25);
             this.txtUsername.TabIndex = 2;
@@ -69,7 +69,7 @@ namespace dbpTermProject2022
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(120, 57);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(148, 25);
             this.txtPassword.TabIndex = 3;
@@ -77,7 +77,7 @@ namespace dbpTermProject2022
             // btnLogin
             // 
             this.btnLogin.Location = new System.Drawing.Point(38, 93);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(4);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(112, 32);
             this.btnLogin.TabIndex = 4;
@@ -88,7 +88,7 @@ namespace dbpTermProject2022
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(159, 93);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(112, 32);
             this.btnCancel.TabIndex = 5;
@@ -110,10 +110,10 @@ namespace dbpTermProject2022
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "login";
+            this.Text = "Login";
             this.Load += new System.EventHandler(this.login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

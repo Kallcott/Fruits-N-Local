@@ -340,28 +340,28 @@ namespace dbpTermProject2022
             this.MDItoolStripStatusLabel2,
             this.MDItoolStripStatusLabel3,
             this.prgBar});
-            this.MDIstatusStrip.Location = new System.Drawing.Point(0, 358);
+            this.MDIstatusStrip.Location = new System.Drawing.Point(0, 352);
             this.MDIstatusStrip.Name = "MDIstatusStrip";
             this.MDIstatusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.MDIstatusStrip.Size = new System.Drawing.Size(583, 22);
+            this.MDIstatusStrip.Size = new System.Drawing.Size(583, 28);
             this.MDIstatusStrip.TabIndex = 2;
             this.MDIstatusStrip.Text = "Status: ";
             // 
             // MDItoolStripStatusLabel1
             // 
             this.MDItoolStripStatusLabel1.Name = "MDItoolStripStatusLabel1";
-            this.MDItoolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.MDItoolStripStatusLabel1.Size = new System.Drawing.Size(0, 23);
             // 
             // MDItoolStripStatusLabel2
             // 
             this.MDItoolStripStatusLabel2.Name = "MDItoolStripStatusLabel2";
-            this.MDItoolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
+            this.MDItoolStripStatusLabel2.Size = new System.Drawing.Size(10, 23);
             this.MDItoolStripStatusLabel2.Text = " ";
             // 
             // MDItoolStripStatusLabel3
             // 
             this.MDItoolStripStatusLabel3.Name = "MDItoolStripStatusLabel3";
-            this.MDItoolStripStatusLabel3.Size = new System.Drawing.Size(0, 17);
+            this.MDItoolStripStatusLabel3.Size = new System.Drawing.Size(0, 23);
             // 
             // prgBar
             // 
@@ -386,7 +386,7 @@ namespace dbpTermProject2022
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MDIParent1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MDIParent1";
+            this.Text = "Fruit\'n\'Local";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MDIParent1_FormClosing);
             this.Load += new System.EventHandler(this.MDIParent1_Load);
             this.MdiChildActivate += new System.EventHandler(this.MDIParent1_MdiChildActivate);

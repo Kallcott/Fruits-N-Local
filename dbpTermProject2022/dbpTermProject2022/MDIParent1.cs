@@ -306,7 +306,6 @@ namespace dbpTermProject2022
                 {
                     MDItoolStripStatusLabel3.Text = $" || Form: {ActiveMdiChild.Text} Ready...";
                     MDItoolStripStatusLabel2.Text = "";
-                    MDItoolStripStatusLabel1.Text = "";
 
                     ActiveMdiChild.WindowState = FormWindowState.Maximized;
                 }

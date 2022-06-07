@@ -130,7 +130,7 @@ app made an impact!
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Fruit'n'Local features include:
- - Fruits, their largest producers and regions of origin
+ - Fruits, their largest producers, regions of origin, and season
  - Only admins may perform maintenance on the database
      - including: editing Fruits, Users, Linking Table, 
           and managing Users
