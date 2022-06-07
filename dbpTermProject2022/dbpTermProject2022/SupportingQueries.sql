@@ -133,3 +133,4 @@ WHERE Regions.RegionsId = '1'
 
 SELECT COUNT(*) AS 'Regions Connections' FROM Regions WHERE RegionsId = '1'
 
+SELECT COUNT(DISTINCT RegionsId) FROM Fruits

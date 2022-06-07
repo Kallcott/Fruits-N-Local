@@ -65,7 +65,7 @@ namespace dbpTermProject2022
                 FROM Fruits_Regions 
                     INNER JOIN Fruits ON Fruits.FruitsId = Fruits_Regions.RegionsId
                     INNER JOIN Regions ON Regions.RegionsId = Fruits_Regions.RegionsId
-                WHERE Fruits_Regions.FruitsId = '{txtFruitsId.Text}'
+                WHERE Fruits_Regions.FruitsId = '{currentFruitsId}'
                 ORDER BY [Region Name];");
 
                 dtFruitsRegions = DataAccess.GetData(sql);
@@ -141,7 +141,6 @@ namespace dbpTermProject2022
                 {
                     DataRow selectedFruit = ds.Tables[0].Rows[0];
 
-                    txtFruitsId.Text = selectedFruit["FruitsId"].ToString();
                     cmbLargestProducer.SelectedValue = selectedFruit["RegionsId"];
                     txtFruitsName.Text = selectedFruit["FruitsName"].ToString();
 
@@ -178,7 +177,7 @@ namespace dbpTermProject2022
                 }
                 else
                 {
-                    MessageBox.Show($"The Fruit is no longer available: {currentFruitsId}");
+                    MessageBox.Show($"The Fruit is no longer available");
 
                     LoadFirstFruit();
                 }
@@ -283,7 +282,7 @@ namespace dbpTermProject2022
 
                     // Step #2 Create! 
 
-                    if (txtFruitsId.Text == string.Empty)
+                    if (btnSave.Text == "Create")
                     {
                         CreateFruit();
 
@@ -292,6 +291,7 @@ namespace dbpTermProject2022
                     {
                         SaveFruit();
                     }
+                    LoadFruits();
                 }
                 else
                 {
@@ -318,7 +318,7 @@ namespace dbpTermProject2022
                     FruitsName = '{txtFruitsName.Text.Trim()}',
                     RegionsId = '{(int)cmbLargestProducer.SelectedValue}',
                     Season = '{SeasonsHelpers.RdoToData(grpSeason)}'
-                WHERE FruitsId = '{txtFruitsId.Text.Trim()}'; 
+                WHERE FruitsId = '{currentFruitsId}'; 
                 ");
                 // Note the Quotes on string values of FruitsName and QuantityPer Unit
 
@@ -326,7 +326,7 @@ namespace dbpTermProject2022
 
                 if (rowsAffected == 1)
                 {
-                    MessageBox.Show($"Fruit {txtFruitsId.Text.Trim()} Updated.");
+                    MessageBox.Show($"Fruit Updated.");
                 }
                 else
                 {
@@ -402,19 +402,19 @@ namespace dbpTermProject2022
 
             try
             {
-                string sqlNumberOfTimeOrdered = $"SELECT COUNT(*) FROM Fruits_Regions WHERE FruitsId = {txtFruitsId.Text}";
+                string sqlNumberOfTimeOrdered = $"SELECT COUNT(*) FROM Fruits_Regions WHERE FruitsId = {currentFruitsId}";
                 int numberOfTimesOrdered = Convert.ToInt32(DataAccess.GetValue(sqlNumberOfTimeOrdered));
 
 
                 if (numberOfTimesOrdered == 0)
                 {
-                    string sqlDeleteFruit = $"DELETE FROM Fruits WHERE FruitsId = '{txtFruitsId.Text}'";
+                    string sqlDeleteFruit = $"DELETE FROM Fruits WHERE FruitsId = '{currentFruitsId}'";
 
                     int rowAffected = DataAccess.SendData(sqlDeleteFruit);
 
                     if (rowAffected == 1)
                     {
-                        MessageBox.Show($"Fruit {txtFruitsId.Text} was deleted!");
+                        MessageBox.Show($"Fruit was deleted!");
                         LoadFirstFruit();
                     }
                     else
@@ -533,21 +533,17 @@ namespace dbpTermProject2022
                 {
                     case "btnFirst":
                         currentFruitsId = firstFruitsId;
-                        parent.MDItoolStripStatusLabel2.Text = "The first Fruit is currently displayed";
+                        parent.MDItoolStripStatusLabel2.Text = "The first fruit is currently displayed";
                         break;
                     case "btnLast":
                         currentFruitsId = lastFruitsId;
-                        parent.MDItoolStripStatusLabel2.Text = "The last Fruit is currently displayed";
+                        parent.MDItoolStripStatusLabel2.Text = "The last fruit is currently displayed";
                         break;
                     case "btnPrevious":
                         currentFruitsId = previousFruitsId.Value;
-
-                        if (currentRecord == 1)
-                            parent.MDItoolStripStatusLabel2.Text = "The first Fruit is currently displayed";
                         break;
                     case "btnNext":
                         currentFruitsId = nextFruitsId.Value;
-
                         break;
                 }
 
@@ -619,18 +615,6 @@ namespace dbpTermProject2022
                     failedValidation = true;
                 }
 
-                //if (txt.Name == "txtUnitPrice"
-                //    || txt.Name == "txtStock"
-                //    || txt.Name == "txtOnOrder"
-                //    || txt.Name == "txtReorder"
-                //)
-                //{
-                //    if (!IsNumeric(txt.Text))
-                //    {
-                //        errMsg = $"{txtBoxName} is required";
-                //        failedValidation = true;
-                //    }
-                //}
 
                 e.Cancel = failedValidation;
 
@@ -786,5 +770,22 @@ namespace dbpTermProject2022
 
         #endregion
 
+        private void frmFruits_Activated(object sender, EventArgs e)
+        {
+
+            try
+            {
+                LoadProducerCmb();
+                LoadFruitRegionDgv();
+                LoadFruits();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
     }
 }
+

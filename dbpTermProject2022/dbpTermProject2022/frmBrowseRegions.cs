@@ -170,7 +170,7 @@ namespace dbpTermProject2022
                 }
                 else
                 {
-                    MessageBox.Show($"The Region is no longer available: {currentRegionsId}");
+                    MessageBox.Show($"The Region is no longer available");
 
                     LoadFirstRegion();
                 }
@@ -230,5 +230,22 @@ namespace dbpTermProject2022
 
         }
         #endregion
+
+        private void frmBrowseRegions_Activated(object sender, EventArgs e)
+        {
+
+            try
+            {
+                LoadFruitRegionDgv();
+                LoadProducerDgv();
+                LoadRegionsCmb();
+                LoadRegions();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
     }
 }

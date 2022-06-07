@@ -144,7 +144,6 @@ namespace dbpTermProject2022
                 {
                     DataRow selectedUser = ds.Tables[0].Rows[0];
 
-                    txtUserId.Text = selectedUser["UserID"].ToString();
                     cmbUsers.SelectedValue = selectedUser["UserId"];
                     txtPassword.Text = selectedUser["Password"].ToString();
 
@@ -158,7 +157,7 @@ namespace dbpTermProject2022
                 }
                 else
                 {
-                    MessageBox.Show($"The User is no longer available: {currentUserId}");
+                    MessageBox.Show($"The user is no longer available.");
 
                     LoadFirstUser();
                 }
@@ -292,7 +291,7 @@ namespace dbpTermProject2022
 
                     // Step #2 Create! 
 
-                    if (txtUserId.Text == string.Empty)
+                    if (btnSave.Text == "Create")
                     {
                         CreateUser();
 
@@ -325,7 +324,7 @@ namespace dbpTermProject2022
                     UPDATE Users 
                     SET 
                         Password = '{txtPassword.Text.Trim()}'
-                    WHERE UserID = '{txtUserId.Text.Trim()}'; 
+                    WHERE UserID = '{currentUserId}'; 
                 ");
                 // Note the Quotes on string values of UserName and QuantityPer Unit
 
@@ -333,7 +332,7 @@ namespace dbpTermProject2022
 
                 if (rowsAffected == 1)
                 {
-                    MessageBox.Show($"User {txtUserId.Text.Trim()} Updated.");
+                    MessageBox.Show($"User updated.");
                 }
                 else
                 {
@@ -409,30 +408,26 @@ namespace dbpTermProject2022
 
             try
             {
-                //string sqlNumberOfTimeOrdered = $"SELECT COUNT(*) FROM Users WHERE UserId = {txtUserId.Text}";
-                //int numberOfTimesOrdered = Convert.ToInt32(DataAccess.GetValue(sqlNumberOfTimeOrdered));
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                if (parent.CurrentUser == currentUserId)
+                {
+                    MessageBox.Show("You cannot delete yourself!");
+                    return;
+                }
 
-                //if (numberOfTimesOrdered == 0)
-                //{
-                string sqlDeleteUser = $"DELETE FROM Users WHERE UserID = '{txtUserId.Text}'";
+                string sqlDeleteUser = $"DELETE FROM Users WHERE UserID = '{currentUserId}'";
 
                 int rowAffected = DataAccess.SendData(sqlDeleteUser);
 
                 if (rowAffected == 1)
                 {
-                    MessageBox.Show($"User {txtUserId.Text} was deleted!");
+                    MessageBox.Show($"User was deleted!");
                     LoadFirstUser();
                 }
                 else
                 {
                     MessageBox.Show("The Database reported no rows affected.");
                 }
-                //}
-                //else
-                //{
-                //    // Unused, but retained in case of future proofing
-                //    MessageBox.Show($"User {txtUserId.Text} could not be deleted as it is within a connected structure.");
-                //}
 
             }
             catch (Exception ex)
@@ -452,6 +447,7 @@ namespace dbpTermProject2022
             try
             {
                 currentUserId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 UserId FROM Users ORDER BY Username ASC"));
+                txtConfirmPass.Text = "";
 
                 LoadUsers();
                 return;
@@ -535,13 +531,9 @@ namespace dbpTermProject2022
                         break;
                     case "btnPrevious":
                         currentUserId = previousUserId.Value;
-
-                        if (currentRecord == 1)
-                            parent.MDItoolStripStatusLabel2.Text = "The first user is currently displayed";
                         break;
                     case "btnNext":
                         currentUserId = nextUserId.Value;
-
                         break;
                 }
 
@@ -613,19 +605,6 @@ namespace dbpTermProject2022
                     failedValidation = true;
                 }
 
-                //if (txt.Name == "txtUnitPrice"
-                //    || txt.Name == "txtStock"
-                //    || txt.Name == "txtOnOrder"
-                //    || txt.Name == "txtReorder"
-                //)
-                //{
-                //    if (!IsNumeric(txt.Text))
-                //    {
-                //        errMsg = $"{txtBoxName} is required";
-                //        failedValidation = true;
-                //    }
-                //}
-
                 e.Cancel = failedValidation;
 
                 errProvider.SetError(txt, errMsg);
@@ -635,6 +614,38 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
+
+        }
+        private void ConfirmPass_Validating(object sender, CancelEventArgs e)
+        {
+
+            try
+            {
+                TextBox txt = (TextBox)sender;
+                string txtBoxName = txt.Tag.ToString();
+                string errMsg = null;
+                bool failedValidation = false;
+
+                if (txt.Text == string.Empty)
+                {
+                    errMsg = $"{txtBoxName} is required";
+                    failedValidation = true;
+                }
+                else if (txtPassword.Text != txtConfirmPass.Text && txtPassword.Text != null)
+                {
+                    errMsg = $"{txtBoxName} must match password";
+                    failedValidation = true;
+                }
+
+                e.Cancel = failedValidation;
+
+                errProvider.SetError(txt, errMsg);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
 
         }
 
@@ -742,5 +753,21 @@ namespace dbpTermProject2022
             }
 
         }
+
+        private void frmUsers_Activated(object sender, EventArgs e)
+        {
+
+            try
+            {
+                LoadUsersCmb();
+                LoadUsers();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
     }
 }

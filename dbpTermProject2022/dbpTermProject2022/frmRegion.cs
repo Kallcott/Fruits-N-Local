@@ -63,7 +63,7 @@ namespace dbpTermProject2022
                 FROM Fruits_Regions 
                     INNER JOIN Fruits ON Fruits.FruitsId = Fruits_Regions.FruitsId
                     INNER JOIN Regions ON Regions.RegionsId = Fruits_Regions.RegionsId
-                WHERE Fruits_Regions.RegionsId = '{txtRegionsId.Text}'
+                WHERE Fruits_Regions.RegionsId = '{currentRegionsId}'
                 ORDER BY [Fruit Name];");
 
                 dtFruitsRegions = DataAccess.GetData(sql);
@@ -132,7 +132,6 @@ namespace dbpTermProject2022
                 {
                     DataRow selectedRegion = ds.Tables[0].Rows[0];
 
-                    txtRegionsId.Text = selectedRegion["RegionsId"].ToString();
                     txtRegionsName.Text = selectedRegion["RegionsName"].ToString();
                     chkProducer.Checked = Convert.ToInt32(ds.Tables[3].Rows[0]["Fruits Connections"]) == 0 ? false : true;
 
@@ -147,7 +146,7 @@ namespace dbpTermProject2022
                 }
                 else
                 {
-                    MessageBox.Show($"The Region is no longer available: {currentRegionsId}");
+                    MessageBox.Show($"The Region is no longer available.");
 
                     LoadFirstRegion();
                 }
@@ -247,7 +246,7 @@ namespace dbpTermProject2022
 
                     // Step #2 Create! 
 
-                    if (txtRegionsId.Text == string.Empty)
+                    if (btnSave.Text == "Create")
                     {
                         CreateRegion();
 
@@ -256,6 +255,7 @@ namespace dbpTermProject2022
                     {
                         SaveRegion();
                     }
+                    LoadRegions();
                 }
                 else
                 {
@@ -280,7 +280,7 @@ namespace dbpTermProject2022
                 UPDATE Regions 
                 SET 
                     RegionsName = '{txtRegionsName.Text.Trim()}'
-                WHERE RegionsId = '{txtRegionsId.Text.Trim()}'; 
+                WHERE RegionsId = '{currentRegionsId}'; 
                 ");
                 // Note the Quotes on string values of RegionsName and QuantityPer Unit
 
@@ -288,7 +288,7 @@ namespace dbpTermProject2022
 
                 if (rowsAffected == 1)
                 {
-                    MessageBox.Show($"Region {txtRegionsId.Text.Trim()} Updated.");
+                    MessageBox.Show($"Region Updated.");
                 }
                 else
                 {
@@ -359,22 +359,21 @@ namespace dbpTermProject2022
 
             try
             {
-                int numberofTimesLinked = 0;
-                string sqlFKFruitRegions = $"SELECT COUNT(*) FROM Fruits_Regions WHERE RegionsId = '{txtRegionsId.Text}'";
-                numberofTimesLinked += Convert.ToInt32(DataAccess.GetValue(sqlFKFruitRegions));
+                string sqlFKFruitRegions = $"SELECT COUNT(*) FROM Fruits_Regions WHERE RegionsId = '{currentRegionsId}'";
+                int linkedAsOrigin = Convert.ToInt32(DataAccess.GetValue(sqlFKFruitRegions));
 
-                string sqlFKFruit = $"SELECT COUNT(*) FROM Fruits WHERE RegionsId = '{txtRegionsId.Text}'";
-                numberofTimesLinked += Convert.ToInt32(DataAccess.GetValue(sqlFKFruit));
+                string sqlFKFruit = $"SELECT COUNT(*) FROM Fruits WHERE RegionsId = '{currentRegionsId}'";
+                int linkedAsProducer = Convert.ToInt32(DataAccess.GetValue(sqlFKFruit));
 
-                if (numberofTimesLinked == 0)
+                if (linkedAsOrigin + linkedAsProducer == 0)
                 {
-                    string sqlDeleteRegion = $"DELETE FROM Regions WHERE RegionsId = '{txtRegionsId.Text}'";
+                    string sqlDeleteRegion = $"DELETE FROM Regions WHERE RegionsId = '{currentRegionsId}'";
 
                     int rowAffected = DataAccess.SendData(sqlDeleteRegion);
 
                     if (rowAffected == 1)
                     {
-                        MessageBox.Show($"Region {txtRegionsId.Text} was deleted!");
+                        MessageBox.Show($"Region was deleted!");
                         LoadFirstRegion();
                     }
                     else
@@ -384,7 +383,13 @@ namespace dbpTermProject2022
                 }
                 else
                 {
-                    MessageBox.Show($"Region {txtRegionsId.Text} could not be deleted as it is used {numberofTimesLinked} times.");
+                    string msgOrigin = "";
+                    if (linkedAsOrigin > 0) msgOrigin = $"as origin {linkedAsOrigin} times";
+                    string msgProducer = "";
+                    if (linkedAsProducer > 0) msgProducer = $"as producer {linkedAsProducer} times";
+                    string msgAnd = "";
+                    if (linkedAsOrigin > 0 && linkedAsProducer > 0) msgAnd = " and ";
+                    MessageBox.Show($"Region could not be deleted as it is used {msgOrigin}{msgAnd}{msgProducer}.");
                 }
 
             }
@@ -489,13 +494,9 @@ namespace dbpTermProject2022
                         break;
                     case "btnPrevious":
                         currentRegionsId = previousRegionsId.Value;
-
-                        if (currentRecord == 1)
-                            parent.MDItoolStripStatusLabel2.Text = "The first Region is currently displayed";
                         break;
                     case "btnNext":
                         currentRegionsId = nextRegionsId.Value;
-
                         break;
                 }
 
@@ -635,5 +636,19 @@ namespace dbpTermProject2022
 
         #endregion
 
+        private void frmRegions_Activated(object sender, EventArgs e)
+        {
+
+            try
+            {
+                LoadFruitRegionDgv();
+                LoadFirstRegion();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
     }
 }

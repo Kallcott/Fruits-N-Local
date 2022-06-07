@@ -246,7 +246,7 @@ namespace dbpTermProject2022
             this.toolStripButton4.Name = "toolStripButton4";
             this.toolStripButton4.Size = new System.Drawing.Size(28, 28);
             this.toolStripButton4.Tag = "About";
-            this.toolStripButton4.Text = "toolStripButton4";
+            this.toolStripButton4.Text = "About";
             this.toolStripButton4.Click += new System.EventHandler(this.ShowNewForm);
             // 
             // toolStripSeparator1
@@ -262,7 +262,7 @@ namespace dbpTermProject2022
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
             this.toolStripButton1.Tag = "Browse Fruits";
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Text = "Browse Fruits";
             this.toolStripButton1.Click += new System.EventHandler(this.ShowNewForm);
             // 
             // toolStripButton2
@@ -273,7 +273,7 @@ namespace dbpTermProject2022
             this.toolStripButton2.Name = "toolStripButton2";
             this.toolStripButton2.Size = new System.Drawing.Size(28, 28);
             this.toolStripButton2.Tag = "Browse Regions";
-            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Text = "Browse Regions";
             this.toolStripButton2.Click += new System.EventHandler(this.ShowNewForm);
             // 
             // toolStripButton3
@@ -284,7 +284,7 @@ namespace dbpTermProject2022
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(28, 28);
             this.toolStripButton3.Tag = "Users";
-            this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.Text = "Account Settings";
             this.toolStripButton3.Click += new System.EventHandler(this.ShowNewForm);
             // 
             // spAdmin
@@ -306,7 +306,7 @@ namespace dbpTermProject2022
             this.btnFruits.Name = "btnFruits";
             this.btnFruits.Size = new System.Drawing.Size(28, 28);
             this.btnFruits.Tag = "Fruits";
-            this.btnFruits.Text = "toolStripButton1";
+            this.btnFruits.Text = "Edit Fruits";
             this.btnFruits.Click += new System.EventHandler(this.ShowNewForm);
             // 
             // btnRegions
@@ -317,7 +317,7 @@ namespace dbpTermProject2022
             this.btnRegions.Name = "btnRegions";
             this.btnRegions.Size = new System.Drawing.Size(28, 28);
             this.btnRegions.Tag = "Regions";
-            this.btnRegions.Text = "toolStripButton2";
+            this.btnRegions.Text = "Edit Regions";
             this.btnRegions.Click += new System.EventHandler(this.ShowNewForm);
             // 
             // btnFruits_Regions
@@ -328,7 +328,7 @@ namespace dbpTermProject2022
             this.btnFruits_Regions.Name = "btnFruits_Regions";
             this.btnFruits_Regions.Size = new System.Drawing.Size(28, 28);
             this.btnFruits_Regions.Tag = "Fruits_Regions";
-            this.btnFruits_Regions.Text = "toolStripButton6";
+            this.btnFruits_Regions.Text = "Edit Origins";
             this.btnFruits_Regions.Click += new System.EventHandler(this.ShowNewForm);
             // 
             // MDIstatusStrip
@@ -340,28 +340,28 @@ namespace dbpTermProject2022
             this.MDItoolStripStatusLabel2,
             this.MDItoolStripStatusLabel3,
             this.prgBar});
-            this.MDIstatusStrip.Location = new System.Drawing.Point(0, 352);
+            this.MDIstatusStrip.Location = new System.Drawing.Point(0, 358);
             this.MDIstatusStrip.Name = "MDIstatusStrip";
             this.MDIstatusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
-            this.MDIstatusStrip.Size = new System.Drawing.Size(583, 28);
+            this.MDIstatusStrip.Size = new System.Drawing.Size(583, 22);
             this.MDIstatusStrip.TabIndex = 2;
             this.MDIstatusStrip.Text = "Status: ";
             // 
             // MDItoolStripStatusLabel1
             // 
             this.MDItoolStripStatusLabel1.Name = "MDItoolStripStatusLabel1";
-            this.MDItoolStripStatusLabel1.Size = new System.Drawing.Size(0, 23);
+            this.MDItoolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
             // MDItoolStripStatusLabel2
             // 
             this.MDItoolStripStatusLabel2.Name = "MDItoolStripStatusLabel2";
-            this.MDItoolStripStatusLabel2.Size = new System.Drawing.Size(10, 23);
+            this.MDItoolStripStatusLabel2.Size = new System.Drawing.Size(10, 17);
             this.MDItoolStripStatusLabel2.Text = " ";
             // 
             // MDItoolStripStatusLabel3
             // 
             this.MDItoolStripStatusLabel3.Name = "MDItoolStripStatusLabel3";
-            this.MDItoolStripStatusLabel3.Size = new System.Drawing.Size(0, 23);
+            this.MDItoolStripStatusLabel3.Size = new System.Drawing.Size(0, 17);
             // 
             // prgBar
             // 

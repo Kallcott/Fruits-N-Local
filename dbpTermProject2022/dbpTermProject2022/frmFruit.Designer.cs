@@ -48,10 +48,8 @@ namespace dbpTermProject2022
             this.btnNext = new System.Windows.Forms.Button();
             this.cmbLargestProducer = new System.Windows.Forms.ComboBox();
             this.txtFruitsName = new System.Windows.Forms.TextBox();
-            this.txtFruitsId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.errProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.grpEditFruit.SuspendLayout();
             this.grpSeason.SuspendLayout();
@@ -74,13 +72,11 @@ namespace dbpTermProject2022
             this.grpEditFruit.Controls.Add(this.btnNext);
             this.grpEditFruit.Controls.Add(this.cmbLargestProducer);
             this.grpEditFruit.Controls.Add(this.txtFruitsName);
-            this.grpEditFruit.Controls.Add(this.txtFruitsId);
             this.grpEditFruit.Controls.Add(this.label3);
             this.grpEditFruit.Controls.Add(this.label2);
-            this.grpEditFruit.Controls.Add(this.label1);
             this.grpEditFruit.Location = new System.Drawing.Point(40, 12);
             this.grpEditFruit.Name = "grpEditFruit";
-            this.grpEditFruit.Size = new System.Drawing.Size(408, 435);
+            this.grpEditFruit.Size = new System.Drawing.Size(408, 374);
             this.grpEditFruit.TabIndex = 0;
             this.grpEditFruit.TabStop = false;
             this.grpEditFruit.Text = "Edit Fruit";
@@ -91,7 +87,7 @@ namespace dbpTermProject2022
             this.grpSeason.Controls.Add(this.checkBox3);
             this.grpSeason.Controls.Add(this.checkBox2);
             this.grpSeason.Controls.Add(this.checkBox1);
-            this.grpSeason.Location = new System.Drawing.Point(9, 165);
+            this.grpSeason.Location = new System.Drawing.Point(9, 106);
             this.grpSeason.Name = "grpSeason";
             this.grpSeason.Size = new System.Drawing.Size(348, 58);
             this.grpSeason.TabIndex = 52;
@@ -150,7 +146,7 @@ namespace dbpTermProject2022
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvFruits_Regions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFruits_Regions.ColumnHeadersVisible = false;
-            this.dgvFruits_Regions.Location = new System.Drawing.Point(9, 255);
+            this.dgvFruits_Regions.Location = new System.Drawing.Point(9, 196);
             this.dgvFruits_Regions.MultiSelect = false;
             this.dgvFruits_Regions.Name = "dgvFruits_Regions";
             this.dgvFruits_Regions.ReadOnly = true;
@@ -161,7 +157,7 @@ namespace dbpTermProject2022
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 234);
+            this.label4.Location = new System.Drawing.Point(6, 175);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 18);
             this.label4.TabIndex = 36;
@@ -170,7 +166,7 @@ namespace dbpTermProject2022
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(281, 371);
+            this.btnCancel.Location = new System.Drawing.Point(281, 312);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(81, 47);
             this.btnCancel.TabIndex = 34;
@@ -180,7 +176,7 @@ namespace dbpTermProject2022
             // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(281, 322);
+            this.btnLast.Location = new System.Drawing.Point(281, 263);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(81, 43);
             this.btnLast.TabIndex = 30;
@@ -191,7 +187,7 @@ namespace dbpTermProject2022
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(20, 371);
+            this.btnAdd.Location = new System.Drawing.Point(20, 312);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(81, 47);
             this.btnAdd.TabIndex = 31;
@@ -202,7 +198,7 @@ namespace dbpTermProject2022
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(107, 371);
+            this.btnDelete.Location = new System.Drawing.Point(107, 312);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(81, 47);
             this.btnDelete.TabIndex = 32;
@@ -212,7 +208,7 @@ namespace dbpTermProject2022
             // 
             // btnFirst
             // 
-            this.btnFirst.Location = new System.Drawing.Point(20, 322);
+            this.btnFirst.Location = new System.Drawing.Point(20, 263);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(81, 43);
             this.btnFirst.TabIndex = 29;
@@ -223,7 +219,7 @@ namespace dbpTermProject2022
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(194, 371);
+            this.btnSave.Location = new System.Drawing.Point(194, 312);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(81, 47);
             this.btnSave.TabIndex = 33;
@@ -233,7 +229,7 @@ namespace dbpTermProject2022
             // 
             // btnPrevious
             // 
-            this.btnPrevious.Location = new System.Drawing.Point(107, 322);
+            this.btnPrevious.Location = new System.Drawing.Point(107, 263);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(81, 43);
             this.btnPrevious.TabIndex = 28;
@@ -243,7 +239,7 @@ namespace dbpTermProject2022
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(194, 322);
+            this.btnNext.Location = new System.Drawing.Point(194, 263);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(81, 43);
             this.btnNext.TabIndex = 27;
@@ -255,34 +251,26 @@ namespace dbpTermProject2022
             // 
             this.cmbLargestProducer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLargestProducer.FormattingEnabled = true;
-            this.cmbLargestProducer.Location = new System.Drawing.Point(131, 129);
+            this.cmbLargestProducer.Location = new System.Drawing.Point(131, 70);
             this.cmbLargestProducer.Name = "cmbLargestProducer";
-            this.cmbLargestProducer.Size = new System.Drawing.Size(144, 26);
+            this.cmbLargestProducer.Size = new System.Drawing.Size(200, 26);
             this.cmbLargestProducer.TabIndex = 2;
             this.cmbLargestProducer.Tag = "Largest producer";
             this.cmbLargestProducer.Validating += new System.ComponentModel.CancelEventHandler(this.cmb_Validating);
             // 
             // txtFruitsName
             // 
-            this.txtFruitsName.Location = new System.Drawing.Point(131, 81);
+            this.txtFruitsName.Location = new System.Drawing.Point(131, 22);
             this.txtFruitsName.Name = "txtFruitsName";
             this.txtFruitsName.Size = new System.Drawing.Size(144, 25);
             this.txtFruitsName.TabIndex = 4;
             this.txtFruitsName.Tag = "Fruit name";
             this.txtFruitsName.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
             // 
-            // txtFruitsId
-            // 
-            this.txtFruitsId.Enabled = false;
-            this.txtFruitsId.Location = new System.Drawing.Point(131, 35);
-            this.txtFruitsId.Name = "txtFruitsId";
-            this.txtFruitsId.Size = new System.Drawing.Size(144, 25);
-            this.txtFruitsId.TabIndex = 1;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 84);
+            this.label3.Location = new System.Drawing.Point(6, 25);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 18);
             this.label3.TabIndex = 2;
@@ -291,20 +279,11 @@ namespace dbpTermProject2022
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 129);
+            this.label2.Location = new System.Drawing.Point(6, 70);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(119, 18);
             this.label2.TabIndex = 1;
             this.label2.Text = "Largest Producer";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Fruit ID";
             // 
             // errProvider
             // 
@@ -315,11 +294,12 @@ namespace dbpTermProject2022
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(486, 456);
+            this.ClientSize = new System.Drawing.Size(486, 398);
             this.Controls.Add(this.grpEditFruit);
             this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmFruits";
             this.Text = "Edit Fruits";
+            this.Activated += new System.EventHandler(this.frmFruits_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFruits_FormClosing);
             this.Load += new System.EventHandler(this.frmFruits_Load);
             this.grpEditFruit.ResumeLayout(false);
@@ -336,9 +316,7 @@ namespace dbpTermProject2022
 
         private System.Windows.Forms.GroupBox grpEditFruit;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtFruitsId;
         private System.Windows.Forms.TextBox txtFruitsName;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnLast;

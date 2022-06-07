@@ -48,6 +48,16 @@ namespace dbpTermProject2022
             this.pcbFruits_Regions = new System.Windows.Forms.PictureBox();
             this.pcbRegions = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblNumFruit = new System.Windows.Forms.Label();
+            this.lblNumProducer = new System.Windows.Forms.Label();
+            this.lblNumOrigins = new System.Windows.Forms.Label();
+            this.lblNumRegions = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -57,6 +67,7 @@ namespace dbpTermProject2022
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbFruits_Regions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbRegions)).BeginInit();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblProductName
@@ -263,6 +274,106 @@ namespace dbpTermProject2022
             this.panel2.Size = new System.Drawing.Size(13, 439);
             this.panel2.TabIndex = 12;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(25, 1);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "# of Fruits";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(14, 17);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(68, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "# of Regions";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(17, 33);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "# of Origins";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(4, 48);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(78, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "# of Producers";
+            // 
+            // lblNumFruit
+            // 
+            this.lblNumFruit.AutoSize = true;
+            this.lblNumFruit.Location = new System.Drawing.Point(104, 1);
+            this.lblNumFruit.Name = "lblNumFruit";
+            this.lblNumFruit.Size = new System.Drawing.Size(19, 13);
+            this.lblNumFruit.TabIndex = 16;
+            this.lblNumFruit.Text = "##";
+            this.lblNumFruit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblNumProducer
+            // 
+            this.lblNumProducer.AutoSize = true;
+            this.lblNumProducer.Location = new System.Drawing.Point(104, 48);
+            this.lblNumProducer.Name = "lblNumProducer";
+            this.lblNumProducer.Size = new System.Drawing.Size(19, 13);
+            this.lblNumProducer.TabIndex = 17;
+            this.lblNumProducer.Text = "##";
+            this.lblNumProducer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblNumOrigins
+            // 
+            this.lblNumOrigins.AutoSize = true;
+            this.lblNumOrigins.Location = new System.Drawing.Point(104, 33);
+            this.lblNumOrigins.Name = "lblNumOrigins";
+            this.lblNumOrigins.Size = new System.Drawing.Size(19, 13);
+            this.lblNumOrigins.TabIndex = 18;
+            this.lblNumOrigins.Text = "##";
+            this.lblNumOrigins.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblNumRegions
+            // 
+            this.lblNumRegions.AutoSize = true;
+            this.lblNumRegions.Location = new System.Drawing.Point(104, 17);
+            this.lblNumRegions.Name = "lblNumRegions";
+            this.lblNumRegions.Size = new System.Drawing.Size(19, 13);
+            this.lblNumRegions.TabIndex = 19;
+            this.lblNumRegions.Text = "##";
+            this.lblNumRegions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Controls.Add(this.lblNumProducer);
+            this.panel3.Controls.Add(this.lblNumOrigins);
+            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.lblNumRegions);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Controls.Add(this.lblNumFruit);
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(132, 68);
+            this.panel3.TabIndex = 20;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel4.Location = new System.Drawing.Point(88, -6);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(10, 75);
+            this.panel4.TabIndex = 21;
+            // 
             // frmAbout
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -277,10 +388,12 @@ namespace dbpTermProject2022
             this.Controls.Add(this.lblProductName);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.pictureBox2);
             this.Font = new System.Drawing.Font("Lato", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmAbout";
             this.Text = "About";
+            this.Activated += new System.EventHandler(this.frmAbout_Activated);
             this.Load += new System.EventHandler(this.About_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -292,6 +405,8 @@ namespace dbpTermProject2022
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbFruits_Regions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbRegions)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -317,5 +432,15 @@ namespace dbpTermProject2022
         private System.Windows.Forms.Label lblEdit;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblNumFruit;
+        private System.Windows.Forms.Label lblNumProducer;
+        private System.Windows.Forms.Label lblNumOrigins;
+        private System.Windows.Forms.Label lblNumRegions;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
     }
 }

@@ -31,7 +31,7 @@ namespace dbpTermProject2022
             {
                 LoadFirstFruit();
 
-                LoadProducerCmb();
+                LoadFruitCmb();
 
                 LoadFruitRegionDgv();
             }
@@ -73,7 +73,7 @@ namespace dbpTermProject2022
 
         }
 
-        private void LoadProducerCmb()
+        private void LoadFruitCmb()
         {
 
             try
@@ -156,7 +156,7 @@ namespace dbpTermProject2022
                 }
                 else
                 {
-                    MessageBox.Show($"The Fruit is no longer available: {currentFruitsId}");
+                    MessageBox.Show($"The Fruit is no longer available");
 
                     LoadFirstFruit();
                 }
@@ -215,5 +215,20 @@ namespace dbpTermProject2022
         }
         #endregion
 
+        private void frmBrowseFruits_Activated(object sender, EventArgs e)
+        {
+
+            try
+            {
+                LoadFruitRegionDgv();
+                LoadFruitCmb();
+                LoadFruits();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
     }
 }

@@ -30,6 +30,11 @@ namespace dbpTermProject2022
         private void InitializeComponent()
         {
             this.grpBrowseFruit = new System.Windows.Forms.GroupBox();
+            this.grpSeason = new System.Windows.Forms.GroupBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbFruits = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -37,15 +42,10 @@ namespace dbpTermProject2022
             this.dgvFruits_Regions = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.grpSeason = new System.Windows.Forms.GroupBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.grpBrowseFruit.SuspendLayout();
+            this.grpSeason.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFruits_Regions)).BeginInit();
-            this.grpSeason.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpBrowseFruit
@@ -62,6 +62,63 @@ namespace dbpTermProject2022
             this.grpBrowseFruit.TabIndex = 0;
             this.grpBrowseFruit.TabStop = false;
             this.grpBrowseFruit.Text = "Browse Fruit";
+            // 
+            // grpSeason
+            // 
+            this.grpSeason.Controls.Add(this.checkBox4);
+            this.grpSeason.Controls.Add(this.checkBox3);
+            this.grpSeason.Controls.Add(this.checkBox2);
+            this.grpSeason.Controls.Add(this.checkBox1);
+            this.grpSeason.Location = new System.Drawing.Point(6, 141);
+            this.grpSeason.Name = "grpSeason";
+            this.grpSeason.Size = new System.Drawing.Size(348, 58);
+            this.grpSeason.TabIndex = 53;
+            this.grpSeason.TabStop = false;
+            this.grpSeason.Text = "Season";
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoCheck = false;
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(251, 24);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(78, 22);
+            this.checkBox4.TabIndex = 55;
+            this.checkBox4.Text = "Autumn";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoCheck = false;
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(165, 24);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(80, 22);
+            this.checkBox3.TabIndex = 54;
+            this.checkBox3.Text = "Summer";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoCheck = false;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(91, 24);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(68, 22);
+            this.checkBox2.TabIndex = 53;
+            this.checkBox2.Text = "Spring";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoCheck = false;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 24);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(73, 22);
+            this.checkBox1.TabIndex = 52;
+            this.checkBox1.Text = "Winter";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -139,63 +196,6 @@ namespace dbpTermProject2022
             this.label2.TabIndex = 1;
             this.label2.Text = "Largest Producer:";
             // 
-            // grpSeason
-            // 
-            this.grpSeason.Controls.Add(this.checkBox4);
-            this.grpSeason.Controls.Add(this.checkBox3);
-            this.grpSeason.Controls.Add(this.checkBox2);
-            this.grpSeason.Controls.Add(this.checkBox1);
-            this.grpSeason.Location = new System.Drawing.Point(6, 141);
-            this.grpSeason.Name = "grpSeason";
-            this.grpSeason.Size = new System.Drawing.Size(348, 58);
-            this.grpSeason.TabIndex = 53;
-            this.grpSeason.TabStop = false;
-            this.grpSeason.Text = "Season";
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoCheck = false;
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(251, 24);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(78, 22);
-            this.checkBox4.TabIndex = 55;
-            this.checkBox4.Text = "Autumn";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoCheck = false;
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(165, 24);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(80, 22);
-            this.checkBox3.TabIndex = 54;
-            this.checkBox3.Text = "Summer";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoCheck = false;
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(91, 24);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(68, 22);
-            this.checkBox2.TabIndex = 53;
-            this.checkBox2.Text = "Spring";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoCheck = false;
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(12, 24);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(73, 22);
-            this.checkBox1.TabIndex = 52;
-            this.checkBox1.Text = "Winter";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // frmBrowseFruits
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -205,14 +205,15 @@ namespace dbpTermProject2022
             this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmBrowseFruits";
             this.Text = "Browse Fruit";
+            this.Activated += new System.EventHandler(this.frmBrowseFruits_Activated);
             this.Load += new System.EventHandler(this.frmFruits_Load);
             this.grpBrowseFruit.ResumeLayout(false);
             this.grpBrowseFruit.PerformLayout();
+            this.grpSeason.ResumeLayout(false);
+            this.grpSeason.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFruits_Regions)).EndInit();
-            this.grpSeason.ResumeLayout(false);
-            this.grpSeason.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -102,10 +102,10 @@ namespace dbpTermProject2022
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(30, 32);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(259, 65);
+            this.groupBox1.Size = new System.Drawing.Size(365, 65);
             this.groupBox1.TabIndex = 40;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Choose Fruit";
+            this.groupBox1.Text = "Choose Region";
             // 
             // cmbRegions
             // 
@@ -113,7 +113,7 @@ namespace dbpTermProject2022
             this.cmbRegions.FormattingEnabled = true;
             this.cmbRegions.Location = new System.Drawing.Point(109, 24);
             this.cmbRegions.Name = "cmbRegions";
-            this.cmbRegions.Size = new System.Drawing.Size(121, 26);
+            this.cmbRegions.Size = new System.Drawing.Size(200, 26);
             this.cmbRegions.TabIndex = 38;
             this.cmbRegions.Tag = "Username";
             this.cmbRegions.SelectionChangeCommitted += new System.EventHandler(this.LoadRegions);
@@ -162,6 +162,7 @@ namespace dbpTermProject2022
             this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmBrowseRegions";
             this.Text = "Browse Region";
+            this.Activated += new System.EventHandler(this.frmBrowseRegions_Activated);
             this.Load += new System.EventHandler(this.frmRegions_Load);
             this.grpBrowseFruit.ResumeLayout(false);
             this.grpBrowseFruit.PerformLayout();

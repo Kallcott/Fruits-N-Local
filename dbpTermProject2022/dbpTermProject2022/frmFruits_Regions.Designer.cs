@@ -41,10 +41,8 @@ namespace dbpTermProject2022
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.cmbFruits = new System.Windows.Forms.ComboBox();
-            this.txtFruitsRegionId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.errProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.grpRegisterFruits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).BeginInit();
@@ -62,24 +60,22 @@ namespace dbpTermProject2022
             this.grpRegisterFruits.Controls.Add(this.btnPrevious);
             this.grpRegisterFruits.Controls.Add(this.btnNext);
             this.grpRegisterFruits.Controls.Add(this.cmbFruits);
-            this.grpRegisterFruits.Controls.Add(this.txtFruitsRegionId);
             this.grpRegisterFruits.Controls.Add(this.label3);
             this.grpRegisterFruits.Controls.Add(this.label2);
-            this.grpRegisterFruits.Controls.Add(this.label1);
             this.grpRegisterFruits.Location = new System.Drawing.Point(62, 12);
             this.grpRegisterFruits.Name = "grpRegisterFruits";
-            this.grpRegisterFruits.Size = new System.Drawing.Size(384, 296);
+            this.grpRegisterFruits.Size = new System.Drawing.Size(384, 236);
             this.grpRegisterFruits.TabIndex = 0;
             this.grpRegisterFruits.TabStop = false;
-            this.grpRegisterFruits.Text = "Register User";
+            this.grpRegisterFruits.Text = "Edit Origins";
             // 
             // cmbRegions
             // 
             this.cmbRegions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRegions.FormattingEnabled = true;
-            this.cmbRegions.Location = new System.Drawing.Point(125, 126);
+            this.cmbRegions.Location = new System.Drawing.Point(125, 69);
             this.cmbRegions.Name = "cmbRegions";
-            this.cmbRegions.Size = new System.Drawing.Size(121, 26);
+            this.cmbRegions.Size = new System.Drawing.Size(200, 26);
             this.cmbRegions.TabIndex = 35;
             this.cmbRegions.Tag = "Region name";
             this.cmbRegions.Validating += new System.ComponentModel.CancelEventHandler(this.cmb_Validating);
@@ -87,7 +83,7 @@ namespace dbpTermProject2022
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(280, 229);
+            this.btnCancel.Location = new System.Drawing.Point(280, 172);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(81, 47);
             this.btnCancel.TabIndex = 34;
@@ -97,7 +93,7 @@ namespace dbpTermProject2022
             // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(280, 180);
+            this.btnLast.Location = new System.Drawing.Point(280, 123);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(81, 42);
             this.btnLast.TabIndex = 30;
@@ -108,7 +104,7 @@ namespace dbpTermProject2022
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(20, 229);
+            this.btnAdd.Location = new System.Drawing.Point(20, 172);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(81, 47);
             this.btnAdd.TabIndex = 31;
@@ -119,7 +115,7 @@ namespace dbpTermProject2022
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(106, 229);
+            this.btnDelete.Location = new System.Drawing.Point(106, 172);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(81, 47);
             this.btnDelete.TabIndex = 32;
@@ -129,7 +125,7 @@ namespace dbpTermProject2022
             // 
             // btnFirst
             // 
-            this.btnFirst.Location = new System.Drawing.Point(20, 180);
+            this.btnFirst.Location = new System.Drawing.Point(20, 123);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(81, 42);
             this.btnFirst.TabIndex = 29;
@@ -140,7 +136,7 @@ namespace dbpTermProject2022
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(194, 229);
+            this.btnSave.Location = new System.Drawing.Point(194, 172);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(81, 47);
             this.btnSave.TabIndex = 33;
@@ -150,7 +146,7 @@ namespace dbpTermProject2022
             // 
             // btnPrevious
             // 
-            this.btnPrevious.Location = new System.Drawing.Point(106, 180);
+            this.btnPrevious.Location = new System.Drawing.Point(106, 123);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(81, 42);
             this.btnPrevious.TabIndex = 28;
@@ -160,7 +156,7 @@ namespace dbpTermProject2022
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(194, 180);
+            this.btnNext.Location = new System.Drawing.Point(194, 123);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(81, 42);
             this.btnNext.TabIndex = 27;
@@ -172,25 +168,17 @@ namespace dbpTermProject2022
             // 
             this.cmbFruits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFruits.FormattingEnabled = true;
-            this.cmbFruits.Location = new System.Drawing.Point(125, 81);
+            this.cmbFruits.Location = new System.Drawing.Point(125, 24);
             this.cmbFruits.Name = "cmbFruits";
             this.cmbFruits.Size = new System.Drawing.Size(121, 26);
             this.cmbFruits.TabIndex = 2;
             this.cmbFruits.Tag = "Fruit name";
             this.cmbFruits.Validating += new System.ComponentModel.CancelEventHandler(this.cmb_Validating);
             // 
-            // txtFruitsRegionId
-            // 
-            this.txtFruitsRegionId.Enabled = false;
-            this.txtFruitsRegionId.Location = new System.Drawing.Point(125, 35);
-            this.txtFruitsRegionId.Name = "txtFruitsRegionId";
-            this.txtFruitsRegionId.Size = new System.Drawing.Size(121, 25);
-            this.txtFruitsRegionId.TabIndex = 1;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 129);
+            this.label3.Location = new System.Drawing.Point(6, 72);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 18);
             this.label3.TabIndex = 2;
@@ -199,20 +187,11 @@ namespace dbpTermProject2022
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 84);
+            this.label2.Location = new System.Drawing.Point(6, 27);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 18);
             this.label2.TabIndex = 1;
             this.label2.Text = "Fruit Name:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(117, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Fruit Regions ID:";
             // 
             // errProvider
             // 
@@ -223,11 +202,12 @@ namespace dbpTermProject2022
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(538, 367);
+            this.ClientSize = new System.Drawing.Size(538, 276);
             this.Controls.Add(this.grpRegisterFruits);
             this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmFruits_Regions";
-            this.Text = "Edit User";
+            this.Text = "Edit Origins";
+            this.Activated += new System.EventHandler(this.frmFruits_Regions_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFruits_Regions_FormClosing);
             this.Load += new System.EventHandler(this.frmFruits_Regions_Load);
             this.grpRegisterFruits.ResumeLayout(false);
@@ -241,9 +221,7 @@ namespace dbpTermProject2022
 
         private System.Windows.Forms.GroupBox grpRegisterFruits;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtFruitsRegionId;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnLast;
         private System.Windows.Forms.Button btnAdd;

@@ -125,7 +125,6 @@ namespace dbpTermProject2022
                 {
                     DataRow selectedFruits_Regions = ds.Tables[0].Rows[0];
 
-                    txtFruitsRegionId.Text = selectedFruits_Regions["Fruits_RegionsId"].ToString();
                     cmbFruits.SelectedValue = selectedFruits_Regions["FruitsId"];
                     cmbRegions.SelectedValue = selectedFruits_Regions["RegionsId"];
 
@@ -139,7 +138,7 @@ namespace dbpTermProject2022
                 }
                 else
                 {
-                    MessageBox.Show($"The Fruits_Regions is no longer available: {currentFruits_RegionsId}");
+                    MessageBox.Show($"The Fruits_Regions is no longer available.");
 
                     LoadFirstFruits_Regions();
                 }
@@ -171,7 +170,7 @@ namespace dbpTermProject2022
             try
             {
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
-                parent.MDItoolStripStatusLabel1.Text = "Adding a new Fruits_Regions";
+                parent.MDItoolStripStatusLabel1.Text = "Adding a new origin";
                 parent.MDItoolStripStatusLabel2.Text = "";
 
                 UIUtilities.ClearControls(grpRegisterFruits.Controls);
@@ -239,15 +238,15 @@ namespace dbpTermProject2022
 
                     // Step #2 Create! 
 
-                    if (txtFruitsRegionId.Text == string.Empty)
+                    if (btnSave.Text == "Create")
                     {
                         CreateFruits_Regions();
-
                     }
                     else
                     {
                         SaveFruits_Regions();
                     }
+                    LoadFruits_Regions();
                 }
                 else
                 {
@@ -273,7 +272,7 @@ namespace dbpTermProject2022
                 SET 
                     FruitsId = '{cmbFruits.SelectedValue}',
                     RegionsId = '{cmbRegions.SelectedValue}'
-                WHERE Fruits_RegionsId = '{txtFruitsRegionId.Text.Trim()}'; 
+                WHERE Fruits_RegionsId = '{currentFruits_RegionsId}'; 
                 ");
                 // Note the Quotes on string values of Fruits_RegionsName and QuantityPer Unit
 
@@ -281,11 +280,11 @@ namespace dbpTermProject2022
 
                 if (rowsAffected == 1)
                 {
-                    MessageBox.Show($"Fruits_Regions {txtFruitsRegionId.Text.Trim()} Updated.");
+                    MessageBox.Show($"Origin Updated.");
                 }
                 else
                 {
-                    MessageBox.Show("The Database reported no Rows Affected.");
+                    MessageBox.Show("Something went wrong");
                 }
 
                 LoadFruits_Regions();
@@ -321,7 +320,7 @@ namespace dbpTermProject2022
 
                 if (rowsAffected == 1)
                 {
-                    MessageBox.Show("Fruits_Regions Created!");
+                    MessageBox.Show("Origin Created!");
                     btnAdd.Enabled = true;
                     btnDelete.Enabled = true;
 
@@ -354,18 +353,18 @@ namespace dbpTermProject2022
 
             try
             {
-                string sqlDeleteFruits_Regions = $"DELETE FROM Fruits_Regions WHERE Fruits_RegionsId = '{txtFruitsRegionId.Text}'";
+                string sqlDeleteFruits_Regions = $"DELETE FROM Fruits_Regions WHERE Fruits_RegionsId = '{currentFruits_RegionsId}'";
 
                 int rowAffected = DataAccess.SendData(sqlDeleteFruits_Regions);
 
                 if (rowAffected == 1)
                 {
-                    MessageBox.Show($"Fruits_Regions {txtFruitsRegionId.Text} was deleted!");
+                    MessageBox.Show($"Origin deleted!");
                     LoadFirstFruits_Regions();
                 }
                 else
                 {
-                    MessageBox.Show("The Database reported no rows affected.");
+                    MessageBox.Show("No changes were made");
                 }
 
             }
@@ -373,21 +372,6 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-        private void cmbFruits_Regions_SelectedValueChanged(object sender, EventArgs e)
-        {
-
-            try
-            {
-                currentFruits_RegionsId = (int)cmbFruits.SelectedValue;
-                LoadFruits_Regions();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
         }
 
         #endregion
@@ -442,21 +426,17 @@ namespace dbpTermProject2022
             {
                 case "btnFirst":
                     currentFruits_RegionsId = firstFruits_RegionsId;
-                    parent.MDItoolStripStatusLabel2.Text = "The first Fruits_Regions is currently displayed";
+                    parent.MDItoolStripStatusLabel2.Text = "The first origin is currently displayed";
                     break;
                 case "btnLast":
                     currentFruits_RegionsId = lastFruits_RegionsId;
-                    parent.MDItoolStripStatusLabel2.Text = "The last Fruits_Regions is currently displayed";
+                    parent.MDItoolStripStatusLabel2.Text = "The last origin is currently displayed";
                     break;
                 case "btnPrevious":
                     currentFruits_RegionsId = previousFruits_RegionsId.Value;
-
-                    if (currentRecord == 1)
-                        parent.MDItoolStripStatusLabel2.Text = "The first Fruits_Regions is currently displayed";
                     break;
                 case "btnNext":
                     currentFruits_RegionsId = nextFruits_RegionsId.Value;
-
                     break;
             }
 
@@ -520,19 +500,6 @@ namespace dbpTermProject2022
                     errMsg = $"{txtBoxName} is required";
                     failedValidation = true;
                 }
-
-                //if (txt.Name == "txtUnitPrice"
-                //    || txt.Name == "txtStock"
-                //    || txt.Name == "txtOnOrder"
-                //    || txt.Name == "txtReorder"
-                //)
-                //{
-                //    if (!IsNumeric(txt.Text))
-                //    {
-                //        errMsg = $"{txtBoxName} is required";
-                //        failedValidation = true;
-                //    }
-                //}
 
                 e.Cancel = failedValidation;
 
@@ -635,5 +602,21 @@ namespace dbpTermProject2022
 
         #endregion
 
+        private void frmFruits_Regions_Activated(object sender, EventArgs e)
+        {
+
+            try
+            {
+                LoadFruitsCmb();
+                LoadRegionsCmb();
+                LoadFruits_Regions();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
     }
 }

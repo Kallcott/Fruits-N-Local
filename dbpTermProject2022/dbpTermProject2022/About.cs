@@ -33,6 +33,8 @@ namespace dbpTermProject2022
                     pcbFruits.Visible = pcbFruits_Regions.Visible = pcbRegions.Visible = false;
                 }
 
+                LoadLabels();
+
             }
             catch (Exception ex)
             {
@@ -40,6 +42,13 @@ namespace dbpTermProject2022
             }
         }
 
+        private void LoadLabels()
+        {
+            lblNumFruit.Text = DataAccess.GetValue("SELECT Count(*) FROM Fruits").ToString();
+            lblNumRegions.Text = DataAccess.GetValue("SELECT Count(*) FROM Regions").ToString();
+            lblNumOrigins.Text = DataAccess.GetValue("SELECT Count(*) FROM Fruits_Regions").ToString();
+            lblNumProducer.Text = DataAccess.GetValue("SELECT COUNT(DISTINCT RegionsId) FROM Fruits").ToString();
+        }
 
         private void ShowNewForm(object sender, EventArgs e)
         {
@@ -104,6 +113,20 @@ namespace dbpTermProject2022
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 childForm.MdiParent = parent;
                 childForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void frmAbout_Activated(object sender, EventArgs e)
+        {
+
+            try
+            {
+                LoadLabels();
             }
             catch (Exception ex)
             {

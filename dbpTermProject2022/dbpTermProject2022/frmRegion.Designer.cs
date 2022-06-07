@@ -31,6 +31,7 @@ namespace dbpTermProject2022
         {
             this.components = new System.ComponentModel.Container();
             this.grpEditRegions = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.chkProducer = new System.Windows.Forms.CheckBox();
             this.dgvFruits_Regions = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
@@ -43,9 +44,7 @@ namespace dbpTermProject2022
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.txtRegionsName = new System.Windows.Forms.TextBox();
-            this.txtRegionsId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.errProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.grpEditRegions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFruits_Regions)).BeginInit();
@@ -54,6 +53,7 @@ namespace dbpTermProject2022
             // 
             // grpEditRegions
             // 
+            this.grpEditRegions.Controls.Add(this.label1);
             this.grpEditRegions.Controls.Add(this.chkProducer);
             this.grpEditRegions.Controls.Add(this.dgvFruits_Regions);
             this.grpEditRegions.Controls.Add(this.label4);
@@ -66,25 +66,32 @@ namespace dbpTermProject2022
             this.grpEditRegions.Controls.Add(this.btnPrevious);
             this.grpEditRegions.Controls.Add(this.btnNext);
             this.grpEditRegions.Controls.Add(this.txtRegionsName);
-            this.grpEditRegions.Controls.Add(this.txtRegionsId);
             this.grpEditRegions.Controls.Add(this.label3);
-            this.grpEditRegions.Controls.Add(this.label1);
             this.grpEditRegions.Location = new System.Drawing.Point(64, 12);
             this.grpEditRegions.Name = "grpEditRegions";
-            this.grpEditRegions.Size = new System.Drawing.Size(389, 368);
+            this.grpEditRegions.Size = new System.Drawing.Size(389, 318);
             this.grpEditRegions.TabIndex = 0;
             this.grpEditRegions.TabStop = false;
             this.grpEditRegions.Text = "Edit Regions";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 60);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(151, 18);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Is a Primary Producer:";
             // 
             // chkProducer
             // 
             this.chkProducer.AutoCheck = false;
             this.chkProducer.AutoSize = true;
-            this.chkProducer.Location = new System.Drawing.Point(100, 125);
+            this.chkProducer.Enabled = false;
+            this.chkProducer.Location = new System.Drawing.Point(163, 64);
             this.chkProducer.Name = "chkProducer";
-            this.chkProducer.Size = new System.Drawing.Size(166, 22);
+            this.chkProducer.Size = new System.Drawing.Size(15, 14);
             this.chkProducer.TabIndex = 39;
-            this.chkProducer.Text = "Is a Primary Producer";
             this.chkProducer.UseVisualStyleBackColor = true;
             // 
             // dgvFruits_Regions
@@ -93,12 +100,11 @@ namespace dbpTermProject2022
             this.dgvFruits_Regions.AllowUserToDeleteRows = false;
             this.dgvFruits_Regions.AllowUserToResizeColumns = false;
             this.dgvFruits_Regions.AllowUserToResizeRows = false;
-            this.dgvFruits_Regions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvFruits_Regions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvFruits_Regions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFruits_Regions.ColumnHeadersVisible = false;
-            this.dgvFruits_Regions.Location = new System.Drawing.Point(9, 181);
+            this.dgvFruits_Regions.Location = new System.Drawing.Point(9, 122);
             this.dgvFruits_Regions.MultiSelect = false;
             this.dgvFruits_Regions.Name = "dgvFruits_Regions";
             this.dgvFruits_Regions.ReadOnly = true;
@@ -109,16 +115,16 @@ namespace dbpTermProject2022
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 151);
+            this.label4.Location = new System.Drawing.Point(6, 92);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 18);
+            this.label4.Size = new System.Drawing.Size(89, 18);
             this.label4.TabIndex = 36;
-            this.label4.Text = "Fruit Origns";
+            this.label4.Text = "Fruit Origins";
             // 
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(281, 314);
+            this.btnCancel.Location = new System.Drawing.Point(281, 255);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(81, 47);
             this.btnCancel.TabIndex = 34;
@@ -128,7 +134,7 @@ namespace dbpTermProject2022
             // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(281, 265);
+            this.btnLast.Location = new System.Drawing.Point(281, 206);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(81, 43);
             this.btnLast.TabIndex = 30;
@@ -139,7 +145,7 @@ namespace dbpTermProject2022
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(20, 314);
+            this.btnAdd.Location = new System.Drawing.Point(20, 255);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(81, 47);
             this.btnAdd.TabIndex = 31;
@@ -150,7 +156,7 @@ namespace dbpTermProject2022
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(107, 314);
+            this.btnDelete.Location = new System.Drawing.Point(107, 255);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(81, 47);
             this.btnDelete.TabIndex = 32;
@@ -160,7 +166,7 @@ namespace dbpTermProject2022
             // 
             // btnFirst
             // 
-            this.btnFirst.Location = new System.Drawing.Point(20, 265);
+            this.btnFirst.Location = new System.Drawing.Point(20, 206);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(81, 43);
             this.btnFirst.TabIndex = 29;
@@ -171,7 +177,7 @@ namespace dbpTermProject2022
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(194, 314);
+            this.btnSave.Location = new System.Drawing.Point(194, 255);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(81, 47);
             this.btnSave.TabIndex = 33;
@@ -181,7 +187,7 @@ namespace dbpTermProject2022
             // 
             // btnPrevious
             // 
-            this.btnPrevious.Location = new System.Drawing.Point(107, 265);
+            this.btnPrevious.Location = new System.Drawing.Point(107, 206);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(81, 43);
             this.btnPrevious.TabIndex = 28;
@@ -191,7 +197,7 @@ namespace dbpTermProject2022
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(194, 265);
+            this.btnNext.Location = new System.Drawing.Point(194, 206);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(81, 43);
             this.btnNext.TabIndex = 27;
@@ -201,38 +207,21 @@ namespace dbpTermProject2022
             // 
             // txtRegionsName
             // 
-            this.txtRegionsName.Location = new System.Drawing.Point(108, 81);
+            this.txtRegionsName.Location = new System.Drawing.Point(108, 22);
             this.txtRegionsName.Name = "txtRegionsName";
-            this.txtRegionsName.Size = new System.Drawing.Size(121, 25);
+            this.txtRegionsName.Size = new System.Drawing.Size(200, 25);
             this.txtRegionsName.TabIndex = 4;
             this.txtRegionsName.Tag = "Region name";
             this.txtRegionsName.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
             // 
-            // txtRegionsId
-            // 
-            this.txtRegionsId.Enabled = false;
-            this.txtRegionsId.Location = new System.Drawing.Point(108, 35);
-            this.txtRegionsId.Name = "txtRegionsId";
-            this.txtRegionsId.Size = new System.Drawing.Size(121, 25);
-            this.txtRegionsId.TabIndex = 1;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 84);
+            this.label3.Location = new System.Drawing.Point(6, 25);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 18);
             this.label3.TabIndex = 2;
             this.label3.Text = "Region Name:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Region Id:";
             // 
             // errProvider
             // 
@@ -247,7 +236,8 @@ namespace dbpTermProject2022
             this.Controls.Add(this.grpEditRegions);
             this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmRegions";
-            this.Text = "Edit Fruits";
+            this.Text = "Edit Regions";
+            this.Activated += new System.EventHandler(this.frmRegions_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmRegions_FormClosing);
             this.Load += new System.EventHandler(this.frmRegions_Load);
             this.grpEditRegions.ResumeLayout(false);
@@ -261,9 +251,7 @@ namespace dbpTermProject2022
         #endregion
 
         private System.Windows.Forms.GroupBox grpEditRegions;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtRegionsId;
         private System.Windows.Forms.TextBox txtRegionsName;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnLast;
@@ -277,5 +265,6 @@ namespace dbpTermProject2022
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView dgvFruits_Regions;
         private System.Windows.Forms.CheckBox chkProducer;
+        private System.Windows.Forms.Label label1;
     }
 }
