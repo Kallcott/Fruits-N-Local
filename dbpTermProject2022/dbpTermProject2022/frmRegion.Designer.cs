@@ -123,6 +123,7 @@ namespace dbpTermProject2022
             // 
             // btnCancel
             // 
+            this.btnCancel.CausesValidation = false;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Location = new System.Drawing.Point(281, 255);
             this.btnCancel.Name = "btnCancel";

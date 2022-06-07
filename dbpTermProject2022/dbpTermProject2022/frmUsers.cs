@@ -41,6 +41,7 @@ namespace dbpTermProject2022
 
                 txtNewUser.Visible = false;
                 txtNewUser.Enabled = false;
+                txtNonAdminUser.Visible = false;
 
                 DisableNonAdminFeatures();
 
@@ -61,19 +62,29 @@ namespace dbpTermProject2022
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 if (!parent.IsAdmin)
                 {
-                    btnAdd.Enabled = false;
-                    btnFirst.Enabled = false;
-                    btnNext.Enabled = false;
-                    btnPrevious.Enabled = false;
-                    btnLast.Enabled = false;
-                    btnDelete.Enabled = false;
-
-                    cmbUsers.Enabled = false;
-                    grpUser.Text = "Change Password";
-
+                    btnAdd.Enabled = btnAdd.Visible = false;
+                    btnFirst.Enabled = btnFirst.Visible = false;
+                    btnNext.Enabled = btnNext.Visible = false;
+                    btnPrevious.Enabled = btnPrevious.Visible = false;
+                    btnLast.Enabled = btnLast.Visible = false;
+                    btnDelete.Enabled = btnDelete.Visible = false;
+                    cmbUsers.Enabled = cmbUsers.Visible = false;
 
                     cmbUsers.SelectedValue = parent.CurrentUser;
                     cmbUsers_SelectedValueChanged(parent, EventArgs.Empty);
+
+                    txtNonAdminUser.Visible = true;
+                    txtNonAdminUser.Text = DataAccess.GetValue($"SELECT UserName FROM Users WHERE UserID = '{parent.CurrentUser}'").ToString();
+
+                    // resizing the controls
+                    btnSave.Location = new Point(grpPasswords.Location.X+20, grpPasswords.Location.Y+100);
+                    btnCancel.Location = new Point(grpPasswords.Location.X +110, grpPasswords.Location.Y+100);
+                    grpUser.Size = new Size(grpUser.Width, grpUser.Height - 70);
+                    
+
+                    grpUser.Text = "Change Password";
+
+
                 }
             }
             catch (Exception ex)
@@ -246,6 +257,9 @@ namespace dbpTermProject2022
 
             try
             {
+                errProvider.Clear();
+                txtConfirmPass.Text = "";
+
                 LoadUsers();
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 if (!parent.IsAdmin)
@@ -258,6 +272,7 @@ namespace dbpTermProject2022
                 btnDelete.Enabled = true;
 
                 txtNewUser.Text = "";
+
                 NavigationState(true);
                 if (cmbUsers.Enabled == false)
                 {
@@ -551,38 +566,6 @@ namespace dbpTermProject2022
 
         #region [Validation Events and Methods]
 
-        /// <summary>
-        /// ComboBox Validating Event Handler
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cmb_Validating(object sender, CancelEventArgs e)
-        {
-
-            try
-            {
-                ComboBox cmb = (ComboBox)sender;
-                string cmbName = cmb.Tag.ToString();
-
-                string errMsg = null;
-                //bool failedValidation = false;
-
-                if (cmb.SelectedIndex == -1 || String.IsNullOrEmpty(cmb.SelectedValue.ToString()))
-                {
-                    errMsg = $"{cmbName} is required";
-                    //failedValidation = true;
-                }
-
-                //e.Cancel = failedValidation;
-                errProvider.SetError(cmb, errMsg);
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-        }
 
         /// <summary>
         /// TextBox Validating event handler
@@ -603,6 +586,13 @@ namespace dbpTermProject2022
                 {
                     errMsg = $"{txtBoxName} is required";
                     failedValidation = true;
+                    MessageBox.Show(errMsg);
+                }
+                else if (txt.Text.Length > 22)
+                {
+                    errMsg = $"{txtBoxName} must be less than 22 characters";
+                    failedValidation = true;
+                    MessageBox.Show(errMsg);
                 }
 
                 e.Cancel = failedValidation;
@@ -621,25 +611,26 @@ namespace dbpTermProject2022
 
             try
             {
-                TextBox txt = (TextBox)sender;
-                string txtBoxName = txt.Tag.ToString();
+                GroupBox grp = (GroupBox)sender;
+                string grpName = grp.Tag.ToString();
                 string errMsg = null;
                 bool failedValidation = false;
 
-                if (txt.Text == string.Empty)
+                List<TextBox> lstTextbox = new List<TextBox>() { };
+                foreach (TextBox t in grp.Controls.OfType<TextBox>())
                 {
-                    errMsg = $"{txtBoxName} is required";
-                    failedValidation = true;
+                    lstTextbox.Add(t);
                 }
-                else if (txtPassword.Text != txtConfirmPass.Text && txtPassword.Text != null)
+             
+                if (lstTextbox[0].Text != lstTextbox[1].Text)
                 {
-                    errMsg = $"{txtBoxName} must match password";
+                    errMsg = $"{grpName} must match";
                     failedValidation = true;
                 }
 
                 e.Cancel = failedValidation;
 
-                errProvider.SetError(txt, errMsg);
+                errProvider.SetError(grp, errMsg);
             }
             catch (Exception ex)
             {
@@ -647,16 +638,6 @@ namespace dbpTermProject2022
             }
 
 
-        }
-
-        /// <summary>
-        /// Numeric validation 
-        /// </summary>
-        /// <param name="value">The value to validate</param>
-        /// <returns>The result of the validation</returns>
-        private bool IsNumeric(string value)
-        {
-            return Double.TryParse(value, out double a);
         }
 
         #endregion

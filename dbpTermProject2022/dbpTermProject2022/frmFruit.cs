@@ -144,6 +144,7 @@ namespace dbpTermProject2022
                     cmbLargestProducer.SelectedValue = selectedFruit["RegionsId"];
                     txtFruitsName.Text = selectedFruit["FruitsName"].ToString();
 
+                    // Bind Seaons to Checkbox group
                     List<Seasons> seasons = SeasonsHelpers.Parse(selectedFruit["Season"].ToString());
                     foreach (CheckBox r in grpSeason.Controls.OfType<CheckBox>())
                     {
@@ -581,6 +582,7 @@ namespace dbpTermProject2022
                 {
                     errMsg = $"{cmbName} is required";
                     failedValidation = true;
+                    MessageBox.Show(errMsg);
                 }
 
                 e.Cancel = failedValidation;
@@ -613,6 +615,14 @@ namespace dbpTermProject2022
                 {
                     errMsg = $"{txtBoxName} is required";
                     failedValidation = true;
+
+                    MessageBox.Show(errMsg);
+                }
+                else if (txt.Text.Length > 22)
+                {
+                    errMsg = $"{txtBoxName} must be less than 22 characters";
+                    failedValidation = true;
+                    MessageBox.Show(errMsg);
                 }
 
 
@@ -783,6 +793,19 @@ namespace dbpTermProject2022
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void CheckChanged(object sender, EventArgs e)
+        {
+            if (sender is TextBox)
+            {
+                string originaltext = ((TextBox)sender).Text;
+            }
+            if (sender is ComboBox)
+            {
+                //int index = ((ComboBox)sender).Text;
             }
 
         }

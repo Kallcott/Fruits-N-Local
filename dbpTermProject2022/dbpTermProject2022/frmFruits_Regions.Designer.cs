@@ -170,7 +170,7 @@ namespace dbpTermProject2022
             this.cmbFruits.FormattingEnabled = true;
             this.cmbFruits.Location = new System.Drawing.Point(125, 24);
             this.cmbFruits.Name = "cmbFruits";
-            this.cmbFruits.Size = new System.Drawing.Size(121, 26);
+            this.cmbFruits.Size = new System.Drawing.Size(200, 26);
             this.cmbFruits.TabIndex = 2;
             this.cmbFruits.Tag = "Fruit name";
             this.cmbFruits.Validating += new System.ComponentModel.CancelEventHandler(this.cmb_Validating);
@@ -202,6 +202,7 @@ namespace dbpTermProject2022
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(538, 276);
             this.Controls.Add(this.grpRegisterFruits);
             this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

@@ -165,6 +165,7 @@ namespace dbpTermProject2022
             // 
             // btnCancel
             // 
+            this.btnCancel.CausesValidation = false;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Location = new System.Drawing.Point(281, 312);
             this.btnCancel.Name = "btnCancel";
@@ -262,9 +263,10 @@ namespace dbpTermProject2022
             // 
             this.txtFruitsName.Location = new System.Drawing.Point(131, 22);
             this.txtFruitsName.Name = "txtFruitsName";
-            this.txtFruitsName.Size = new System.Drawing.Size(144, 25);
+            this.txtFruitsName.Size = new System.Drawing.Size(200, 25);
             this.txtFruitsName.TabIndex = 4;
             this.txtFruitsName.Tag = "Fruit name";
+            this.txtFruitsName.Enter += new System.EventHandler(this.CheckChanged);
             this.txtFruitsName.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
             // 
             // label3

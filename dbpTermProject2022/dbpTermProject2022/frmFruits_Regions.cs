@@ -467,6 +467,7 @@ namespace dbpTermProject2022
                 {
                     errMsg = $"{cmbName} is required";
                     failedValidation = true;
+                    MessageBox.Show(errMsg);
                 }
 
                 e.Cancel = failedValidation;
@@ -499,6 +500,13 @@ namespace dbpTermProject2022
                 {
                     errMsg = $"{txtBoxName} is required";
                     failedValidation = true;
+                    MessageBox.Show(errMsg);
+                }
+                else if (txt.Text.Length > 22)
+                {
+                    errMsg = $"{txtBoxName} must be less than 22 characters";
+                    failedValidation = true;
+                    MessageBox.Show(errMsg);
                 }
 
                 e.Cancel = failedValidation;

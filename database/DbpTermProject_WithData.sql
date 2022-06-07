@@ -48,7 +48,7 @@ GO
 CREATE TABLE [dbo].[Fruits](
 	[FruitsId] [int] IDENTITY(1,1) NOT NULL,
 	[RegionsId] [int] NOT NULL,
-	[FruitsName] [nvarchar](100) NOT NULL,
+	[FruitsName] [nvarchar](21) NOT NULL,
 	[Season] [nvarchar](21) NOT NULL,
  CONSTRAINT [PK_Fruits] PRIMARY KEY CLUSTERED 
  -- Clustered ensures the primaray keys will be sorterd ASC
@@ -63,7 +63,7 @@ GO
 
 CREATE TABLE [dbo].[Regions](
 	[RegionsId] [int] IDENTITY(1,1) NOT NULL,
-	[RegionsName] [nvarchar](100) NOT NULL,
+	[RegionsName] [nvarchar](21) NOT NULL,
  CONSTRAINT [PK_RegionsId] PRIMARY KEY CLUSTERED 
 (
 	[RegionsId] ASC
@@ -115,8 +115,8 @@ GO
 
 CREATE TABLE [dbo].[Users](
 	[UserId] [int] IDENTITY(1,1) NOT NULL,
-	[Username] [nvarchar](100) NOT NULL,
-	[Password] [nvarchar](100) NOT NULL,
+	[Username] [nvarchar](21) NOT NULL,
+	[Password] [nvarchar](21) NOT NULL,
 	[isAdmin] [BIT] NOT NULL,
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
 
@@ -266,7 +266,7 @@ INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (20, N'Barbados')
 GO
 INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (21, N'Middle East')
 GO
-INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (22, N'Central South America')
+INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (22, N'South Central America')
 GO
 INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (23, N'Southeast Asia')
 GO

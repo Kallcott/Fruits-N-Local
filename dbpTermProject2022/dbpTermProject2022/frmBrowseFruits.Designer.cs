@@ -126,7 +126,7 @@ namespace dbpTermProject2022
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(30, 32);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(245, 65);
+            this.groupBox1.Size = new System.Drawing.Size(305, 65);
             this.groupBox1.TabIndex = 40;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Choose Fruit";
@@ -137,7 +137,7 @@ namespace dbpTermProject2022
             this.cmbFruits.FormattingEnabled = true;
             this.cmbFruits.Location = new System.Drawing.Point(92, 27);
             this.cmbFruits.Name = "cmbFruits";
-            this.cmbFruits.Size = new System.Drawing.Size(121, 26);
+            this.cmbFruits.Size = new System.Drawing.Size(200, 26);
             this.cmbFruits.TabIndex = 38;
             this.cmbFruits.Tag = "Username";
             this.cmbFruits.SelectionChangeCommitted += new System.EventHandler(this.LoadFruits);

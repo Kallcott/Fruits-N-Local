@@ -31,8 +31,12 @@ namespace dbpTermProject2022
         {
             this.components = new System.ComponentModel.Container();
             this.grpUser = new System.Windows.Forms.GroupBox();
-            this.txtConfirmPass = new System.Windows.Forms.TextBox();
+            this.grpPasswords = new System.Windows.Forms.GroupBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtConfirmPass = new System.Windows.Forms.TextBox();
+            this.txtNonAdminUser = new System.Windows.Forms.Label();
             this.txtNewUser = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnLast = new System.Windows.Forms.Button();
@@ -43,18 +47,17 @@ namespace dbpTermProject2022
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.cmbUsers = new System.Windows.Forms.ComboBox();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.errProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.grpUser.SuspendLayout();
+            this.grpPasswords.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // grpUser
             // 
-            this.grpUser.Controls.Add(this.txtConfirmPass);
-            this.grpUser.Controls.Add(this.label4);
+            this.grpUser.Controls.Add(this.grpPasswords);
+            this.grpUser.Controls.Add(this.txtNonAdminUser);
             this.grpUser.Controls.Add(this.txtNewUser);
             this.grpUser.Controls.Add(this.btnCancel);
             this.grpUser.Controls.Add(this.btnLast);
@@ -65,40 +68,79 @@ namespace dbpTermProject2022
             this.grpUser.Controls.Add(this.btnPrevious);
             this.grpUser.Controls.Add(this.btnNext);
             this.grpUser.Controls.Add(this.cmbUsers);
-            this.grpUser.Controls.Add(this.txtPassword);
-            this.grpUser.Controls.Add(this.label3);
             this.grpUser.Controls.Add(this.label2);
-            this.grpUser.Location = new System.Drawing.Point(53, 43);
+            this.grpUser.Location = new System.Drawing.Point(58, 12);
             this.grpUser.Name = "grpUser";
-            this.grpUser.Size = new System.Drawing.Size(384, 282);
+            this.grpUser.Size = new System.Drawing.Size(384, 294);
             this.grpUser.TabIndex = 0;
             this.grpUser.TabStop = false;
             this.grpUser.Text = "Register User";
             // 
-            // txtConfirmPass
+            // grpPasswords
             // 
-            this.txtConfirmPass.Location = new System.Drawing.Point(85, 115);
-            this.txtConfirmPass.Name = "txtConfirmPass";
-            this.txtConfirmPass.Size = new System.Drawing.Size(121, 25);
-            this.txtConfirmPass.TabIndex = 36;
-            this.txtConfirmPass.Tag = "Password";
-            this.txtConfirmPass.UseSystemPasswordChar = true;
-            this.txtConfirmPass.Validating += new System.ComponentModel.CancelEventHandler(this.ConfirmPass_Validating);
+            this.grpPasswords.Controls.Add(this.txtPassword);
+            this.grpPasswords.Controls.Add(this.label3);
+            this.grpPasswords.Controls.Add(this.label4);
+            this.grpPasswords.Controls.Add(this.txtConfirmPass);
+            this.grpPasswords.Location = new System.Drawing.Point(36, 58);
+            this.grpPasswords.Name = "grpPasswords";
+            this.grpPasswords.Size = new System.Drawing.Size(298, 91);
+            this.grpPasswords.TabIndex = 37;
+            this.grpPasswords.TabStop = false;
+            this.grpPasswords.Tag = "Passwords";
+            this.grpPasswords.Validating += new System.ComponentModel.CancelEventHandler(this.ConfirmPass_Validating);
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(87, 19);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(200, 25);
+            this.txtPassword.TabIndex = 4;
+            this.txtPassword.Tag = "Password";
+            this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 18);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 18);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Password";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 110);
+            this.label4.Location = new System.Drawing.Point(6, 41);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 36);
             this.label4.TabIndex = 35;
             this.label4.Text = "Confirm \r\nPassword";
             // 
+            // txtConfirmPass
+            // 
+            this.txtConfirmPass.Location = new System.Drawing.Point(87, 52);
+            this.txtConfirmPass.Name = "txtConfirmPass";
+            this.txtConfirmPass.Size = new System.Drawing.Size(200, 25);
+            this.txtConfirmPass.TabIndex = 36;
+            this.txtConfirmPass.Tag = "Password";
+            this.txtConfirmPass.UseSystemPasswordChar = true;
+            // 
+            // txtNonAdminUser
+            // 
+            this.txtNonAdminUser.AutoSize = true;
+            this.txtNonAdminUser.Location = new System.Drawing.Point(140, 37);
+            this.txtNonAdminUser.Name = "txtNonAdminUser";
+            this.txtNonAdminUser.Size = new System.Drawing.Size(48, 18);
+            this.txtNonAdminUser.TabIndex = 1;
+            this.txtNonAdminUser.Text = "label1";
+            // 
             // txtNewUser
             // 
-            this.txtNewUser.Location = new System.Drawing.Point(85, 26);
+            this.txtNewUser.Location = new System.Drawing.Point(121, 34);
             this.txtNewUser.Name = "txtNewUser";
-            this.txtNewUser.Size = new System.Drawing.Size(121, 25);
+            this.txtNewUser.Size = new System.Drawing.Size(200, 25);
             this.txtNewUser.TabIndex = 2;
             this.txtNewUser.Tag = "Username";
             this.txtNewUser.Text = " ";
@@ -106,8 +148,9 @@ namespace dbpTermProject2022
             // 
             // btnCancel
             // 
+            this.btnCancel.CausesValidation = false;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(281, 215);
+            this.btnCancel.Location = new System.Drawing.Point(281, 223);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(81, 47);
             this.btnCancel.TabIndex = 34;
@@ -117,7 +160,7 @@ namespace dbpTermProject2022
             // 
             // btnLast
             // 
-            this.btnLast.Location = new System.Drawing.Point(281, 166);
+            this.btnLast.Location = new System.Drawing.Point(281, 174);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(81, 43);
             this.btnLast.TabIndex = 30;
@@ -128,7 +171,7 @@ namespace dbpTermProject2022
             // btnAdd
             // 
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(20, 215);
+            this.btnAdd.Location = new System.Drawing.Point(20, 223);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(81, 47);
             this.btnAdd.TabIndex = 31;
@@ -139,7 +182,7 @@ namespace dbpTermProject2022
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(107, 215);
+            this.btnDelete.Location = new System.Drawing.Point(107, 223);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(81, 47);
             this.btnDelete.TabIndex = 32;
@@ -150,7 +193,7 @@ namespace dbpTermProject2022
             // 
             // btnFirst
             // 
-            this.btnFirst.Location = new System.Drawing.Point(20, 166);
+            this.btnFirst.Location = new System.Drawing.Point(20, 174);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(81, 43);
             this.btnFirst.TabIndex = 29;
@@ -161,7 +204,7 @@ namespace dbpTermProject2022
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(194, 215);
+            this.btnSave.Location = new System.Drawing.Point(194, 223);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(81, 47);
             this.btnSave.TabIndex = 33;
@@ -171,7 +214,7 @@ namespace dbpTermProject2022
             // 
             // btnPrevious
             // 
-            this.btnPrevious.Location = new System.Drawing.Point(107, 166);
+            this.btnPrevious.Location = new System.Drawing.Point(107, 174);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(81, 43);
             this.btnPrevious.TabIndex = 28;
@@ -181,7 +224,7 @@ namespace dbpTermProject2022
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(194, 166);
+            this.btnNext.Location = new System.Drawing.Point(194, 174);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(81, 43);
             this.btnNext.TabIndex = 27;
@@ -193,36 +236,17 @@ namespace dbpTermProject2022
             // 
             this.cmbUsers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbUsers.FormattingEnabled = true;
-            this.cmbUsers.Location = new System.Drawing.Point(85, 26);
+            this.cmbUsers.Location = new System.Drawing.Point(121, 34);
             this.cmbUsers.Name = "cmbUsers";
-            this.cmbUsers.Size = new System.Drawing.Size(121, 26);
+            this.cmbUsers.Size = new System.Drawing.Size(200, 26);
             this.cmbUsers.TabIndex = 2;
             this.cmbUsers.Tag = "Username";
             this.cmbUsers.SelectionChangeCommitted += new System.EventHandler(this.cmbUsers_SelectedValueChanged);
             // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(85, 71);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(121, 25);
-            this.txtPassword.TabIndex = 4;
-            this.txtPassword.Tag = "Password";
-            this.txtPassword.UseSystemPasswordChar = true;
-            this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 74);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 18);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Password";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 29);
+            this.label2.Location = new System.Drawing.Point(42, 37);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 18);
             this.label2.TabIndex = 1;
@@ -238,7 +262,7 @@ namespace dbpTermProject2022
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(496, 363);
+            this.ClientSize = new System.Drawing.Size(496, 318);
             this.Controls.Add(this.grpUser);
             this.Font = new System.Drawing.Font("Lato", 11F);
             this.Name = "frmUsers";
@@ -248,6 +272,8 @@ namespace dbpTermProject2022
             this.Load += new System.EventHandler(this.frmUsers_Load);
             this.grpUser.ResumeLayout(false);
             this.grpUser.PerformLayout();
+            this.grpPasswords.ResumeLayout(false);
+            this.grpPasswords.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).EndInit();
             this.ResumeLayout(false);
 
@@ -272,5 +298,7 @@ namespace dbpTermProject2022
         private System.Windows.Forms.ComboBox cmbUsers;
         private System.Windows.Forms.TextBox txtConfirmPass;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label txtNonAdminUser;
+        private System.Windows.Forms.GroupBox grpPasswords;
     }
 }
