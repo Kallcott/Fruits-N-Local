@@ -30,8 +30,6 @@ namespace dbpTermProject2022
         private void InitializeComponent()
         {
             this.grpBrowseFruit = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbFruits = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,19 +37,20 @@ namespace dbpTermProject2022
             this.dgvFruits_Regions = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.grpSeason = new System.Windows.Forms.GroupBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.grpBrowseFruit.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFruits_Regions)).BeginInit();
+            this.grpSeason.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpBrowseFruit
             // 
-            this.grpBrowseFruit.Controls.Add(this.label1);
-            this.grpBrowseFruit.Controls.Add(this.comboBox3);
-            this.grpBrowseFruit.Controls.Add(this.comboBox2);
-            this.grpBrowseFruit.Controls.Add(this.comboBox1);
+            this.grpBrowseFruit.Controls.Add(this.grpSeason);
             this.grpBrowseFruit.Controls.Add(this.groupBox1);
             this.grpBrowseFruit.Controls.Add(this.lblProducer);
             this.grpBrowseFruit.Controls.Add(this.dgvFruits_Regions);
@@ -59,29 +58,10 @@ namespace dbpTermProject2022
             this.grpBrowseFruit.Controls.Add(this.label2);
             this.grpBrowseFruit.Location = new System.Drawing.Point(12, 12);
             this.grpBrowseFruit.Name = "grpBrowseFruit";
-            this.grpBrowseFruit.Size = new System.Drawing.Size(400, 373);
+            this.grpBrowseFruit.Size = new System.Drawing.Size(400, 324);
             this.grpBrowseFruit.TabIndex = 0;
             this.grpBrowseFruit.TabStop = false;
             this.grpBrowseFruit.Text = "Browse Fruit";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 168);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 18);
-            this.label1.TabIndex = 44;
-            this.label1.Text = "Largest Producer:";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(223, 189);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(95, 26);
-            this.comboBox2.TabIndex = 42;
-            this.comboBox2.Tag = "Username";
             // 
             // groupBox1
             // 
@@ -117,7 +97,7 @@ namespace dbpTermProject2022
             // lblProducer
             // 
             this.lblProducer.AutoSize = true;
-            this.lblProducer.Location = new System.Drawing.Point(150, 127);
+            this.lblProducer.Location = new System.Drawing.Point(150, 110);
             this.lblProducer.Name = "lblProducer";
             this.lblProducer.Size = new System.Drawing.Size(83, 18);
             this.lblProducer.TabIndex = 39;
@@ -133,7 +113,7 @@ namespace dbpTermProject2022
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvFruits_Regions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFruits_Regions.ColumnHeadersVisible = false;
-            this.dgvFruits_Regions.Location = new System.Drawing.Point(13, 290);
+            this.dgvFruits_Regions.Location = new System.Drawing.Point(13, 231);
             this.dgvFruits_Regions.MultiSelect = false;
             this.dgvFruits_Regions.Name = "dgvFruits_Regions";
             this.dgvFruits_Regions.ReadOnly = true;
@@ -144,7 +124,7 @@ namespace dbpTermProject2022
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 269);
+            this.label4.Location = new System.Drawing.Point(10, 210);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 18);
             this.label4.TabIndex = 36;
@@ -153,37 +133,74 @@ namespace dbpTermProject2022
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 127);
+            this.label2.Location = new System.Drawing.Point(10, 110);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(123, 18);
             this.label2.TabIndex = 1;
             this.label2.Text = "Largest Producer:";
             // 
-            // comboBox3
+            // grpSeason
             // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(122, 189);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(95, 26);
-            this.comboBox3.TabIndex = 43;
-            this.comboBox3.Tag = "Username";
+            this.grpSeason.Controls.Add(this.checkBox4);
+            this.grpSeason.Controls.Add(this.checkBox3);
+            this.grpSeason.Controls.Add(this.checkBox2);
+            this.grpSeason.Controls.Add(this.checkBox1);
+            this.grpSeason.Location = new System.Drawing.Point(6, 141);
+            this.grpSeason.Name = "grpSeason";
+            this.grpSeason.Size = new System.Drawing.Size(348, 58);
+            this.grpSeason.TabIndex = 53;
+            this.grpSeason.TabStop = false;
+            this.grpSeason.Text = "Season";
             // 
-            // comboBox1
+            // checkBox4
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(21, 189);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(95, 26);
-            this.comboBox1.TabIndex = 41;
-            this.comboBox1.Tag = "Username";
+            this.checkBox4.AutoCheck = false;
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(251, 24);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(78, 22);
+            this.checkBox4.TabIndex = 55;
+            this.checkBox4.Text = "Autumn";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoCheck = false;
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(165, 24);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(80, 22);
+            this.checkBox3.TabIndex = 54;
+            this.checkBox3.Text = "Summer";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoCheck = false;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(91, 24);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(68, 22);
+            this.checkBox2.TabIndex = 53;
+            this.checkBox2.Text = "Spring";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoCheck = false;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 24);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(73, 22);
+            this.checkBox1.TabIndex = 52;
+            this.checkBox1.Text = "Winter";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // frmBrowseFruits
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(424, 436);
+            this.ClientSize = new System.Drawing.Size(424, 355);
             this.Controls.Add(this.grpBrowseFruit);
             this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmBrowseFruits";
@@ -194,6 +211,8 @@ namespace dbpTermProject2022
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFruits_Regions)).EndInit();
+            this.grpSeason.ResumeLayout(false);
+            this.grpSeason.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -208,9 +227,10 @@ namespace dbpTermProject2022
         private System.Windows.Forms.ComboBox cmbFruits;
         private System.Windows.Forms.Label lblProducer;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.GroupBox grpSeason;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

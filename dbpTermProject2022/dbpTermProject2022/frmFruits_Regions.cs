@@ -31,31 +31,66 @@ namespace dbpTermProject2022
 
         private void frmFruits_Regions_Load(object sender, EventArgs e)
         {
-            LoadFirstFruits_Regions();
 
-            LoadFruitsCmb();
-            LoadRegionsCmb();
+            try
+            {
+                LoadFruitsCmb();
+                LoadRegionsCmb();
+
+                LoadFirstFruits_Regions();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         private void LoadFruitsCmb()
         {
-            string sqlFruit = "SELECT FruitsID, Fruitsname FROM Fruits ORDER BY Fruitsname ASC";
-            UIUtilities.FillListControl(cmbFruits, "Fruitsname", "FruitsId", DataAccess.GetData(sqlFruit));
+
+            try
+            {
+                string sqlFruit = "SELECT FruitsID, Fruitsname FROM Fruits ORDER BY Fruitsname ASC";
+                UIUtilities.FillListControl(cmbFruits, "Fruitsname", "FruitsId", DataAccess.GetData(sqlFruit), true);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
-       private void LoadRegionsCmb()
+        private void LoadRegionsCmb()
         {
-            string sqlRegion = "SELECT RegionsID, Regionsname FROM Regions ORDER BY Regionsname ASC";
-            UIUtilities.FillListControl(cmbRegions, "Regionsname", "RegionsId", DataAccess.GetData(sqlRegion));
+
+            try
+            {
+                string sqlRegion = "SELECT RegionsID, Regionsname FROM Regions ORDER BY Regionsname ASC";
+                UIUtilities.FillListControl(cmbRegions, "Regionsname", "RegionsId", DataAccess.GetData(sqlRegion), true);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
 
         private void LoadFruits_Regions()
         {
-            //Clear any errors in the error provider
-            errProvider.Clear();
 
-            string[] sqlStatements = new string[]
+            try
             {
+
+                //Clear any errors in the error provider
+                errProvider.Clear();
+
+                string[] sqlStatements = new string[]
+                {
                 $"SELECT * FROM Fruits_Regions WHERE Fruits_RegionsId = {currentFruits_RegionsId}",
 
                 $@"
@@ -80,40 +115,46 @@ namespace dbpTermProject2022
                 WHERE q.Fruits_RegionsId = {currentFruits_RegionsId}
                 ORDER BY q.Fruits_RegionsId".Replace(System.Environment.NewLine," "), // This is for safety on the @ sign
                 "SELECT COUNT(Fruits_RegionsId) as Fruits_RegionsCount FROM Fruits_Regions"
-            };
+                };
 
-            DataSet ds = new DataSet();
-            ds = DataAccess.GetData(sqlStatements);
+                DataSet ds = new DataSet();
+                ds = DataAccess.GetData(sqlStatements);
 
 
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                DataRow selectedFruits_Regions = ds.Tables[0].Rows[0];
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow selectedFruits_Regions = ds.Tables[0].Rows[0];
 
-                txtFruitsRegionId.Text = selectedFruits_Regions["Fruits_RegionsId"].ToString();
-                cmbFruits.SelectedValue = selectedFruits_Regions["FruitsId"];
-                cmbRegions.SelectedValue = selectedFruits_Regions["RegionsId"];
+                    txtFruitsRegionId.Text = selectedFruits_Regions["Fruits_RegionsId"].ToString();
+                    cmbFruits.SelectedValue = selectedFruits_Regions["FruitsId"];
+                    cmbRegions.SelectedValue = selectedFruits_Regions["RegionsId"];
 
-                firstFruits_RegionsId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstFruits_RegionsId"]);
-                previousFruits_RegionsId = ds.Tables[1].Rows[0]["PreviousFruits_RegionsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousFruits_RegionsId"]) : (int?)null;
-                nextFruits_RegionsId = ds.Tables[1].Rows[0]["NextFruits_RegionsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["NextFruits_RegionsId"]) : (int?)null;
-                lastFruits_RegionsId = Convert.ToInt32(ds.Tables[1].Rows[0]["LastFruits_RegionsId"]);
-                currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
+                    firstFruits_RegionsId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstFruits_RegionsId"]);
+                    previousFruits_RegionsId = ds.Tables[1].Rows[0]["PreviousFruits_RegionsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousFruits_RegionsId"]) : (int?)null;
+                    nextFruits_RegionsId = ds.Tables[1].Rows[0]["NextFruits_RegionsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["NextFruits_RegionsId"]) : (int?)null;
+                    lastFruits_RegionsId = Convert.ToInt32(ds.Tables[1].Rows[0]["LastFruits_RegionsId"]);
+                    currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
 
-                totalFruits_RegionsCount = Convert.ToInt32(ds.Tables[2].Rows[0]["Fruits_RegionsCount"]);
+                    totalFruits_RegionsCount = Convert.ToInt32(ds.Tables[2].Rows[0]["Fruits_RegionsCount"]);
+                }
+                else
+                {
+                    MessageBox.Show($"The Fruits_Regions is no longer available: {currentFruits_RegionsId}");
+
+                    LoadFirstFruits_Regions();
+                }
+
+                //Which item we are on in the count
+
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.MDItoolStripStatusLabel1.Text = $"Displaying Fruits_Regions {currentRecord} of {totalFruits_RegionsCount}";
+                NextPreviousButtonManagement();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show($"The Fruits_Regions is no longer available: {currentFruits_RegionsId}");
-
-                LoadFirstFruits_Regions();
+                MessageBox.Show(ex.Message);
             }
 
-            //Which item we are on in the count
-
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = $"Displaying Fruits_Regions {currentRecord} of {totalFruits_RegionsCount}";
-            NextPreviousButtonManagement();
         }
 
 
@@ -126,21 +167,33 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = "Adding a new Fruits_Regions";
-            parent.MDItoolStripStatusLabel2.Text = "";
 
-            UIUtilities.ClearControls(grpRegisterFruits.Controls);
+            try
+            {
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.MDItoolStripStatusLabel1.Text = "Adding a new Fruits_Regions";
+                parent.MDItoolStripStatusLabel2.Text = "";
 
-            //btn save
-            // Disable navigation controlls when adding. 
-            NavigationState(false);
+                UIUtilities.ClearControls(grpRegisterFruits.Controls);
+                cmbFruits.SelectedIndex = 0;
+                cmbRegions.SelectedIndex = 0;
 
-            btnSave.Text = "Create";
-            btnAdd.Enabled = false;
-            btnDelete.Enabled = false;
+                //btn save
+                // Disable navigation controlls when adding. 
+                NavigationState(false);
+
+                btnSave.Text = "Create";
+                btnAdd.Enabled = false;
+                btnDelete.Enabled = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
- 
+
         /// <summary>
         /// Cancel any changes to an existin selected Fruits_Regions or the beginnings of the newly created Fruits_Regions
         /// We will reload the last active Fruits_Regions
@@ -149,13 +202,23 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            LoadFruits_Regions();
-            btnSave.Text = "&Save";
-            btnAdd.Enabled = true;
-            btnDelete.Enabled = true;
 
-            NavigationState(true);
-            NextPreviousButtonManagement();
+            try
+            {
+                LoadFruits_Regions();
+                btnSave.Text = "&Save";
+                btnAdd.Enabled = true;
+                btnDelete.Enabled = true;
+
+                NavigationState(true);
+                NextPreviousButtonManagement();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -165,61 +228,84 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //Step #1: Validate !
-            if (ValidateChildren(ValidationConstraints.Enabled))
+
+            try
             {
-                ProgressBar();
-
-
-                // Step #2 Create! 
-
-                if (txtFruitsRegionId.Text == string.Empty)
+                //Step #1: Validate !
+                if (ValidateChildren(ValidationConstraints.Enabled))
                 {
-                    CreateFruits_Regions();
+                    ProgressBar();
 
+
+                    // Step #2 Create! 
+
+                    if (txtFruitsRegionId.Text == string.Empty)
+                    {
+                        CreateFruits_Regions();
+
+                    }
+                    else
+                    {
+                        SaveFruits_Regions();
+                    }
                 }
                 else
                 {
-                    SaveFruits_Regions();
+                    MessageBox.Show("Please ensure data is valid.");
                 }
+
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please ensure data is valid.");
+                MessageBox.Show(ex.Message);
             }
 
         }
 
         private void SaveFruits_Regions()
         {
-            string sqlUpdateFruits_Regions = DataAccess.SQLCleaner($@"
+
+            try
+            {
+                string sqlUpdateFruits_Regions = DataAccess.SQLCleaner($@"
                 UPDATE Fruits_Regions 
                 SET 
                     FruitsId = '{cmbFruits.SelectedValue}',
                     RegionsId = '{cmbRegions.SelectedValue}'
                 WHERE Fruits_RegionsId = '{txtFruitsRegionId.Text.Trim()}'; 
-            ");
-            // Note the Quotes on string values of Fruits_RegionsName and QuantityPer Unit
+                ");
+                // Note the Quotes on string values of Fruits_RegionsName and QuantityPer Unit
 
-            int rowsAffected = DataAccess.SendData(sqlUpdateFruits_Regions);
+                int rowsAffected = DataAccess.SendData(sqlUpdateFruits_Regions);
 
-            if (rowsAffected == 1)
-            {
-                MessageBox.Show($"Fruits_Regions {txtFruitsRegionId.Text.Trim()} Updated.");
+                if (rowsAffected == 1)
+                {
+                    MessageBox.Show($"Fruits_Regions {txtFruitsRegionId.Text.Trim()} Updated.");
+                }
+                else
+                {
+                    MessageBox.Show("The Database reported no Rows Affected.");
+                }
+
+                LoadFruits_Regions();
+
+                return;
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("The Database reported no Rows Affected.");
+                MessageBox.Show(ex.Message);
             }
 
-            LoadFruits_Regions();
-
-            return;
         }
 
         private void CreateFruits_Regions()
         {
-            string sqlInsertFruits_Regions = DataAccess.SQLCleaner($@"
+
+            try
+            {
+                string sqlInsertFruits_Regions = DataAccess.SQLCleaner($@"
                         INSERT INTO Fruits_Regions
                         (
                             FruitsId, 
@@ -231,23 +317,30 @@ namespace dbpTermProject2022
                             '{cmbRegions.SelectedValue}'
                         ) ;
                        ");
-            int rowsAffected = DataAccess.SendData(sqlInsertFruits_Regions);
+                int rowsAffected = DataAccess.SendData(sqlInsertFruits_Regions);
 
-            if (rowsAffected == 1)
-            {
-                MessageBox.Show("Fruits_Regions Created!");
-                btnAdd.Enabled = true;
-                btnDelete.Enabled = true;
+                if (rowsAffected == 1)
+                {
+                    MessageBox.Show("Fruits_Regions Created!");
+                    btnAdd.Enabled = true;
+                    btnDelete.Enabled = true;
 
-                btnSave.Text = "Save";
-                NavigationState(true);
+                    btnSave.Text = "Save";
+                    NavigationState(true);
 
-                LoadFirstFruits_Regions();
+                    LoadFirstFruits_Regions();
+                }
+                else
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show(ex.Message);
             }
+
 
         }
 
@@ -258,19 +351,43 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            string sqlDeleteFruits_Regions = $"DELETE FROM Fruits_Regions WHERE Fruits_RegionsId = '{txtFruitsRegionId.Text}'";
 
-            int rowAffected = DataAccess.SendData(sqlDeleteFruits_Regions);
+            try
+            {
+                string sqlDeleteFruits_Regions = $"DELETE FROM Fruits_Regions WHERE Fruits_RegionsId = '{txtFruitsRegionId.Text}'";
 
-            if (rowAffected == 1)
-            {
-                MessageBox.Show($"Fruits_Regions {txtFruitsRegionId.Text} was deleted!");
-                LoadFirstFruits_Regions();
+                int rowAffected = DataAccess.SendData(sqlDeleteFruits_Regions);
+
+                if (rowAffected == 1)
+                {
+                    MessageBox.Show($"Fruits_Regions {txtFruitsRegionId.Text} was deleted!");
+                    LoadFirstFruits_Regions();
+                }
+                else
+                {
+                    MessageBox.Show("The Database reported no rows affected.");
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("The Database reported no rows affected.");
+                MessageBox.Show(ex.Message);
             }
+        }
+        private void cmbFruits_Regions_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+            try
+            {
+                currentFruits_RegionsId = (int)cmbFruits.SelectedValue;
+                LoadFruits_Regions();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         #endregion
@@ -357,20 +474,30 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void cmb_Validating(object sender, CancelEventArgs e)
         {
-            ComboBox cmb = (ComboBox)sender;
-            string cmbName = cmb.Tag.ToString();
 
-            string errMsg = null;
-            bool failedValidation = false;
-
-            if (cmb.SelectedIndex == -1 || String.IsNullOrEmpty(cmb.SelectedValue.ToString()))
+            try
             {
-                errMsg = $"{cmbName} is required";
-                failedValidation = true;
+                ComboBox cmb = (ComboBox)sender;
+                string cmbName = cmb.Tag.ToString();
+
+                string errMsg = null;
+                bool failedValidation = false;
+
+                if (cmb.SelectedIndex == -1 || String.IsNullOrEmpty(cmb.SelectedValue.ToString()))
+                {
+                    errMsg = $"{cmbName} is required";
+                    failedValidation = true;
+                }
+
+                e.Cancel = failedValidation;
+                errProvider.SetError(cmb, errMsg);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            //e.Cancel = failedValidation;
-            errProvider.SetError(cmb, errMsg);
         }
 
         /// <summary>
@@ -380,33 +507,43 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void txt_Validating(object sender, CancelEventArgs e)
         {
-            TextBox txt = (TextBox)sender;
-            string txtBoxName = txt.Tag.ToString();
-            string errMsg = null;
-            bool failedValidation = false;
 
-            if (txt.Text == string.Empty)
+            try
             {
-                errMsg = $"{txtBoxName} is required";
-                failedValidation = true;
+                TextBox txt = (TextBox)sender;
+                string txtBoxName = txt.Tag.ToString();
+                string errMsg = null;
+                bool failedValidation = false;
+
+                if (txt.Text == string.Empty)
+                {
+                    errMsg = $"{txtBoxName} is required";
+                    failedValidation = true;
+                }
+
+                //if (txt.Name == "txtUnitPrice"
+                //    || txt.Name == "txtStock"
+                //    || txt.Name == "txtOnOrder"
+                //    || txt.Name == "txtReorder"
+                //)
+                //{
+                //    if (!IsNumeric(txt.Text))
+                //    {
+                //        errMsg = $"{txtBoxName} is required";
+                //        failedValidation = true;
+                //    }
+                //}
+
+                e.Cancel = failedValidation;
+
+                errProvider.SetError(txt, errMsg);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            //if (txt.Name == "txtUnitPrice"
-            //    || txt.Name == "txtStock"
-            //    || txt.Name == "txtOnOrder"
-            //    || txt.Name == "txtReorder"
-            //)
-            //{
-            //    if (!IsNumeric(txt.Text))
-            //    {
-            //        errMsg = $"{txtBoxName} is required";
-            //        failedValidation = true;
-            //    }
-            //}
-
-            e.Cancel = failedValidation;
-
-            errProvider.SetError(txt, errMsg);
         }
 
         /// <summary>
@@ -429,49 +566,74 @@ namespace dbpTermProject2022
         /// </summary>
         private async void ProgressBar()
         {
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.prgBar.Visible = true;
 
-            parent.MDItoolStripStatusLabel3.Text = "Processing...";
-            parent.prgBar.Value = 0;
-            parent.MDIstatusStrip.Refresh();
-
-            while (parent.prgBar.Value < parent.prgBar.Maximum)
+            try
             {
-                Thread.Sleep(15);
-                parent.prgBar.Value += 1;
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.prgBar.Visible = true;
+
+                parent.MDItoolStripStatusLabel3.Text = "Processing...";
+                parent.prgBar.Value = 0;
+                parent.MDIstatusStrip.Refresh();
+
+                while (parent.prgBar.Value < parent.prgBar.Maximum)
+                {
+                    Thread.Sleep(15);
+                    parent.prgBar.Value += 1;
+                }
+
+                parent.prgBar.Value = 100;
+                parent.MDItoolStripStatusLabel3.Text = "Processed";
+
+                await clearProgressBar().ConfigureAwait(false);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            parent.prgBar.Value = 100;
-            parent.MDItoolStripStatusLabel3.Text = "Processed";
-
-            await clearProgressBar().ConfigureAwait(false);
 
         }
 
         private async Task clearProgressBar()
         {
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
 
-            await Task.Run(() =>
+            try
             {
-                Thread.Sleep(3000);
-            });
-            parent.MDItoolStripStatusLabel3.Text = $"Form: {this.Tag} Ready...";
-            parent.prgBar.Visible = false;
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+
+                await Task.Run(() =>
+                {
+                    Thread.Sleep(3000);
+                });
+                parent.MDItoolStripStatusLabel3.Text = $"Form: {this.Tag} Ready...";
+                parent.prgBar.Visible = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void frmFruits_Regions_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = false;
+
+            try
+            {
+                e.Cancel = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         #endregion
 
-        private void cmbFruits_Regions_SelectedValueChanged(object sender, EventArgs e)
-        {
-            currentFruits_RegionsId = (int)cmbFruits.SelectedValue;
-            LoadFruits_Regions();
-        }
     }
 }

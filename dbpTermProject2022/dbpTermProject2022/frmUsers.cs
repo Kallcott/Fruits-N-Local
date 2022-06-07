@@ -32,114 +32,152 @@ namespace dbpTermProject2022
 
         private void frmUsers_Load(object sender, EventArgs e)
         {
-            LoadFirstUser();
 
-            LoadUsersCmb();
+            try
+            {
+                LoadFirstUser();
 
-            txtNewUser.Visible = false;
-            txtNewUser.Enabled = false;
+                LoadUsersCmb();
 
-            DisableNonAdminFeatures();
+                txtNewUser.Visible = false;
+                txtNewUser.Enabled = false;
+
+                DisableNonAdminFeatures();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void DisableNonAdminFeatures()
         {
-            
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            if (!parent.IsAdmin)
+
+
+            try
             {
-                btnAdd.Enabled = false;
-                btnFirst.Enabled = false;
-                btnNext.Enabled = false;
-                btnPrevious.Enabled = false;
-                btnLast.Enabled = false;
-                btnDelete.Enabled = false;
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                if (!parent.IsAdmin)
+                {
+                    btnAdd.Enabled = false;
+                    btnFirst.Enabled = false;
+                    btnNext.Enabled = false;
+                    btnPrevious.Enabled = false;
+                    btnLast.Enabled = false;
+                    btnDelete.Enabled = false;
 
-                cmbUsers.Enabled = false;
-                grpUser.Text = "Change Password";
-     
+                    cmbUsers.Enabled = false;
+                    grpUser.Text = "Change Password";
 
-                cmbUsers.SelectedValue = parent.CurrentUser;
-                cmbUsers_SelectedValueChanged(parent, EventArgs.Empty);
 
+                    cmbUsers.SelectedValue = parent.CurrentUser;
+                    cmbUsers_SelectedValueChanged(parent, EventArgs.Empty);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void LoadUsersCmb()
         {
-            string sqlUsers = "SELECT UserID, Username FROM Users ORDER BY Username ASC";
-            UIUtilities.FillListControl(cmbUsers, "Username", "UserId", DataAccess.GetData(sqlUsers));
+
+            try
+            {
+                string sqlUsers = "SELECT UserID, Username FROM Users ORDER BY Username ASC";
+                UIUtilities.FillListControl(cmbUsers, "Username", "UserId", DataAccess.GetData(sqlUsers));
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void LoadUsers()
         {
-            //Clear any errors in the error provider
-            errProvider.Clear();
 
-            string[] sqlStatements = new string[]
+            try
             {
-                $"SELECT * FROM Users WHERE UserId = {currentUserId}",
 
-                $@"
-                SELECT 
-                (
-                    SELECT TOP(1) UserId as FirstUserId FROM Users ORDER BY UserName
-                ) as FirstUserId,
-                q.PreviousUserId,
-                q.NextUserId,
-                (
-                    SELECT TOP(1) UserId as LastUserId FROM Users ORDER BY UserName Desc
-                ) as LastUserId,
-                q.RowNumber
-                FROM
-                (
-                    SELECT UserId, UserName,
-                    LEAD(UserId) OVER(ORDER BY UserName) AS NextUserId,
-                    LAG(UserId) OVER(ORDER BY UserName) AS PreviousUserId,
-                    ROW_NUMBER() OVER(ORDER BY UserName) AS 'RowNumber'
-                    FROM Users
-                ) AS q
-                WHERE q.UserId = {currentUserId}
-                ORDER BY q.UserName".Replace(System.Environment.NewLine," "), // This is for safety on the @ sign
-                "SELECT COUNT(UserId) as UserCount FROM Users"
-            };
+                //Clear any errors in the error provider
+                errProvider.Clear();
 
-            DataSet ds = new DataSet();
-            ds = DataAccess.GetData(sqlStatements);
+                string[] sqlStatements = new string[]
+                {
+                        $"SELECT * FROM Users WHERE UserId = {currentUserId}",
+
+                        $@"
+                        SELECT 
+                        (
+                            SELECT TOP(1) UserId as FirstUserId FROM Users ORDER BY UserName
+                        ) as FirstUserId,
+                        q.PreviousUserId,
+                        q.NextUserId,
+                        (
+                            SELECT TOP(1) UserId as LastUserId FROM Users ORDER BY UserName Desc
+                        ) as LastUserId,
+                        q.RowNumber
+                        FROM
+                        (
+                            SELECT UserId, UserName,
+                            LEAD(UserId) OVER(ORDER BY UserName) AS NextUserId,
+                            LAG(UserId) OVER(ORDER BY UserName) AS PreviousUserId,
+                            ROW_NUMBER() OVER(ORDER BY UserName) AS 'RowNumber'
+                            FROM Users
+                        ) AS q
+                        WHERE q.UserId = {currentUserId}
+                        ORDER BY q.UserName".Replace(System.Environment.NewLine," "), // This is for safety on the @ sign
+                        "SELECT COUNT(UserId) as UserCount FROM Users"
+                };
+
+                DataSet ds = new DataSet();
+                ds = DataAccess.GetData(sqlStatements);
 
 
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                DataRow selectedUser = ds.Tables[0].Rows[0];
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow selectedUser = ds.Tables[0].Rows[0];
 
-                txtUserId.Text = selectedUser["UserID"].ToString();
-                cmbUsers.SelectedValue = selectedUser["UserId"];
-                txtPassword.Text = selectedUser["Password"].ToString();
+                    txtUserId.Text = selectedUser["UserID"].ToString();
+                    cmbUsers.SelectedValue = selectedUser["UserId"];
+                    txtPassword.Text = selectedUser["Password"].ToString();
 
-                firstUserId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstUserId"]);
-                previousUserId = ds.Tables[1].Rows[0]["PreviousUserId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousUserId"]) : (int?)null;
-                nextUserId = ds.Tables[1].Rows[0]["NextUserId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["NextUserId"]) : (int?)null;
-                lastUserId = Convert.ToInt32(ds.Tables[1].Rows[0]["LastUserId"]);
-                currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
+                    firstUserId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstUserId"]);
+                    previousUserId = ds.Tables[1].Rows[0]["PreviousUserId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousUserId"]) : (int?)null;
+                    nextUserId = ds.Tables[1].Rows[0]["NextUserId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["NextUserId"]) : (int?)null;
+                    lastUserId = Convert.ToInt32(ds.Tables[1].Rows[0]["LastUserId"]);
+                    currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
 
-                totalUserCount = Convert.ToInt32(ds.Tables[2].Rows[0]["UserCount"]);
+                    totalUserCount = Convert.ToInt32(ds.Tables[2].Rows[0]["UserCount"]);
+                }
+                else
+                {
+                    MessageBox.Show($"The User is no longer available: {currentUserId}");
+
+                    LoadFirstUser();
+                }
+
+                //Which item we are on in the count
+
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.MDItoolStripStatusLabel1.Text = $"Displaying User {currentRecord} of {totalUserCount}";
+                if (!parent.IsAdmin)
+                {
+                    return;
+                }
+                NextPreviousButtonManagement();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show($"The User is no longer available: {currentUserId}");
-
-                LoadFirstUser();
+                MessageBox.Show(ex.Message);
             }
 
-            //Which item we are on in the count
-
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = $"Displaying User {currentRecord} of {totalUserCount}";
-            if (!parent.IsAdmin)
-            {
-                return;
-            }
-            NextPreviousButtonManagement();
         }
 
 
@@ -152,31 +190,50 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = "Adding a new User";
-            parent.MDItoolStripStatusLabel2.Text = "";
 
-            UIUtilities.ClearControls(grpUser.Controls);
+            try
+            {
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.MDItoolStripStatusLabel1.Text = "Adding a new User";
+                parent.MDItoolStripStatusLabel2.Text = "";
 
-            //btn save
-            // Disable navigation controlls when adding. 
-            NavigationState(false);
+                UIUtilities.ClearControls(grpUser.Controls);
 
-            btnSave.Text = "Create";
-            btnAdd.Enabled = false;
-            btnDelete.Enabled = false;
+                //btn save
+                // Disable navigation controlls when adding. 
+                NavigationState(false);
 
-            // Toggle Between New user and Select User
-            ToggleUsernameInput();
+                btnSave.Text = "Create";
+                btnAdd.Enabled = false;
+                btnDelete.Enabled = false;
+
+                // Toggle Between New user and Select User
+                ToggleUsernameInput();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
 
         }
 
         private void ToggleUsernameInput()
         {
-            cmbUsers.Enabled = cmbUsers.Visible
-                = !cmbUsers.Visible;
-            txtNewUser.Visible = txtNewUser.Enabled
-                = !cmbUsers.Visible;
+
+            try
+            {
+                cmbUsers.Enabled = cmbUsers.Visible
+                    = !cmbUsers.Visible;
+                txtNewUser.Visible = txtNewUser.Enabled
+                    = !cmbUsers.Visible;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -187,24 +244,34 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            LoadUsers();
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            if (!parent.IsAdmin)
+
+            try
             {
-                return;
+                LoadUsers();
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                if (!parent.IsAdmin)
+                {
+                    return;
+                }
+
+                btnSave.Text = "&Save";
+                btnAdd.Enabled = true;
+                btnDelete.Enabled = true;
+
+                txtNewUser.Text = "";
+                NavigationState(true);
+                if (cmbUsers.Enabled == false)
+                {
+                    ToggleUsernameInput();
+                }
+                NextPreviousButtonManagement();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            btnSave.Text = "&Save";
-            btnAdd.Enabled = true;
-            btnDelete.Enabled = true;
-
-            txtNewUser.Text = "";
-            NavigationState(true);
-            if (cmbUsers.Enabled == false)
-            {
-                ToggleUsernameInput();
-            }
-            NextPreviousButtonManagement();
         }
 
         /// <summary>
@@ -214,60 +281,83 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //Step #1: Validate !
-            if (ValidateChildren(ValidationConstraints.Enabled))
+
+            try
             {
-                ProgressBar();
-
-
-                // Step #2 Create! 
-
-                if (txtUserId.Text == string.Empty)
+                //Step #1: Validate !
+                if (ValidateChildren(ValidationConstraints.Enabled))
                 {
-                    CreateUser();
+                    ProgressBar();
 
+
+                    // Step #2 Create! 
+
+                    if (txtUserId.Text == string.Empty)
+                    {
+                        CreateUser();
+
+                    }
+                    else
+                    {
+                        SaveUser();
+                    }
                 }
                 else
                 {
-                    SaveUser();
+                    MessageBox.Show("Please ensure data is valid.");
                 }
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please ensure data is valid.");
+                MessageBox.Show(ex.Message);
             }
+
 
         }
 
         private void SaveUser()
         {
-            string sqlUpdateUser = DataAccess.SQLCleaner($@"
-                UPDATE Users 
-                SET 
-                    Password = '{txtPassword.Text.Trim()}'
-                WHERE UserID = '{txtUserId.Text.Trim()}'; 
-            ");
-            // Note the Quotes on string values of UserName and QuantityPer Unit
 
-            int rowsAffected = DataAccess.SendData(sqlUpdateUser);
-
-            if (rowsAffected == 1)
+            try
             {
-                MessageBox.Show($"User {txtUserId.Text.Trim()} Updated.");
+                string sqlUpdateUser = DataAccess.SQLCleaner($@"
+                    UPDATE Users 
+                    SET 
+                        Password = '{txtPassword.Text.Trim()}'
+                    WHERE UserID = '{txtUserId.Text.Trim()}'; 
+                ");
+                // Note the Quotes on string values of UserName and QuantityPer Unit
+
+                int rowsAffected = DataAccess.SendData(sqlUpdateUser);
+
+                if (rowsAffected == 1)
+                {
+                    MessageBox.Show($"User {txtUserId.Text.Trim()} Updated.");
+                }
+                else
+                {
+                    MessageBox.Show("The Database reported no Rows Affected.");
+                }
+
+                LoadUsers();
+
+                return;
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("The Database reported no Rows Affected.");
+                MessageBox.Show(ex.Message);
             }
 
-            LoadUsers();
-
-            return;
         }
 
         private void CreateUser()
         {
-            string sqlInsertUsers = DataAccess.SQLCleaner($@"
+
+            try
+            {
+                string sqlInsertUsers = DataAccess.SQLCleaner($@"
                         INSERT INTO Users
                         (
                             Username, 
@@ -279,26 +369,33 @@ namespace dbpTermProject2022
                             '{txtPassword.Text.Trim()}'
                         ) ;
                        ");
-            int rowsAffected = DataAccess.SendData(sqlInsertUsers);
+                int rowsAffected = DataAccess.SendData(sqlInsertUsers);
 
-            if (rowsAffected == 1)
-            {
-                MessageBox.Show("User Created!");
-                btnAdd.Enabled = true;
-                btnDelete.Enabled = true;
+                if (rowsAffected == 1)
+                {
+                    MessageBox.Show("User Created!");
+                    btnAdd.Enabled = true;
+                    btnDelete.Enabled = true;
 
-                btnSave.Text = "Save";
-                NavigationState(true);
+                    btnSave.Text = "Save";
+                    NavigationState(true);
 
 
-                ToggleUsernameInput();
-                LoadUsersCmb();
-                LoadFirstUser();
+                    ToggleUsernameInput();
+                    LoadUsersCmb();
+                    LoadFirstUser();
+                }
+                else
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show(ex.Message);
             }
+
 
         }
 
@@ -309,30 +406,40 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            //string sqlNumberOfTimeOrdered = $"SELECT COUNT(*) FROM Users WHERE UserId = {txtUserId.Text}";
-            //int numberOfTimesOrdered = Convert.ToInt32(DataAccess.GetValue(sqlNumberOfTimeOrdered));
 
-            //if (numberOfTimesOrdered == 0)
-            //{
-            string sqlDeleteUser = $"DELETE FROM Users WHERE UserID = '{txtUserId.Text}'";
-
-            int rowAffected = DataAccess.SendData(sqlDeleteUser);
-
-            if (rowAffected == 1)
+            try
             {
-                MessageBox.Show($"User {txtUserId.Text} was deleted!");
-                LoadFirstUser();
+                //string sqlNumberOfTimeOrdered = $"SELECT COUNT(*) FROM Users WHERE UserId = {txtUserId.Text}";
+                //int numberOfTimesOrdered = Convert.ToInt32(DataAccess.GetValue(sqlNumberOfTimeOrdered));
+
+                //if (numberOfTimesOrdered == 0)
+                //{
+                string sqlDeleteUser = $"DELETE FROM Users WHERE UserID = '{txtUserId.Text}'";
+
+                int rowAffected = DataAccess.SendData(sqlDeleteUser);
+
+                if (rowAffected == 1)
+                {
+                    MessageBox.Show($"User {txtUserId.Text} was deleted!");
+                    LoadFirstUser();
+                }
+                else
+                {
+                    MessageBox.Show("The Database reported no rows affected.");
+                }
+                //}
+                //else
+                //{
+                //    // Unused, but retained in case of future proofing
+                //    MessageBox.Show($"User {txtUserId.Text} could not be deleted as it is within a connected structure.");
+                //}
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("The Database reported no rows affected.");
+                MessageBox.Show(ex.Message);
             }
-            //}
-            //else
-            //{
-            //    // Unused, but retained in case of future proofing
-            //    MessageBox.Show($"User {txtUserId.Text} could not be deleted as it is within a connected structure.");
-            //}
+
         }
 
         #endregion
@@ -341,10 +448,20 @@ namespace dbpTermProject2022
 
         private void LoadFirstUser()
         {
-            currentUserId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 UserId FROM Users ORDER BY Username ASC"));
 
-            LoadUsers();
-            return;
+            try
+            {
+                currentUserId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 UserId FROM Users ORDER BY Username ASC"));
+
+                LoadUsers();
+                return;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -354,8 +471,18 @@ namespace dbpTermProject2022
         /// </summary>
         private void NextPreviousButtonManagement()
         {
-            btnPrevious.Enabled = previousUserId != null;
-            btnNext.Enabled = nextUserId != null;
+
+            try
+            {
+                btnPrevious.Enabled = previousUserId != null;
+                btnNext.Enabled = nextUserId != null;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -364,10 +491,20 @@ namespace dbpTermProject2022
         /// <param name="enableState"></param>
         private void NavigationState(bool enableState)
         {
-            btnFirst.Enabled = enableState;
-            btnLast.Enabled = enableState;
-            btnNext.Enabled = enableState;
-            btnPrevious.Enabled = enableState;
+
+            try
+            {
+                btnFirst.Enabled = enableState;
+                btnLast.Enabled = enableState;
+                btnNext.Enabled = enableState;
+                btnPrevious.Enabled = enableState;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
 
@@ -379,33 +516,43 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void Navigation_Handler(object sender, EventArgs e)
         {
-            Button b = (Button)sender;
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel2.Text = string.Empty;
 
-            switch (b.Name)
+            try
             {
-                case "btnFirst":
-                    currentUserId = firstUserId;
-                    parent.MDItoolStripStatusLabel2.Text = "The first user is currently displayed";
-                    break;
-                case "btnLast":
-                    currentUserId = lastUserId;
-                    parent.MDItoolStripStatusLabel2.Text = "The last user is currently displayed";
-                    break;
-                case "btnPrevious":
-                    currentUserId = previousUserId.Value;
+                Button b = (Button)sender;
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.MDItoolStripStatusLabel2.Text = string.Empty;
 
-                    if (currentRecord == 1)
+                switch (b.Name)
+                {
+                    case "btnFirst":
+                        currentUserId = firstUserId;
                         parent.MDItoolStripStatusLabel2.Text = "The first user is currently displayed";
-                    break;
-                case "btnNext":
-                    currentUserId = nextUserId.Value;
+                        break;
+                    case "btnLast":
+                        currentUserId = lastUserId;
+                        parent.MDItoolStripStatusLabel2.Text = "The last user is currently displayed";
+                        break;
+                    case "btnPrevious":
+                        currentUserId = previousUserId.Value;
 
-                    break;
+                        if (currentRecord == 1)
+                            parent.MDItoolStripStatusLabel2.Text = "The first user is currently displayed";
+                        break;
+                    case "btnNext":
+                        currentUserId = nextUserId.Value;
+
+                        break;
+                }
+
+                LoadUsers();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            LoadUsers();
         }
 
         #endregion
@@ -419,20 +566,30 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void cmb_Validating(object sender, CancelEventArgs e)
         {
-            ComboBox cmb = (ComboBox)sender;
-            string cmbName = cmb.Tag.ToString();
 
-            string errMsg = null;
-            bool failedValidation = false;
-
-            if (cmb.SelectedIndex == -1 || String.IsNullOrEmpty(cmb.SelectedValue.ToString()))
+            try
             {
-                errMsg = $"{cmbName} is required";
-                failedValidation = true;
+                ComboBox cmb = (ComboBox)sender;
+                string cmbName = cmb.Tag.ToString();
+
+                string errMsg = null;
+                //bool failedValidation = false;
+
+                if (cmb.SelectedIndex == -1 || String.IsNullOrEmpty(cmb.SelectedValue.ToString()))
+                {
+                    errMsg = $"{cmbName} is required";
+                    //failedValidation = true;
+                }
+
+                //e.Cancel = failedValidation;
+                errProvider.SetError(cmb, errMsg);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            //e.Cancel = failedValidation;
-            errProvider.SetError(cmb, errMsg);
         }
 
         /// <summary>
@@ -442,33 +599,43 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void txt_Validating(object sender, CancelEventArgs e)
         {
-            TextBox txt = (TextBox)sender;
-            string txtBoxName = txt.Tag.ToString();
-            string errMsg = null;
-            bool failedValidation = false;
 
-            if (txt.Text == string.Empty)
+            try
             {
-                errMsg = $"{txtBoxName} is required";
-                failedValidation = true;
+                TextBox txt = (TextBox)sender;
+                string txtBoxName = txt.Tag.ToString();
+                string errMsg = null;
+                bool failedValidation = false;
+
+                if (txt.Text == string.Empty)
+                {
+                    errMsg = $"{txtBoxName} is required";
+                    failedValidation = true;
+                }
+
+                //if (txt.Name == "txtUnitPrice"
+                //    || txt.Name == "txtStock"
+                //    || txt.Name == "txtOnOrder"
+                //    || txt.Name == "txtReorder"
+                //)
+                //{
+                //    if (!IsNumeric(txt.Text))
+                //    {
+                //        errMsg = $"{txtBoxName} is required";
+                //        failedValidation = true;
+                //    }
+                //}
+
+                e.Cancel = failedValidation;
+
+                errProvider.SetError(txt, errMsg);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            //if (txt.Name == "txtUnitPrice"
-            //    || txt.Name == "txtStock"
-            //    || txt.Name == "txtOnOrder"
-            //    || txt.Name == "txtReorder"
-            //)
-            //{
-            //    if (!IsNumeric(txt.Text))
-            //    {
-            //        errMsg = $"{txtBoxName} is required";
-            //        failedValidation = true;
-            //    }
-            //}
-
-            e.Cancel = failedValidation;
-
-            errProvider.SetError(txt, errMsg);
         }
 
         /// <summary>
@@ -491,49 +658,89 @@ namespace dbpTermProject2022
         /// </summary>
         private async void ProgressBar()
         {
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.prgBar.Visible = true;
 
-            parent.MDItoolStripStatusLabel3.Text = "Processing...";
-            parent.prgBar.Value = 0;
-            parent.MDIstatusStrip.Refresh();
-
-            while (parent.prgBar.Value < parent.prgBar.Maximum)
+            try
             {
-                Thread.Sleep(15);
-                parent.prgBar.Value += 1;
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.prgBar.Visible = true;
+
+                parent.MDItoolStripStatusLabel3.Text = "Processing...";
+                parent.prgBar.Value = 0;
+                parent.MDIstatusStrip.Refresh();
+
+                while (parent.prgBar.Value < parent.prgBar.Maximum)
+                {
+                    Thread.Sleep(15);
+                    parent.prgBar.Value += 1;
+                }
+
+                parent.prgBar.Value = 100;
+                parent.MDItoolStripStatusLabel3.Text = "Processed";
+
+                await clearProgressBar().ConfigureAwait(false);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            parent.prgBar.Value = 100;
-            parent.MDItoolStripStatusLabel3.Text = "Processed";
-
-            await clearProgressBar().ConfigureAwait(false);
 
         }
 
         private async Task clearProgressBar()
         {
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
 
-            await Task.Run(() =>
+            try
             {
-                Thread.Sleep(3000);
-            });
-            parent.MDItoolStripStatusLabel3.Text = $"Form: {this.Tag} Ready...";
-            parent.prgBar.Visible = false;
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+
+                await Task.Run(() =>
+                {
+                    Thread.Sleep(3000);
+                });
+                parent.MDItoolStripStatusLabel3.Text = $"Form: {this.Tag} Ready...";
+                parent.prgBar.Visible = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void frmUsers_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = false;
+
+            try
+            {
+                e.Cancel = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         #endregion
 
         private void cmbUsers_SelectedValueChanged(object sender, EventArgs e)
         {
-            currentUserId = (int)cmbUsers.SelectedValue;
-            LoadUsers();
+
+            try
+            {
+                currentUserId = (int)cmbUsers.SelectedValue;
+                LoadUsers();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

@@ -23,91 +23,131 @@ namespace dbpTermProject2022
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            Form childForm = null;
-            object tag;
 
-            if (sender is ToolStripMenuItem)
+            try
             {
-                tag = ((ToolStripMenuItem)sender).Tag;
-            }
-            else if (sender is ToolStripButton)
-            {
-                tag = ((ToolStripButton)sender).Tag;
-            }
-            else
-            {
-                return;
-            }
 
-            switch (tag.ToString().ToUpper())
-            {
-                case "FRUITS":
-                    childForm = new frmFruits();
-                    break;
-                case "FRUITS_REGIONS":
-                    childForm = new frmFruits_Regions();
-                    break;
-                case "REGIONS":
-                    childForm = new frmRegions();
-                    break;
-                case "USERS":
-                    childForm = new frmUsers();
-                    break;
-                case "BROWSE FRUITS":
-                    childForm = new frmBrowseFruits();
-                    break;
-                case "BROWSE REGIONS":
-                    childForm = new frmBrowseRegions();
-                    break;
-                case "ABOUT":
-                    childForm = new frmAbout();
-                    break;
-                default:
-                    break;
-            }
+                Form childForm = null;
+                object tag;
 
-            if (childForm != null)
-            {
-                foreach (Form f in this.MdiChildren)
+                if (sender is ToolStripMenuItem)
                 {
-                    if (f.GetType() == childForm.GetType())
+                    tag = ((ToolStripMenuItem)sender).Tag;
+                }
+                else if (sender is ToolStripButton)
+                {
+                    tag = ((ToolStripButton)sender).Tag;
+                }
+                else
+                {
+                    return;
+                }
+
+                switch (tag.ToString().ToUpper())
+                {
+                    case "FRUITS":
+                        childForm = new frmFruits();
+                        break;
+                    case "FRUITS_REGIONS":
+                        childForm = new frmFruits_Regions();
+                        break;
+                    case "REGIONS":
+                        childForm = new frmRegions();
+                        break;
+                    case "USERS":
+                        childForm = new frmUsers();
+                        break;
+                    case "BROWSE FRUITS":
+                        childForm = new frmBrowseFruits();
+                        break;
+                    case "BROWSE REGIONS":
+                        childForm = new frmBrowseRegions();
+                        break;
+                    case "ABOUT":
+                        childForm = new frmAbout();
+                        break;
+                    default:
+                        break;
+                }
+
+                if (childForm != null)
+                {
+                    foreach (Form f in this.MdiChildren)
                     {
-                        f.Activate();
-                        return;
+                        if (f.GetType() == childForm.GetType())
+                        {
+                            f.Activate();
+                            return;
+                        }
                     }
                 }
+
+                childForm.MdiParent = this;
+                //childForm.Text = "Window " + childFormNumber++;
+                childForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            childForm.MdiParent = this;
-            //childForm.Text = "Window " + childFormNumber++;
-            childForm.Show();
         }
 
         private void OpenFile(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+
+            try
             {
-                string FileName = openFileDialog.FileName;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    string FileName = openFileDialog.FileName;
+                }
+
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+
+            try
             {
-                string FileName = saveFileDialog.FileName;
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+                if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    string FileName = saveFileDialog.FileName;
+                }
+
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+
+            try
+            {
+                this.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void CutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -125,96 +165,179 @@ namespace dbpTermProject2022
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LayoutMdi(MdiLayout.Cascade);
+
+            try
+            {
+
+                LayoutMdi(MdiLayout.Cascade);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void TileVerticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LayoutMdi(MdiLayout.TileVertical);
+            try
+            {
+                LayoutMdi(MdiLayout.TileVertical);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         private void TileHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LayoutMdi(MdiLayout.TileHorizontal);
+
+            try
+            {
+
+                LayoutMdi(MdiLayout.TileHorizontal);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void ArrangeIconsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LayoutMdi(MdiLayout.ArrangeIcons);
+
+            try
+            {
+                LayoutMdi(MdiLayout.ArrangeIcons);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (Form childForm in MdiChildren)
+
+            try
             {
-                childForm.Close();
+                foreach (Form childForm in MdiChildren)
+                {
+                    childForm.Close();
+                }
+
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void MDIParent1_Load(object sender, EventArgs e)
         {
-            Splash frmSplash = new Splash();
-            login frmLogin = new login();
-            frmAbout frmAbout = new frmAbout();
 
-            frmSplash.ShowDialog();
+            try
+            {
 
-            if (frmSplash.DialogResult != DialogResult.OK)
-            {
-                this.Close();
-            }
-            else
-            {
-                frmLogin.ShowDialog(this);
-                if (frmLogin.DialogResult != DialogResult.OK)
+                Splash frmSplash = new Splash();
+                login frmLogin = new login();
+                frmAbout frmAbout = new frmAbout();
+
+                frmSplash.ShowDialog();
+
+                if (frmSplash.DialogResult != DialogResult.OK)
                 {
                     this.Close();
                 }
                 else
                 {
-                    IsAdmin = frmLogin.AdminResult;
-                    CurrentUser = frmLogin.UserInfo;
-                    this.Show();
+                    frmLogin.ShowDialog(this);
+                    if (frmLogin.DialogResult != DialogResult.OK)
+                    {
+                        this.Close();
+                    }
+                    else
+                    {
+                        IsAdmin = frmLogin.AdminResult;
+                        CurrentUser = frmLogin.UserInfo;
+                        this.Show();
 
-                    frmAbout.MdiParent = this;
-                    frmAbout.Show();
+                        frmAbout.MdiParent = this;
+                        frmAbout.Show();
 
-                    MdiClient mc = this.Controls.OfType<MdiClient>().First();
-                    int otherHeight = this.ClientSize.Height + ActiveMdiChild.Height;
-                    int otherWidth = this.ClientSize.Width;
-                    this.ClientSize = new Size(717 - 15,
-                                               473 + 50);
+                        MdiClient mc = this.Controls.OfType<MdiClient>().First();
+                        int otherHeight = this.ClientSize.Height + ActiveMdiChild.Height;
+                        int otherWidth = this.ClientSize.Width;
+                        this.ClientSize = new Size(717 - 15,
+                                                   473 + 50);
 
-                    ActiveMdiChild.WindowState = FormWindowState.Maximized;
+                        ActiveMdiChild.WindowState = FormWindowState.Maximized;
+                    }
+                }
+                frmSplash.Dispose();
+                frmLogin.Dispose();
+
+                if (!IsAdmin)
+                {
+                    maintenenceToolStripMenuItem.Visible = false;
+                    lblAdmin.Visible = btnFruits.Visible = btnFruits_Regions.Visible = btnRegions.Visible = spAdmin.Visible = false;
                 }
             }
-            frmSplash.Dispose();
-            frmLogin.Dispose();
-
-            if (!IsAdmin)
+            catch (Exception ex)
             {
-                maintenenceToolStripMenuItem.Visible = false;
-                lblAdmin.Visible = btnFruits.Visible = btnFruits_Regions.Visible = btnRegions.Visible = spAdmin.Visible = false;
+                MessageBox.Show(ex.Message);
             }
+
 
         }
 
         private void MDIParent1_MdiChildActivate(object sender, EventArgs e)
         {
-            if (ActiveMdiChild != null)
-            {
-                MDItoolStripStatusLabel3.Text = $" || Form: {ActiveMdiChild.Text} Ready...";
-                MDItoolStripStatusLabel2.Text = "";
-                MDItoolStripStatusLabel1.Text = "";
 
-                ActiveMdiChild.WindowState = FormWindowState.Maximized;
-            }
-            else
+            try
             {
-                MDItoolStripStatusLabel3.Text = "";
-                MDItoolStripStatusLabel2.Text = "";
-                MDItoolStripStatusLabel1.Text = "";
+                if (ActiveMdiChild != null)
+                {
+                    MDItoolStripStatusLabel3.Text = $" || Form: {ActiveMdiChild.Text} Ready...";
+                    MDItoolStripStatusLabel2.Text = "";
+                    MDItoolStripStatusLabel1.Text = "";
+
+                    ActiveMdiChild.WindowState = FormWindowState.Maximized;
+                }
+                else
+                {
+                    MDItoolStripStatusLabel3.Text = "";
+                    MDItoolStripStatusLabel2.Text = "";
+                    MDItoolStripStatusLabel1.Text = "";
+                }
+
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void MDIParent1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            try
+            {
+                e.Cancel = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

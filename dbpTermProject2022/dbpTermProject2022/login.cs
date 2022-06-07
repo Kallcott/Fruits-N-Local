@@ -24,7 +24,17 @@ namespace dbpTermProject2022
         private void login_Load(object sender, EventArgs e)
         {
 
-            txtPassword.UseSystemPasswordChar = true;
+            try
+            {
+                txtPassword.UseSystemPasswordChar = true;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -63,7 +73,17 @@ namespace dbpTermProject2022
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
+
+            try
+            {
+
+                DialogResult = DialogResult.Cancel;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
     }

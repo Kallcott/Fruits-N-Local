@@ -19,79 +19,97 @@ namespace dbpTermProject2022
 
         private void About_Load(object sender, EventArgs e)
         {
-            lblProductName.Text = Application.ProductName;
-            lblProductVersion.Text = Application.ProductVersion;
-            lblCompany.Text = Application.CompanyName;
-            
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            if (!parent.IsAdmin)
+
+            try
             {
-                lblEdit.Visible = false;
-                pcbFruits.Visible = pcbFruits_Regions.Visible = pcbRegions.Visible = false;
+                lblProductName.Text = Application.ProductName;
+                lblProductVersion.Text = Application.ProductVersion;
+                lblCompany.Text = Application.CompanyName;
+
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                if (!parent.IsAdmin)
+                {
+                    lblEdit.Visible = false;
+                    pcbFruits.Visible = pcbFruits_Regions.Visible = pcbRegions.Visible = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            Form childForm = null;
-            object tag;
 
-            if (sender is PictureBox)
+            try
             {
-                tag = ((PictureBox)sender).Tag;
-            }
-            else if (sender is PictureBox)
-            {
-                tag = ((PictureBox)sender).Tag;
-            }
-            else
-            {
-                return;
-            }
+                Form childForm = null;
+                object tag;
 
-            switch (tag.ToString().ToUpper())
-            {
-                case "FRUITS":
-                    childForm = new frmFruits();
-                    break;
-                case "FRUITS_REGIONS":
-                    childForm = new frmFruits_Regions();
-                    break;
-                case "REGIONS":
-                    childForm = new frmRegions();
-                    break;
-                case "USERS":
-                    childForm = new frmUsers();
-                    break;
-                case "BROWSE FRUITS":
-                    childForm = new frmBrowseFruits();
-                    break;
-                case "BROWSE REGIONS":
-                    childForm = new frmBrowseRegions();
-                    break;
-                case "ABOUT":
-                    childForm = new frmAbout();
-                    break;
-                default:
-                    break;
-            }
-
-            if (childForm != null)
-            {
-                foreach (Form f in this.MdiChildren)
+                if (sender is PictureBox)
                 {
-                    if (f.GetType() == childForm.GetType())
+                    tag = ((PictureBox)sender).Tag;
+                }
+                else if (sender is PictureBox)
+                {
+                    tag = ((PictureBox)sender).Tag;
+                }
+                else
+                {
+                    return;
+                }
+
+                switch (tag.ToString().ToUpper())
+                {
+                    case "FRUITS":
+                        childForm = new frmFruits();
+                        break;
+                    case "FRUITS_REGIONS":
+                        childForm = new frmFruits_Regions();
+                        break;
+                    case "REGIONS":
+                        childForm = new frmRegions();
+                        break;
+                    case "USERS":
+                        childForm = new frmUsers();
+                        break;
+                    case "BROWSE FRUITS":
+                        childForm = new frmBrowseFruits();
+                        break;
+                    case "BROWSE REGIONS":
+                        childForm = new frmBrowseRegions();
+                        break;
+                    case "ABOUT":
+                        childForm = new frmAbout();
+                        break;
+                    default:
+                        break;
+                }
+
+                if (childForm != null)
+                {
+                    foreach (Form f in this.MdiChildren)
                     {
-                        f.Activate();
-                        return;
+                        if (f.GetType() == childForm.GetType())
+                        {
+                            f.Activate();
+                            return;
+                        }
                     }
                 }
+
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                childForm.MdiParent = parent;
+                childForm.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            childForm.MdiParent = parent;
-            childForm.Show();
         }
     }
 }

@@ -31,19 +31,33 @@ namespace dbpTermProject2022
 
         private void frmRegions_Load(object sender, EventArgs e)
         {
-            LoadFirstRegion();
 
-            LoadFruitRegionDgv();
+            try
+            {
+
+                LoadFirstRegion();
+
+                LoadFruitRegionDgv();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void LoadFruitRegionDgv()
         {
-            DataTable dtFruitsRegions;
+
+            try
+            {
+
+                DataTable dtFruitsRegions;
 
 
-            dgvFruits_Regions.DataSource = null;
+                dgvFruits_Regions.DataSource = null;
 
-            string sql = DataAccess.SQLCleaner($@"
+                string sql = DataAccess.SQLCleaner($@"
                 SELECT 
                         Fruits.FruitsName AS 'Fruit Name'
                 FROM Fruits_Regions 
@@ -52,87 +66,103 @@ namespace dbpTermProject2022
                 WHERE Fruits_Regions.RegionsId = '{txtRegionsId.Text}'
                 ORDER BY [Fruit Name];");
 
-            dtFruitsRegions = DataAccess.GetData(sql);
+                dtFruitsRegions = DataAccess.GetData(sql);
 
-            dgvFruits_Regions.DataSource = UIUtilities.RotateTable(dtFruitsRegions);
-            UIUtilities.AutoResizeDgv(dgvFruits_Regions);
+                dgvFruits_Regions.DataSource = UIUtilities.RotateTable(dtFruitsRegions);
+                UIUtilities.AutoResizeDgv(dgvFruits_Regions);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void LoadRegions()
         {
-            //Clear any errors in the error provider
-            errProvider.Clear();
 
-            string[] sqlStatements = new string[]
+            try
             {
-                $"SELECT * FROM Regions WHERE RegionsId = {currentRegionsId}",
 
-            $@"
-                SELECT 
-                (
-                    SELECT TOP(1) RegionsId as FirstRegionsId FROM Regions ORDER BY RegionsName
-                ) as FirstRegionsId,
-                q.PreviousRegionsId,
-                q.NextRegionsId,
-                (
-                    SELECT TOP(1) RegionsId as LastRegionsId FROM Regions ORDER BY RegionsName Desc
-                ) as LastRegionsId,
-                q.RowNumber
-                FROM
-                (
-                    SELECT RegionsId, RegionsName,
-                    LEAD(RegionsId) OVER(ORDER BY RegionsName) AS NextRegionsId,
-                    LAG(RegionsId) OVER(ORDER BY RegionsName) AS PreviousRegionsId,
-                    ROW_NUMBER() OVER(ORDER BY RegionsName) AS 'RowNumber'
-                    FROM Regions
-                ) AS q
-                WHERE q.RegionsId = {currentRegionsId}
-                ORDER BY q.RegionsName".Replace(System.Environment.NewLine," "), // This is for safety on the @ sign
+                //Clear any errors in the error provider
+                errProvider.Clear();
 
-                "SELECT COUNT(RegionsId) as RegionCount FROM Regions",
+                string[] sqlStatements = new string[]
+                {
+                        $"SELECT * FROM Regions WHERE RegionsId = {currentRegionsId}",
 
-                $"SELECT COUNT(*) AS 'Fruits Connections' FROM Fruits WHERE RegionsId = '{currentRegionsId}'",
+                        $@"
+                        SELECT 
+                        (
+                            SELECT TOP(1) RegionsId as FirstRegionsId FROM Regions ORDER BY RegionsName
+                        ) as FirstRegionsId,
+                        q.PreviousRegionsId,
+                        q.NextRegionsId,
+                        (
+                            SELECT TOP(1) RegionsId as LastRegionsId FROM Regions ORDER BY RegionsName Desc
+                        ) as LastRegionsId,
+                        q.RowNumber
+                        FROM
+                        (
+                            SELECT RegionsId, RegionsName,
+                            LEAD(RegionsId) OVER(ORDER BY RegionsName) AS NextRegionsId,
+                            LAG(RegionsId) OVER(ORDER BY RegionsName) AS PreviousRegionsId,
+                            ROW_NUMBER() OVER(ORDER BY RegionsName) AS 'RowNumber'
+                            FROM Regions
+                        ) AS q
+                        WHERE q.RegionsId = {currentRegionsId}
+                        ORDER BY q.RegionsName".Replace(System.Environment.NewLine," "), // This is for safety on the @ sign
 
-                $@"
-               SELECT FruitsName FROM Regions 
-                    INNER JOIN Fruits ON Fruits.RegionsId = Regions.RegionsId
-               WHERE Regions.RegionsId = {currentRegionsId}"
+                        "SELECT COUNT(RegionsId) as RegionCount FROM Regions",
 
-            };
+                        $"SELECT COUNT(*) AS 'Fruits Connections' FROM Fruits WHERE RegionsId = '{currentRegionsId}'",
 
-            DataSet ds = new DataSet();
-            ds = DataAccess.GetData(sqlStatements);
+                        $@"
+                       SELECT FruitsName FROM Regions 
+                            INNER JOIN Fruits ON Fruits.RegionsId = Regions.RegionsId
+                       WHERE Regions.RegionsId = {currentRegionsId}"
+
+                };
+
+                DataSet ds = new DataSet();
+                ds = DataAccess.GetData(sqlStatements);
 
 
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                DataRow selectedRegion = ds.Tables[0].Rows[0];
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow selectedRegion = ds.Tables[0].Rows[0];
 
-                txtRegionsId.Text = selectedRegion["RegionsId"].ToString();
-                txtRegionsName.Text = selectedRegion["RegionsName"].ToString();
-                chkProducer.Checked = Convert.ToInt32(ds.Tables[3].Rows[0]["Fruits Connections"]) == 0 ? false : true;
+                    txtRegionsId.Text = selectedRegion["RegionsId"].ToString();
+                    txtRegionsName.Text = selectedRegion["RegionsName"].ToString();
+                    chkProducer.Checked = Convert.ToInt32(ds.Tables[3].Rows[0]["Fruits Connections"]) == 0 ? false : true;
 
-                firstRegionsId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstRegionsId"]);
-                previousRegionsId = ds.Tables[1].Rows[0]["PreviousRegionsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousRegionsId"]) : (int?)null;
-                nextRegionsId = ds.Tables[1].Rows[0]["NextRegionsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["NextRegionsId"]) : (int?)null;
-                lastRegionsId = Convert.ToInt32(ds.Tables[1].Rows[0]["LastRegionsId"]);
-                currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
+                    firstRegionsId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstRegionsId"]);
+                    previousRegionsId = ds.Tables[1].Rows[0]["PreviousRegionsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousRegionsId"]) : (int?)null;
+                    nextRegionsId = ds.Tables[1].Rows[0]["NextRegionsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["NextRegionsId"]) : (int?)null;
+                    lastRegionsId = Convert.ToInt32(ds.Tables[1].Rows[0]["LastRegionsId"]);
+                    currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
 
-                totalRegionCount = Convert.ToInt32(ds.Tables[2].Rows[0]["RegionCount"]);
-                LoadFruitRegionDgv();
+                    totalRegionCount = Convert.ToInt32(ds.Tables[2].Rows[0]["RegionCount"]);
+                    LoadFruitRegionDgv();
+                }
+                else
+                {
+                    MessageBox.Show($"The Region is no longer available: {currentRegionsId}");
+
+                    LoadFirstRegion();
+                }
+
+                //Which item we are on in the count
+
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.MDItoolStripStatusLabel1.Text = $"Displaying Region {currentRecord} of {totalRegionCount}";
+                NextPreviousButtonManagement();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show($"The Region is no longer available: {currentRegionsId}");
-
-                LoadFirstRegion();
+                MessageBox.Show(ex.Message);
             }
 
-            //Which item we are on in the count
-
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = $"Displaying Region {currentRecord} of {totalRegionCount}";
-            NextPreviousButtonManagement();
         }
 
 
@@ -145,19 +175,29 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = "Adding a new Region";
-            parent.MDItoolStripStatusLabel2.Text = "";
 
-            UIUtilities.ClearControls(grpEditRegions.Controls);
+            try
+            {
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.MDItoolStripStatusLabel1.Text = "Adding a new Region";
+                parent.MDItoolStripStatusLabel2.Text = "";
 
-            //btn save
-            // Disable navigation controlls when adding. 
-            NavigationState(false);
+                UIUtilities.ClearControls(grpEditRegions.Controls);
 
-            btnSave.Text = "Create";
-            btnAdd.Enabled = false;
-            btnDelete.Enabled = false;
+                //btn save
+                // Disable navigation controlls when adding. 
+                NavigationState(false);
+
+                btnSave.Text = "Create";
+                btnAdd.Enabled = false;
+                btnDelete.Enabled = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
 
         }
 
@@ -170,13 +210,23 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            LoadRegions();
-            btnSave.Text = "&Save";
-            btnAdd.Enabled = true;
-            btnDelete.Enabled = true;
 
-            NavigationState(true);
-            NextPreviousButtonManagement();
+            try
+            {
+                LoadRegions();
+                btnSave.Text = "&Save";
+                btnAdd.Enabled = true;
+                btnDelete.Enabled = true;
+
+                NavigationState(true);
+                NextPreviousButtonManagement();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -186,60 +236,83 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //Step #1: Validate !
-            if (ValidateChildren(ValidationConstraints.Enabled))
+
+            try
             {
-                ProgressBar();
-
-
-                // Step #2 Create! 
-
-                if (txtRegionsId.Text == string.Empty)
+                //Step #1: Validate !
+                if (ValidateChildren(ValidationConstraints.Enabled))
                 {
-                    CreateRegion();
+                    ProgressBar();
 
+
+                    // Step #2 Create! 
+
+                    if (txtRegionsId.Text == string.Empty)
+                    {
+                        CreateRegion();
+
+                    }
+                    else
+                    {
+                        SaveRegion();
+                    }
                 }
                 else
                 {
-                    SaveRegion();
+                    MessageBox.Show("Please ensure data is valid.");
                 }
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please ensure data is valid.");
+                MessageBox.Show(ex.Message);
             }
+
 
         }
 
         private void SaveRegion()
         {
-            string sqlUpdateRegion = DataAccess.SQLCleaner($@"
+
+            try
+            {
+                string sqlUpdateRegion = DataAccess.SQLCleaner($@"
                 UPDATE Regions 
                 SET 
                     RegionsName = '{txtRegionsName.Text.Trim()}'
                 WHERE RegionsId = '{txtRegionsId.Text.Trim()}'; 
-            ");
-            // Note the Quotes on string values of RegionsName and QuantityPer Unit
+                ");
+                // Note the Quotes on string values of RegionsName and QuantityPer Unit
 
-            int rowsAffected = DataAccess.SendData(sqlUpdateRegion);
+                int rowsAffected = DataAccess.SendData(sqlUpdateRegion);
 
-            if (rowsAffected == 1)
-            {
-                MessageBox.Show($"Region {txtRegionsId.Text.Trim()} Updated.");
+                if (rowsAffected == 1)
+                {
+                    MessageBox.Show($"Region {txtRegionsId.Text.Trim()} Updated.");
+                }
+                else
+                {
+                    MessageBox.Show("The Database reported no Rows Affected.");
+                }
+
+                LoadRegions();
+
+                return;
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("The Database reported no Rows Affected.");
+                MessageBox.Show(ex.Message);
             }
 
-            LoadRegions();
-
-            return;
         }
 
         private void CreateRegion()
         {
-            string sqlInsertRegions = DataAccess.SQLCleaner($@"
+
+            try
+            {
+                string sqlInsertRegions = DataAccess.SQLCleaner($@"
                         INSERT INTO Regions
                         (
                             RegionsName 
@@ -249,23 +322,30 @@ namespace dbpTermProject2022
                             '{txtRegionsName.Text.Trim()}'
                         );
                        ");
-            int rowsAffected = DataAccess.SendData(sqlInsertRegions);
+                int rowsAffected = DataAccess.SendData(sqlInsertRegions);
 
-            if (rowsAffected == 1)
-            {
-                MessageBox.Show("Region Created!");
-                btnAdd.Enabled = true;
-                btnDelete.Enabled = true;
+                if (rowsAffected == 1)
+                {
+                    MessageBox.Show("Region Created!");
+                    btnAdd.Enabled = true;
+                    btnDelete.Enabled = true;
 
-                btnSave.Text = "Save";
-                NavigationState(true);
+                    btnSave.Text = "Save";
+                    NavigationState(true);
 
-                LoadFirstRegion();
+                    LoadFirstRegion();
+                }
+                else
+                {
+                    MessageBox.Show("Something went wrong");
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong");
+                MessageBox.Show(ex.Message);
             }
+
 
         }
 
@@ -276,33 +356,43 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            int numberofTimesLinked = 0;
-            string sqlFKFruitRegions = $"SELECT COUNT(*) FROM Fruits_Regions WHERE RegionsId = '{txtRegionsId.Text}'";
-            numberofTimesLinked += Convert.ToInt32(DataAccess.GetValue(sqlFKFruitRegions));
 
-            string sqlFKFruit = $"SELECT COUNT(*) FROM Fruits WHERE RegionsId = '{txtRegionsId.Text}'";
-            numberofTimesLinked += Convert.ToInt32(DataAccess.GetValue(sqlFKFruit));
-
-            if (numberofTimesLinked == 0)
+            try
             {
-                string sqlDeleteRegion = $"DELETE FROM Regions WHERE RegionsId = '{txtRegionsId.Text}'";
+                int numberofTimesLinked = 0;
+                string sqlFKFruitRegions = $"SELECT COUNT(*) FROM Fruits_Regions WHERE RegionsId = '{txtRegionsId.Text}'";
+                numberofTimesLinked += Convert.ToInt32(DataAccess.GetValue(sqlFKFruitRegions));
 
-                int rowAffected = DataAccess.SendData(sqlDeleteRegion);
+                string sqlFKFruit = $"SELECT COUNT(*) FROM Fruits WHERE RegionsId = '{txtRegionsId.Text}'";
+                numberofTimesLinked += Convert.ToInt32(DataAccess.GetValue(sqlFKFruit));
 
-                if (rowAffected == 1)
+                if (numberofTimesLinked == 0)
                 {
-                    MessageBox.Show($"Region {txtRegionsId.Text} was deleted!");
-                    LoadFirstRegion();
+                    string sqlDeleteRegion = $"DELETE FROM Regions WHERE RegionsId = '{txtRegionsId.Text}'";
+
+                    int rowAffected = DataAccess.SendData(sqlDeleteRegion);
+
+                    if (rowAffected == 1)
+                    {
+                        MessageBox.Show($"Region {txtRegionsId.Text} was deleted!");
+                        LoadFirstRegion();
+                    }
+                    else
+                    {
+                        MessageBox.Show("The Database reported no rows affected.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("The Database reported no rows affected.");
+                    MessageBox.Show($"Region {txtRegionsId.Text} could not be deleted as it is used {numberofTimesLinked} times.");
                 }
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show($"Region {txtRegionsId.Text} could not be deleted as it is used {numberofTimesLinked} times.");
+                MessageBox.Show(ex.Message);
             }
+
         }
 
         #endregion
@@ -311,10 +401,20 @@ namespace dbpTermProject2022
 
         private void LoadFirstRegion()
         {
-            currentRegionsId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 RegionsId FROM Regions ORDER BY RegionsName ASC"));
 
-            LoadRegions();
-            return;
+            try
+            {
+                currentRegionsId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 RegionsId FROM Regions ORDER BY RegionsName ASC"));
+
+                LoadRegions();
+                return;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -324,8 +424,18 @@ namespace dbpTermProject2022
         /// </summary>
         private void NextPreviousButtonManagement()
         {
-            btnPrevious.Enabled = previousRegionsId != null;
-            btnNext.Enabled = nextRegionsId != null;
+
+            try
+            {
+                btnPrevious.Enabled = previousRegionsId != null;
+                btnNext.Enabled = nextRegionsId != null;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -334,10 +444,20 @@ namespace dbpTermProject2022
         /// <param name="enableState"></param>
         private void NavigationState(bool enableState)
         {
-            btnFirst.Enabled = enableState;
-            btnLast.Enabled = enableState;
-            btnNext.Enabled = enableState;
-            btnPrevious.Enabled = enableState;
+
+            try
+            {
+                btnFirst.Enabled = enableState;
+                btnLast.Enabled = enableState;
+                btnNext.Enabled = enableState;
+                btnPrevious.Enabled = enableState;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
 
         }
 
@@ -350,61 +470,48 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void Navigation_Handler(object sender, EventArgs e)
         {
-            Button b = (Button)sender;
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel2.Text = string.Empty;
 
-            switch (b.Name)
+            try
             {
-                case "btnFirst":
-                    currentRegionsId = firstRegionsId;
-                    parent.MDItoolStripStatusLabel2.Text = "The first Region is currently displayed";
-                    break;
-                case "btnLast":
-                    currentRegionsId = lastRegionsId;
-                    parent.MDItoolStripStatusLabel2.Text = "The last Region is currently displayed";
-                    break;
-                case "btnPrevious":
-                    currentRegionsId = previousRegionsId.Value;
+                Button b = (Button)sender;
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.MDItoolStripStatusLabel2.Text = string.Empty;
 
-                    if (currentRecord == 1)
+                switch (b.Name)
+                {
+                    case "btnFirst":
+                        currentRegionsId = firstRegionsId;
                         parent.MDItoolStripStatusLabel2.Text = "The first Region is currently displayed";
-                    break;
-                case "btnNext":
-                    currentRegionsId = nextRegionsId.Value;
+                        break;
+                    case "btnLast":
+                        currentRegionsId = lastRegionsId;
+                        parent.MDItoolStripStatusLabel2.Text = "The last Region is currently displayed";
+                        break;
+                    case "btnPrevious":
+                        currentRegionsId = previousRegionsId.Value;
 
-                    break;
+                        if (currentRecord == 1)
+                            parent.MDItoolStripStatusLabel2.Text = "The first Region is currently displayed";
+                        break;
+                    case "btnNext":
+                        currentRegionsId = nextRegionsId.Value;
+
+                        break;
+                }
+
+                LoadRegions();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            LoadRegions();
         }
 
         #endregion
 
         #region [Validation Events and Methods]
-
-        /// <summary>
-        /// ComboBox Validating Event Handler
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cmb_Validating(object sender, CancelEventArgs e)
-        {
-            ComboBox cmb = (ComboBox)sender;
-            string cmbName = cmb.Tag.ToString();
-
-            string errMsg = null;
-            bool failedValidation = false;
-
-            if (cmb.SelectedIndex == -1 || String.IsNullOrEmpty(cmb.SelectedValue.ToString()))
-            {
-                errMsg = $"{cmbName} is required";
-                failedValidation = true;
-            }
-
-            //e.Cancel = failedValidation;
-            errProvider.SetError(cmb, errMsg);
-        }
 
         /// <summary>
         /// TextBox Validating event handler
@@ -413,33 +520,30 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void txt_Validating(object sender, CancelEventArgs e)
         {
-            TextBox txt = (TextBox)sender;
-            string txtBoxName = txt.Tag.ToString();
-            string errMsg = null;
-            bool failedValidation = false;
 
-            if (txt.Text == string.Empty)
+            try
             {
-                errMsg = $"{txtBoxName} is required";
-                failedValidation = true;
+                TextBox txt = (TextBox)sender;
+                string txtBoxName = txt.Tag.ToString();
+                string errMsg = null;
+                bool failedValidation = false;
+
+                if (txt.Text == string.Empty)
+                {
+                    errMsg = $"{txtBoxName} is required";
+                    failedValidation = true;
+                }
+
+                e.Cancel = failedValidation;
+
+                errProvider.SetError(txt, errMsg);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            //if (txt.Name == "txtUnitPrice"
-            //    || txt.Name == "txtStock"
-            //    || txt.Name == "txtOnOrder"
-            //    || txt.Name == "txtReorder"
-            //)
-            //{
-            //    if (!IsNumeric(txt.Text))
-            //    {
-            //        errMsg = $"{txtBoxName} is required";
-            //        failedValidation = true;
-            //    }
-            //}
-
-            e.Cancel = failedValidation;
-
-            errProvider.SetError(txt, errMsg);
         }
 
         /// <summary>
@@ -462,41 +566,71 @@ namespace dbpTermProject2022
         /// </summary>
         private async void ProgressBar()
         {
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.prgBar.Visible = true;
 
-            parent.MDItoolStripStatusLabel3.Text = "Processing...";
-            parent.prgBar.Value = 0;
-            parent.MDIstatusStrip.Refresh();
-
-            while (parent.prgBar.Value < parent.prgBar.Maximum)
+            try
             {
-                Thread.Sleep(15);
-                parent.prgBar.Value += 1;
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.prgBar.Visible = true;
+
+                parent.MDItoolStripStatusLabel3.Text = "Processing...";
+                parent.prgBar.Value = 0;
+                parent.MDIstatusStrip.Refresh();
+
+                while (parent.prgBar.Value < parent.prgBar.Maximum)
+                {
+                    Thread.Sleep(15);
+                    parent.prgBar.Value += 1;
+                }
+
+                parent.prgBar.Value = 100;
+                parent.MDItoolStripStatusLabel3.Text = "Processed";
+
+                await clearProgressBar().ConfigureAwait(false);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            parent.prgBar.Value = 100;
-            parent.MDItoolStripStatusLabel3.Text = "Processed";
-
-            await clearProgressBar().ConfigureAwait(false);
 
         }
 
         private async Task clearProgressBar()
         {
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
 
-            await Task.Run(() =>
+            try
             {
-                Thread.Sleep(3000);
-            });
-            parent.MDItoolStripStatusLabel3.Text = $"Form: {this.Tag} Ready...";
-            parent.prgBar.Visible = false;
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+
+                await Task.Run(() =>
+                {
+                    Thread.Sleep(3000);
+                });
+                parent.MDItoolStripStatusLabel3.Text = $"Form: {this.Tag} Ready...";
+                parent.prgBar.Visible = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void frmRegions_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = false;
+
+            try
+            {
+                e.Cancel = false;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         #endregion

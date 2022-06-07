@@ -26,22 +26,34 @@ namespace dbpTermProject2022
 
         private void frmRegions_Load(object sender, EventArgs e)
         {
-            LoadFirstRegion();
 
-            LoadRegionsCmb();
+            try
+            {
+                LoadFirstRegion();
 
-            LoadFruitRegionDgv();
-            LoadRegionsCmb();
+                LoadRegionsCmb();
+
+                LoadFruitRegionDgv();
+                LoadRegionsCmb();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void LoadFruitRegionDgv()
         {
-            DataTable dtFruitsRegions;
+
+            try
+            {
+                DataTable dtFruitsRegions;
 
 
-            dgvFruits_Regions.DataSource = null;
+                dgvFruits_Regions.DataSource = null;
 
-            string sql = DataAccess.SQLCleaner($@"
+                string sql = DataAccess.SQLCleaner($@"
                 SELECT 
                         Fruits.FruitsName AS 'Fruit Name'
                 FROM Fruits_Regions 
@@ -50,43 +62,73 @@ namespace dbpTermProject2022
                 WHERE Fruits_Regions.RegionsId = '{currentRegionsId}'
                 ORDER BY [Fruit Name];");
 
-            dtFruitsRegions = DataAccess.GetData(sql);
+                dtFruitsRegions = DataAccess.GetData(sql);
 
-            dgvFruits_Regions.DataSource = UIUtilities.RotateTable(dtFruitsRegions);
-            UIUtilities.AutoResizeDgv(dgvFruits_Regions);
+                dgvFruits_Regions.DataSource = UIUtilities.RotateTable(dtFruitsRegions);
+                UIUtilities.AutoResizeDgv(dgvFruits_Regions);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void LoadProducerDgv()
         {
-            DataTable dtProducer;
+
+            try
+            {
+                DataTable dtProducer;
 
 
-            dgvProducer.DataSource = null;
+                dgvProducer.DataSource = null;
 
-            string sql = DataAccess.SQLCleaner($@"
+                string sql = DataAccess.SQLCleaner($@"
                 SELECT FruitsName FROM Regions 
                     INNER JOIN Fruits ON Fruits.RegionsId = Regions.RegionsId
                 WHERE Regions.RegionsId = {currentRegionsId}
                 ORDER BY FruitsName;");
 
-            dtProducer = DataAccess.GetData(sql);
+                dtProducer = DataAccess.GetData(sql);
 
-            dgvProducer.DataSource = UIUtilities.RotateTable(dtProducer);
-            UIUtilities.AutoResizeDgv(dgvProducer);
+                dgvProducer.DataSource = UIUtilities.RotateTable(dtProducer);
+                UIUtilities.AutoResizeDgv(dgvProducer);
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void LoadRegionsCmb()
         {
-            string sqlRegions = "SELECT RegionsId, RegionsName FROM Regions ORDER BY RegionsName ASC";
-            UIUtilities.FillListControl(cmbRegions, "RegionsName", "RegionsId", DataAccess.GetData(sqlRegions));
+
+            try
+            {
+                string sqlRegions = "SELECT RegionsId, RegionsName FROM Regions ORDER BY RegionsName ASC";
+                UIUtilities.FillListControl(cmbRegions, "RegionsName", "RegionsId", DataAccess.GetData(sqlRegions));
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void LoadRegions()
         {
-            //Clear any errors in the error provider
 
-            string[] sqlStatements = new string[]
+            try
             {
+
+                string[] sqlStatements = new string[]
+                {
                 $@"
                 SELECT * FROM Regions WHERE RegionsId = {currentRegionsId}",
 
@@ -106,61 +148,86 @@ namespace dbpTermProject2022
 
                 $"SELECT COUNT(*) AS 'Fruits Connections' FROM Fruits WHERE RegionsId = '{currentRegionsId}'",
 
-            };
+                };
 
-            DataSet ds = new DataSet();
-            ds = DataAccess.GetData(sqlStatements);
-
-
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                DataRow selectedRegion = ds.Tables[0].Rows[0];
-
-                cmbRegions.SelectedValue = selectedRegion["RegionsId"];
-                chkProducer.Checked = Convert.ToInt32(ds.Tables[3].Rows[0]["Fruits Connections"]) == 0 ? false : true;
+                DataSet ds = new DataSet();
+                ds = DataAccess.GetData(sqlStatements);
 
 
-                currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow selectedRegion = ds.Tables[0].Rows[0];
 
-                totalRegionCount = Convert.ToInt32(ds.Tables[2].Rows[0]["RegionCount"]);
-                LoadFruitRegionDgv();
-                LoadProducerDgv();
+                    cmbRegions.SelectedValue = selectedRegion["RegionsId"];
+                    chkProducer.Checked = Convert.ToInt32(ds.Tables[3].Rows[0]["Fruits Connections"]) == 0 ? false : true;
+
+
+                    currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
+
+                    totalRegionCount = Convert.ToInt32(ds.Tables[2].Rows[0]["RegionCount"]);
+                    LoadFruitRegionDgv();
+                    LoadProducerDgv();
+                }
+                else
+                {
+                    MessageBox.Show($"The Region is no longer available: {currentRegionsId}");
+
+                    LoadFirstRegion();
+                }
+
+                //Which item we are on in the count
+
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.MDItoolStripStatusLabel1.Text = $"Displaying Region {currentRecord} of {totalRegionCount}";
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show($"The Region is no longer available: {currentRegionsId}");
-
-                LoadFirstRegion();
+                MessageBox.Show(ex.Message);
             }
 
-            //Which item we are on in the count
-
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = $"Displaying Region {currentRecord} of {totalRegionCount}";
 
         }
 
 
-   
+
         #region Navigation Helpers
 
         private void LoadFirstRegion()
         {
-            currentRegionsId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 RegionsId FROM Regions ORDER BY RegionsName ASC"));
 
-            LoadRegions();
-            return;
+            try
+            {
+                currentRegionsId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 RegionsId FROM Regions ORDER BY RegionsName ASC"));
+
+                LoadRegions();
+                return;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
- 
+
         #endregion
 
-       
+
         #region FormEvents
         private void LoadRegions(object sender, EventArgs e)
         {
-            currentRegionsId = (int)cmbRegions.SelectedValue;
-            LoadRegions();
+
+            try
+            {
+                currentRegionsId = (int)cmbRegions.SelectedValue;
+                LoadRegions();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
         #endregion
     }

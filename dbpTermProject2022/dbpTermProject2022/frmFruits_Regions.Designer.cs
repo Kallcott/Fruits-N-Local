@@ -81,7 +81,8 @@ namespace dbpTermProject2022
             this.cmbRegions.Name = "cmbRegions";
             this.cmbRegions.Size = new System.Drawing.Size(121, 26);
             this.cmbRegions.TabIndex = 35;
-            this.cmbRegions.Tag = "Regions";
+            this.cmbRegions.Tag = "Region name";
+            this.cmbRegions.Validating += new System.ComponentModel.CancelEventHandler(this.cmb_Validating);
             // 
             // btnCancel
             // 
@@ -175,7 +176,8 @@ namespace dbpTermProject2022
             this.cmbFruits.Name = "cmbFruits";
             this.cmbFruits.Size = new System.Drawing.Size(121, 26);
             this.cmbFruits.TabIndex = 2;
-            this.cmbFruits.Tag = "Regions";
+            this.cmbFruits.Tag = "Fruit name";
+            this.cmbFruits.Validating += new System.ComponentModel.CancelEventHandler(this.cmb_Validating);
             // 
             // txtFruitsRegionId
             // 

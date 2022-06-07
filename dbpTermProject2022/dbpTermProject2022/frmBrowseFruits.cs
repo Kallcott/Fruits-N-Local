@@ -26,21 +26,33 @@ namespace dbpTermProject2022
 
         private void frmFruits_Load(object sender, EventArgs e)
         {
-            LoadFirstFruit();
 
-            LoadProducerCmb();
+            try
+            {
+                LoadFirstFruit();
 
-            LoadFruitRegionDgv();
+                LoadProducerCmb();
+
+                LoadFruitRegionDgv();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void LoadFruitRegionDgv()
         {
-            DataTable dtFruitsRegions;
+
+            try
+            {
+                DataTable dtFruitsRegions;
 
 
-            dgvFruits_Regions.DataSource = null;
+                dgvFruits_Regions.DataSource = null;
 
-            string sql = DataAccess.SQLCleaner($@"
+                string sql = DataAccess.SQLCleaner($@"
                 SELECT 
                         RegionsName AS 'Region Name'
                 FROM Fruits_Regions 
@@ -49,24 +61,41 @@ namespace dbpTermProject2022
                 WHERE Fruits_Regions.FruitsId = '{currentFruitsId}'
                 ORDER BY [Region Name];");
 
-            dtFruitsRegions = DataAccess.GetData(sql);
+                dtFruitsRegions = DataAccess.GetData(sql);
 
-            dgvFruits_Regions.DataSource = UIUtilities.RotateTable(dtFruitsRegions);
-            UIUtilities.AutoResizeDgv(dgvFruits_Regions);
+                dgvFruits_Regions.DataSource = UIUtilities.RotateTable(dtFruitsRegions);
+                UIUtilities.AutoResizeDgv(dgvFruits_Regions);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void LoadProducerCmb()
         {
-            string sqlFruits = "SELECT FruitsId, FruitsName FROM Fruits ORDER BY FruitsName ASC";
-            UIUtilities.FillListControl(cmbFruits, "FruitsName", "FruitsId", DataAccess.GetData(sqlFruits));
+
+            try
+            {
+                string sqlFruits = "SELECT FruitsId, FruitsName FROM Fruits ORDER BY FruitsName ASC";
+                UIUtilities.FillListControl(cmbFruits, "FruitsName", "FruitsId", DataAccess.GetData(sqlFruits));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void LoadFruits()
         {
-            //Clear any errors in the error provider
 
-            string[] sqlStatements = new string[]
+            try
             {
+
+                string[] sqlStatements = new string[]
+                {
                 $@"SELECT * FROM Fruits 
                     INNER JOIN Regions ON Fruits.RegionsId = Regions.RegionsId
                 WHERE FruitsId = {currentFruitsId}",
@@ -85,58 +114,104 @@ namespace dbpTermProject2022
 
                 "SELECT COUNT(FruitsId) as FruitCount FROM Fruits",
 
-            };
+                };
 
-            DataSet ds = new DataSet();
-            ds = DataAccess.GetData(sqlStatements);
+                DataSet ds = new DataSet();
+                ds = DataAccess.GetData(sqlStatements);
 
 
-            if (ds.Tables[0].Rows.Count > 0)
-            {
-                DataRow selectedFruit = ds.Tables[0].Rows[0];
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    DataRow selectedFruit = ds.Tables[0].Rows[0];
 
-                cmbFruits.SelectedValue = selectedFruit["FruitsId"];
-                lblProducer.Text = selectedFruit["RegionsName"].ToString();
+                    cmbFruits.SelectedValue = selectedFruit["FruitsId"];
+                    lblProducer.Text = selectedFruit["RegionsName"].ToString();
 
-                currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
+                    List<Seasons> seasons = SeasonsHelpers.Parse(selectedFruit["Season"].ToString());
+                    foreach (CheckBox r in grpSeason.Controls.OfType<CheckBox>())
+                    {
+                        foreach (Seasons s in seasons)
+                        {
+                            if (s.ToString() == "All")
+                            {
+                                r.Checked = true;
+                                break;
+                            }
+                            else if (s.ToString() != r.Text)
+                            {
+                                r.Checked = false;
+                            }
+                            else
+                            {
+                                r.Checked = true;
+                                break;
+                            }
+                        }
+                    }
 
-                totalFruitCount = Convert.ToInt32(ds.Tables[2].Rows[0]["FruitCount"]);
-                LoadFruitRegionDgv();
+                    currentRecord = Convert.ToInt32(ds.Tables[1].Rows[0]["RowNumber"]);
+
+                    totalFruitCount = Convert.ToInt32(ds.Tables[2].Rows[0]["FruitCount"]);
+                    LoadFruitRegionDgv();
+                }
+                else
+                {
+                    MessageBox.Show($"The Fruit is no longer available: {currentFruitsId}");
+
+                    LoadFirstFruit();
+                }
+
+                //Which item we are on in the count
+
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.MDItoolStripStatusLabel1.Text = $"Displaying Fruit {currentRecord} of {totalFruitCount}";
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show($"The Fruit is no longer available: {currentFruitsId}");
-
-                LoadFirstFruit();
+                MessageBox.Show(ex.Message);
             }
 
-            //Which item we are on in the count
-
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel1.Text = $"Displaying Fruit {currentRecord} of {totalFruitCount}";
         }
 
 
-   
+
         #region Navigation Helpers
 
         private void LoadFirstFruit()
         {
-            currentFruitsId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 FruitsId FROM Fruits ORDER BY FruitsName ASC"));
 
-            LoadFruits();
-            return;
+            try
+            {
+                currentFruitsId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 FruitsId FROM Fruits ORDER BY FruitsName ASC"));
+
+                LoadFruits();
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
- 
+
         #endregion
 
-       
+
         #region FormEvents
         private void LoadFruits(object sender, EventArgs e)
         {
-            currentFruitsId = (int)cmbFruits.SelectedValue;
-            LoadFruits();
+
+            try
+            {
+                currentFruitsId = (int)cmbFruits.SelectedValue;
+                LoadFruits();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
         #endregion
 

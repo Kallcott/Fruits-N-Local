@@ -205,7 +205,7 @@ namespace dbpTermProject2022
             this.txtRegionsName.Name = "txtRegionsName";
             this.txtRegionsName.Size = new System.Drawing.Size(121, 25);
             this.txtRegionsName.TabIndex = 4;
-            this.txtRegionsName.Tag = "";
+            this.txtRegionsName.Tag = "Region name";
             this.txtRegionsName.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
             // 
             // txtRegionsId

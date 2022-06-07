@@ -19,20 +19,50 @@ namespace dbpTermProject2022
 
         private void Splash_Load(object sender, EventArgs e)
         {
-            lblProductName.Text = Application.ProductName;
-            lblVersion.Text = Application.ProductVersion;
-            lblCompany.Text = Application.CompanyName;
+
+            try
+            {
+                lblProductName.Text = Application.ProductName;
+                lblVersion.Text = Application.ProductVersion;
+                lblCompany.Text = Application.CompanyName;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
 
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
+
+            try
+            {
+
+                DialogResult = DialogResult.OK;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void btnX_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
+
+            try
+            {
+                DialogResult = DialogResult.Cancel;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }
