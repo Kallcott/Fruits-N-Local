@@ -6,7 +6,7 @@ SELECT * FROM Users
 SELECT * FROM Users WHERE Username = 'jmurray' AND [Password]= '12345';
 SELECT UserId FROM Users WHERE Username = 'user' AND Password = 'user'
 
-SELECT * FROM Fruits;
+SELECT * FROM Fruits ORDER BY FruitsName;
 
 SELECT * FROM Fruits INNER JOIN Country;
 

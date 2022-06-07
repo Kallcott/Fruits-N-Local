@@ -29,11 +29,14 @@ namespace dbpTermProject2022
         // For menuStrips
         int totalFruitCount = 0;
 
+        List<ListControl> cmbSeasons;
+
         private void frmFruits_Load(object sender, EventArgs e)
         {
-            LoadFirstFruit();
-
+            LoadSeasonCmbs();
             LoadProducerCmb();
+
+            LoadFirstFruit();
 
             LoadFruitRegionDgv();
         }
@@ -64,6 +67,18 @@ namespace dbpTermProject2022
         {
             string sqlFruits = "SELECT RegionsId, RegionsName FROM Regions ORDER BY RegionsName ASC";
             UIUtilities.FillListControl(cmbLargestProducer, "RegionsName", "RegionsId", DataAccess.GetData(sqlFruits));
+        }
+
+        private void LoadSeasonCmbs()
+        {
+            cmbSeasons = new List<ListControl>()
+            {
+                cmbSeason1, cmbSeason2, cmbSeason3
+            };
+            //SeasonHelpers.BindSeason(cmbSeasons);
+            SeasonHelpers.BindSeason(cmbSeason1, true);
+            SeasonHelpers.BindSeason(cmbSeason2, true);
+            SeasonHelpers.BindSeason(cmbSeason3, true);
         }
 
         private void LoadFruits()
@@ -111,6 +126,17 @@ namespace dbpTermProject2022
                 cmbLargestProducer.SelectedValue = selectedFruit["RegionsId"];
                 txtFruitsName.Text = selectedFruit["FruitsName"].ToString();
 
+                List<Seasons> seasons = SeasonHelpers.Parse(selectedFruit["Season"].ToString());
+                for (int i = 0; i < seasons.Count; i++)
+                {
+                    int seasonNum = (int)seasons[i] - 1;
+                    cmbSeasons[i].SelectedValue = (int)seasons[i];
+                }
+                for (int i = seasons.Count; i <= cmbSeasons.Count - 1; i++)
+                {
+                    cmbSeasons[i].SelectedValue = Enum.GetNames(typeof(Seasons)).Length + 1;
+                }
+
                 firstFruitsId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstFruitsId"]);
                 previousFruitsId = ds.Tables[1].Rows[0]["PreviousFruitsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousFruitsId"]) : (int?)null;
                 nextFruitsId = ds.Tables[1].Rows[0]["NextFruitsId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["NextFruitsId"]) : (int?)null;
@@ -149,6 +175,11 @@ namespace dbpTermProject2022
             parent.MDItoolStripStatusLabel2.Text = "";
 
             UIUtilities.ClearControls(grpEditFruit.Controls);
+            cmbLargestProducer.SelectedIndex = 0;
+            cmbSeason1.SelectedValue = Enum.GetNames(typeof(Seasons)).Length + 1;
+            cmbSeason2.SelectedValue = Enum.GetNames(typeof(Seasons)).Length + 1;
+            cmbSeason3.SelectedValue = Enum.GetNames(typeof(Seasons)).Length + 1;
+            dgvFruits_Regions.DataSource = null;
 
             //btn save
             // Disable navigation controlls when adding. 
@@ -157,7 +188,6 @@ namespace dbpTermProject2022
             btnSave.Text = "Create";
             btnAdd.Enabled = false;
             btnDelete.Enabled = false;
-
         }
 
 
@@ -216,7 +246,8 @@ namespace dbpTermProject2022
                 UPDATE Fruits 
                 SET 
                     FruitsName = '{txtFruitsName.Text.Trim()}',
-                    RegionsId = '{(int)cmbLargestProducer.SelectedValue}'
+                    RegionsId = '{(int)cmbLargestProducer.SelectedValue}',
+                    Season = '{SeasonHelpers.CmbToData(cmbSeasons)}'
                 WHERE FruitsId = '{txtFruitId.Text.Trim()}'; 
             ");
             // Note the Quotes on string values of FruitsName and QuantityPer Unit
@@ -243,12 +274,14 @@ namespace dbpTermProject2022
                         INSERT INTO Fruits
                         (
                             FruitsName, 
-                            RegionsId 
+                            RegionsId,
+                            Season
                         )
                         VALUES
                         (
                             '{txtFruitsName.Text.Trim()}',
-                            '{(int)cmbLargestProducer.SelectedValue}'
+                            '{(int)cmbLargestProducer.SelectedValue}',
+                            '{SeasonHelpers.CmbToData(cmbSeasons)}'
                         );
                        ");
             int rowsAffected = DataAccess.SendData(sqlInsertFruits);
@@ -402,10 +435,40 @@ namespace dbpTermProject2022
                 failedValidation = true;
             }
 
-            //e.Cancel = failedValidation;
+            e.Cancel = failedValidation;
             errProvider.SetError(cmb, errMsg);
         }
 
+        private void cmbAltSeason_Validating(object sender, CancelEventArgs e)
+        {
+            ComboBox cmb = (ComboBox)sender;
+            string cmbName = cmb.Tag.ToString();
+
+            string errMsg = null;
+            bool failedValidation = false;
+
+            // Allowing if it is null
+            if (cmb.SelectedIndex != Enum.GetNames(typeof(Seasons)).Length)
+            {
+                // No combo box can be null
+                if (cmb.SelectedIndex == (int)Seasons.All || cmbSeason1.SelectedIndex == (int)Seasons.All)
+                {
+                    errMsg = $"{cmbName} cannot use ALL";
+                    failedValidation = true;
+                }
+                // Can't match any other combo box
+                if (cmb.SelectedIndex == cmbSeason1.SelectedIndex ||
+                    sender != cmbSeason2 && cmb.SelectedIndex == cmbSeason2.SelectedIndex ||
+                    sender != cmbSeason3 && cmb.SelectedIndex == cmbSeason3.SelectedIndex)
+                {
+                    errMsg = $"{cmbName} cannot be a duplicate value";
+                    failedValidation = true;
+                }
+            }
+
+            e.Cancel = failedValidation;
+            errProvider.SetError(cmb, errMsg);
+        }
         /// <summary>
         /// TextBox Validating event handler
         /// </summary>

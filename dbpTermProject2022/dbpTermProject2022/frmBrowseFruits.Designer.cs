@@ -30,6 +30,8 @@ namespace dbpTermProject2022
         private void InitializeComponent()
         {
             this.grpBrowseFruit = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbFruits = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -37,6 +39,8 @@ namespace dbpTermProject2022
             this.dgvFruits_Regions = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.grpBrowseFruit.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFruits_Regions)).BeginInit();
@@ -44,6 +48,10 @@ namespace dbpTermProject2022
             // 
             // grpBrowseFruit
             // 
+            this.grpBrowseFruit.Controls.Add(this.label1);
+            this.grpBrowseFruit.Controls.Add(this.comboBox3);
+            this.grpBrowseFruit.Controls.Add(this.comboBox2);
+            this.grpBrowseFruit.Controls.Add(this.comboBox1);
             this.grpBrowseFruit.Controls.Add(this.groupBox1);
             this.grpBrowseFruit.Controls.Add(this.lblProducer);
             this.grpBrowseFruit.Controls.Add(this.dgvFruits_Regions);
@@ -51,10 +59,29 @@ namespace dbpTermProject2022
             this.grpBrowseFruit.Controls.Add(this.label2);
             this.grpBrowseFruit.Location = new System.Drawing.Point(12, 12);
             this.grpBrowseFruit.Name = "grpBrowseFruit";
-            this.grpBrowseFruit.Size = new System.Drawing.Size(400, 271);
+            this.grpBrowseFruit.Size = new System.Drawing.Size(400, 373);
             this.grpBrowseFruit.TabIndex = 0;
             this.grpBrowseFruit.TabStop = false;
             this.grpBrowseFruit.Text = "Browse Fruit";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 168);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(123, 18);
+            this.label1.TabIndex = 44;
+            this.label1.Text = "Largest Producer:";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(223, 189);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(95, 26);
+            this.comboBox2.TabIndex = 42;
+            this.comboBox2.Tag = "Username";
             // 
             // groupBox1
             // 
@@ -102,12 +129,11 @@ namespace dbpTermProject2022
             this.dgvFruits_Regions.AllowUserToDeleteRows = false;
             this.dgvFruits_Regions.AllowUserToResizeColumns = false;
             this.dgvFruits_Regions.AllowUserToResizeRows = false;
-            this.dgvFruits_Regions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvFruits_Regions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvFruits_Regions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFruits_Regions.ColumnHeadersVisible = false;
-            this.dgvFruits_Regions.Location = new System.Drawing.Point(13, 184);
+            this.dgvFruits_Regions.Location = new System.Drawing.Point(13, 290);
             this.dgvFruits_Regions.MultiSelect = false;
             this.dgvFruits_Regions.Name = "dgvFruits_Regions";
             this.dgvFruits_Regions.ReadOnly = true;
@@ -118,7 +144,7 @@ namespace dbpTermProject2022
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 163);
+            this.label4.Location = new System.Drawing.Point(10, 269);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 18);
             this.label4.TabIndex = 36;
@@ -133,11 +159,31 @@ namespace dbpTermProject2022
             this.label2.TabIndex = 1;
             this.label2.Text = "Largest Producer:";
             // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(122, 189);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(95, 26);
+            this.comboBox3.TabIndex = 43;
+            this.comboBox3.Tag = "Username";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(21, 189);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(95, 26);
+            this.comboBox1.TabIndex = 41;
+            this.comboBox1.Tag = "Username";
+            // 
             // frmBrowseFruits
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(424, 304);
+            this.ClientSize = new System.Drawing.Size(424, 436);
             this.Controls.Add(this.grpBrowseFruit);
             this.Font = new System.Drawing.Font("Lato", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "frmBrowseFruits";
@@ -162,5 +208,9 @@ namespace dbpTermProject2022
         private System.Windows.Forms.ComboBox cmbFruits;
         private System.Windows.Forms.Label lblProducer;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

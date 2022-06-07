@@ -147,11 +147,11 @@ INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (
 GO
 INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (8, 31, 'Cherries', 'Spring-Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (9, 1, 'Clementines', 'Winter-Autum')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (9, 1, 'Clementines', 'Winter-Autumn')
 GO
 INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (10, 42, 'Coconut', 'All')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (11, 18, 'Cranberries', 'Autum')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (11, 18, 'Cranberries', 'Autumn')
 GO
 INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (12, 38, 'Dates', 'Autumn')
 GO
@@ -185,7 +185,7 @@ INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (
 GO
 INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (27, 1, 'Pear', 'Summer')
 GO
-INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (28, 43, 'Pineapples', 'Spring-Summer')
+INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (28, 17, 'Pineapples', 'Spring-Summer')
 GO
 INSERT [dbo].[Fruits] ([FruitsId], [RegionsId], [FruitsName], [Season]) VALUES (29, 1, 'Plums', 'Summer-Autumn')
 GO
@@ -256,7 +256,7 @@ INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (15, N'Maldives')
 GO
 INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (16, N'Philippines')
 GO
-INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (17, N'Barbados')
+INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (17, N'Costa Rica')
 GO
 INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (18, N'US')
 GO
@@ -307,8 +307,6 @@ GO
 INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (41, N'Vietnam')
 GO
 INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (42, N'Indonesia')
-GO
-INSERT [dbo].[Regions] ([RegionsId], [RegionsName]) VALUES (43, N'Costa Rica')
 GO
 SET IDENTITY_INSERT [dbo].[Regions] OFF
 GO
