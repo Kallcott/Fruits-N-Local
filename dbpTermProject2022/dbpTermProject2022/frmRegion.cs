@@ -29,6 +29,9 @@ namespace dbpTermProject2022
         // For menuStrips
         int totalRegionCount = 0;
 
+        // For Tracking Changes
+        bool beenChange = false;
+
         private void frmRegions_Load(object sender, EventArgs e)
         {
 
@@ -151,11 +154,13 @@ namespace dbpTermProject2022
                     LoadFirstRegion();
                 }
 
-                //Which item we are on in the count
-
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel1.Text = $"Displaying Region {currentRecord} of {totalRegionCount}";
                 NextPreviousButtonManagement();
+
+
+                // Reset Change checker
+                beenChange = false;
             }
             catch (Exception ex)
             {
@@ -177,6 +182,14 @@ namespace dbpTermProject2022
 
             try
             {
+                if (beenChange)
+                {
+                    DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to discard them?", "Unsaved changes", buttons: MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel1.Text = "Adding a new Region";
                 parent.MDItoolStripStatusLabel2.Text = "";
@@ -478,6 +491,14 @@ namespace dbpTermProject2022
 
             try
             {
+                if (beenChange)
+                {
+                    DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to discard them?", "Unsaved changes", buttons: MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
                 Button b = (Button)sender;
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel2.Text = string.Empty;
@@ -656,6 +677,11 @@ namespace dbpTermProject2022
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void txtRegionsName_TextChanged(object sender, EventArgs e)
+        {
+            beenChange = true;
         }
     }
 }

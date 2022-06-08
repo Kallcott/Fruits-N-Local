@@ -29,6 +29,9 @@ namespace dbpTermProject2022
         // For menuStrips
         int totalFruitCount = 0;
 
+        // For Tracking Changes
+        bool beenChange = false;
+
 
         private void frmFruits_Load(object sender, EventArgs e)
         {
@@ -188,6 +191,9 @@ namespace dbpTermProject2022
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel1.Text = $"Displaying Fruit {currentRecord} of {totalFruitCount}";
                 NextPreviousButtonManagement();
+
+                // Reset Change checker
+                beenChange = false;
             }
             catch (Exception ex)
             {
@@ -209,6 +215,15 @@ namespace dbpTermProject2022
 
             try
             {
+
+                if (beenChange)
+                {
+                    DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to discard them?", "Unsaved changes", buttons: MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel1.Text = "Adding a new Fruit";
                 parent.MDItoolStripStatusLabel2.Text = "";
@@ -526,6 +541,14 @@ namespace dbpTermProject2022
 
             try
             {
+                if (beenChange)
+                {
+                    DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to discard them?", "Unsaved changes", buttons: MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
                 Button b = (Button)sender;
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel2.Text = string.Empty;
@@ -799,16 +822,41 @@ namespace dbpTermProject2022
 
         private void CheckChanged(object sender, EventArgs e)
         {
-            if (sender is TextBox)
-            {
-                string originaltext = ((TextBox)sender).Text;
-            }
-            if (sender is ComboBox)
-            {
-                //int index = ((ComboBox)sender).Text;
-            }
 
         }
+
+        #region Check Changes Form Events
+
+        private void txtFruitsName_TextChanged(object sender, EventArgs e)
+        {
+            beenChange = true;
+        }
+
+        private void cmbLargestProducer_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            beenChange = true;
+        }
+
+        private void checkBox1_Click(object sender, EventArgs e)
+        {
+            beenChange = true;
+        }
+
+        private void checkBox2_Click(object sender, EventArgs e)
+        {
+            beenChange = true;
+        }
+
+        private void checkBox3_Click(object sender, EventArgs e)
+        {
+            beenChange = true;
+        }
+
+        private void checkBox4_Click(object sender, EventArgs e)
+        {
+            beenChange = true;
+        }
+        #endregion
     }
 }
 

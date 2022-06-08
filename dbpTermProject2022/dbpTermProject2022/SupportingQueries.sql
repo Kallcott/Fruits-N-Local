@@ -2,6 +2,11 @@
 USE DbpTermProject2022;
 GO
 
+SELECT COUNT(*) FROM Regions;
+SELECT * FROM Regions;
+SELECT COUNT(*) FROM FRUITS;
+SELECT * FROM Fruits;
+
 SELECT * FROM Users
 SELECT * FROM Users WHERE Username = 'jmurray' AND [Password]= '12345';
 SELECT UserId FROM Users WHERE Username = 'user' AND Password = 'user'

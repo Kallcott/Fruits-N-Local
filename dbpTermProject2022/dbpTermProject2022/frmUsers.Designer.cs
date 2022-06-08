@@ -98,6 +98,7 @@ namespace dbpTermProject2022
             this.txtPassword.TabIndex = 4;
             this.txtPassword.Tag = "Password";
             this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
             // 
             // label3
@@ -126,11 +127,12 @@ namespace dbpTermProject2022
             this.txtConfirmPass.TabIndex = 36;
             this.txtConfirmPass.Tag = "Password";
             this.txtConfirmPass.UseSystemPasswordChar = true;
+            this.txtConfirmPass.TextChanged += new System.EventHandler(this.txtConfirmPass_TextChanged);
             // 
             // txtNonAdminUser
             // 
             this.txtNonAdminUser.AutoSize = true;
-            this.txtNonAdminUser.Location = new System.Drawing.Point(140, 37);
+            this.txtNonAdminUser.Location = new System.Drawing.Point(140, 32);
             this.txtNonAdminUser.Name = "txtNonAdminUser";
             this.txtNonAdminUser.Size = new System.Drawing.Size(48, 18);
             this.txtNonAdminUser.TabIndex = 1;
@@ -138,12 +140,13 @@ namespace dbpTermProject2022
             // 
             // txtNewUser
             // 
-            this.txtNewUser.Location = new System.Drawing.Point(121, 34);
+            this.txtNewUser.Location = new System.Drawing.Point(121, 29);
             this.txtNewUser.Name = "txtNewUser";
             this.txtNewUser.Size = new System.Drawing.Size(200, 25);
             this.txtNewUser.TabIndex = 2;
             this.txtNewUser.Tag = "Username";
             this.txtNewUser.Text = " ";
+            this.txtNewUser.TextChanged += new System.EventHandler(this.txtNewUser_TextChanged);
             this.txtNewUser.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
             // 
             // btnCancel
@@ -160,6 +163,7 @@ namespace dbpTermProject2022
             // 
             // btnLast
             // 
+            this.btnLast.CausesValidation = false;
             this.btnLast.Location = new System.Drawing.Point(281, 174);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(81, 43);
@@ -170,6 +174,7 @@ namespace dbpTermProject2022
             // 
             // btnAdd
             // 
+            this.btnAdd.CausesValidation = false;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.Location = new System.Drawing.Point(20, 223);
             this.btnAdd.Name = "btnAdd";
@@ -193,6 +198,7 @@ namespace dbpTermProject2022
             // 
             // btnFirst
             // 
+            this.btnFirst.CausesValidation = false;
             this.btnFirst.Location = new System.Drawing.Point(20, 174);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(81, 43);
@@ -214,6 +220,7 @@ namespace dbpTermProject2022
             // 
             // btnPrevious
             // 
+            this.btnPrevious.CausesValidation = false;
             this.btnPrevious.Location = new System.Drawing.Point(107, 174);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(81, 43);
@@ -224,6 +231,7 @@ namespace dbpTermProject2022
             // 
             // btnNext
             // 
+            this.btnNext.CausesValidation = false;
             this.btnNext.Location = new System.Drawing.Point(194, 174);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(81, 43);
@@ -236,7 +244,7 @@ namespace dbpTermProject2022
             // 
             this.cmbUsers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbUsers.FormattingEnabled = true;
-            this.cmbUsers.Location = new System.Drawing.Point(121, 34);
+            this.cmbUsers.Location = new System.Drawing.Point(121, 29);
             this.cmbUsers.Name = "cmbUsers";
             this.cmbUsers.Size = new System.Drawing.Size(200, 26);
             this.cmbUsers.TabIndex = 2;
@@ -246,7 +254,7 @@ namespace dbpTermProject2022
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(42, 37);
+            this.label2.Location = new System.Drawing.Point(42, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 18);
             this.label2.TabIndex = 1;

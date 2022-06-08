@@ -105,6 +105,7 @@ namespace dbpTermProject2022
             this.checkBox4.TabIndex = 55;
             this.checkBox4.Text = "Autumn";
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.Click += new System.EventHandler(this.checkBox4_Click);
             // 
             // checkBox3
             // 
@@ -115,6 +116,7 @@ namespace dbpTermProject2022
             this.checkBox3.TabIndex = 54;
             this.checkBox3.Text = "Summer";
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.Click += new System.EventHandler(this.checkBox3_Click);
             // 
             // checkBox2
             // 
@@ -125,6 +127,7 @@ namespace dbpTermProject2022
             this.checkBox2.TabIndex = 53;
             this.checkBox2.Text = "Spring";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.Click += new System.EventHandler(this.checkBox2_Click);
             // 
             // checkBox1
             // 
@@ -135,6 +138,7 @@ namespace dbpTermProject2022
             this.checkBox1.TabIndex = 52;
             this.checkBox1.Text = "Winter";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Click += new System.EventHandler(this.checkBox1_Click);
             // 
             // dgvFruits_Regions
             // 
@@ -257,6 +261,7 @@ namespace dbpTermProject2022
             this.cmbLargestProducer.Size = new System.Drawing.Size(200, 26);
             this.cmbLargestProducer.TabIndex = 2;
             this.cmbLargestProducer.Tag = "Largest producer";
+            this.cmbLargestProducer.SelectionChangeCommitted += new System.EventHandler(this.cmbLargestProducer_SelectionChangeCommitted);
             this.cmbLargestProducer.Validating += new System.ComponentModel.CancelEventHandler(this.cmb_Validating);
             // 
             // txtFruitsName
@@ -266,7 +271,7 @@ namespace dbpTermProject2022
             this.txtFruitsName.Size = new System.Drawing.Size(200, 25);
             this.txtFruitsName.TabIndex = 4;
             this.txtFruitsName.Tag = "Fruit name";
-            this.txtFruitsName.Enter += new System.EventHandler(this.CheckChanged);
+            this.txtFruitsName.TextChanged += new System.EventHandler(this.txtFruitsName_TextChanged);
             this.txtFruitsName.Validating += new System.ComponentModel.CancelEventHandler(this.txt_Validating);
             // 
             // label3

@@ -29,21 +29,30 @@ namespace dbpTermProject2022
         // For menuStrips
         int totalUserCount = 0;
 
+        // For Tracking Changes
+        bool beenChange = false;
 
         private void frmUsers_Load(object sender, EventArgs e)
         {
 
             try
             {
-                LoadFirstUser();
-
-                LoadUsersCmb();
-
                 txtNewUser.Visible = false;
                 txtNewUser.Enabled = false;
                 txtNonAdminUser.Visible = false;
 
-                DisableNonAdminFeatures();
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                if (!parent.IsAdmin)
+                {
+                    DisableNonAdminFeatures(parent);
+                    return;
+                }
+
+                LoadFirstUser();
+
+                LoadUsersCmb();
+
+
 
             }
             catch (Exception ex)
@@ -53,39 +62,32 @@ namespace dbpTermProject2022
 
         }
 
-        private void DisableNonAdminFeatures()
+        private void DisableNonAdminFeatures(MDIParent1 parent)
         {
-
-
             try
             {
-                MDIParent1 parent = (MDIParent1)this.MdiParent;
-                if (!parent.IsAdmin)
-                {
-                    btnAdd.Enabled = btnAdd.Visible = false;
-                    btnFirst.Enabled = btnFirst.Visible = false;
-                    btnNext.Enabled = btnNext.Visible = false;
-                    btnPrevious.Enabled = btnPrevious.Visible = false;
-                    btnLast.Enabled = btnLast.Visible = false;
-                    btnDelete.Enabled = btnDelete.Visible = false;
-                    cmbUsers.Enabled = cmbUsers.Visible = false;
+                btnAdd.Enabled = btnAdd.Visible = false;
+                btnFirst.Enabled = btnFirst.Visible = false;
+                btnNext.Enabled = btnNext.Visible = false;
+                btnPrevious.Enabled = btnPrevious.Visible = false;
+                btnLast.Enabled = btnLast.Visible = false;
+                btnDelete.Enabled = btnDelete.Visible = false;
+                cmbUsers.Enabled = cmbUsers.Visible = false;
 
-                    cmbUsers.SelectedValue = parent.CurrentUser;
-                    cmbUsers_SelectedValueChanged(parent, EventArgs.Empty);
-
-                    txtNonAdminUser.Visible = true;
-                    txtNonAdminUser.Text = DataAccess.GetValue($"SELECT UserName FROM Users WHERE UserID = '{parent.CurrentUser}'").ToString();
-
-                    // resizing the controls
-                    btnSave.Location = new Point(grpPasswords.Location.X+20, grpPasswords.Location.Y+100);
-                    btnCancel.Location = new Point(grpPasswords.Location.X +110, grpPasswords.Location.Y+100);
-                    grpUser.Size = new Size(grpUser.Width, grpUser.Height - 70);
-                    
-
-                    grpUser.Text = "Change Password";
+                txtNonAdminUser.Visible = true;
+                currentUserId = parent.CurrentUser;
+                txtNonAdminUser.Text = DataAccess.GetValue($"SELECT UserName FROM Users WHERE UserID = '{parent.CurrentUser}'").ToString();
 
 
-                }
+                this.Text = "Change Password";
+
+                // resizing the controls
+                btnSave.Location = new Point(grpPasswords.Location.X + 20, grpPasswords.Location.Y + 100);
+                btnCancel.Location = new Point(grpPasswords.Location.X + 110, grpPasswords.Location.Y + 100);
+                grpUser.Size = new Size(grpUser.Width, grpUser.Height - 70);
+
+                grpUser.Text = "Change Password";
+
             }
             catch (Exception ex)
             {
@@ -177,11 +179,17 @@ namespace dbpTermProject2022
 
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel1.Text = $"Displaying User {currentRecord} of {totalUserCount}";
+
                 if (!parent.IsAdmin)
                 {
                     return;
                 }
+
                 NextPreviousButtonManagement();
+
+                // Reset Change checker
+                beenChange = false;
+
             }
             catch (Exception ex)
             {
@@ -203,6 +211,14 @@ namespace dbpTermProject2022
 
             try
             {
+                if (beenChange)
+                {
+                    DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to discard them?", "Unsaved changes", buttons: MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel1.Text = "Adding a new User";
                 parent.MDItoolStripStatusLabel2.Text = "";
@@ -258,14 +274,17 @@ namespace dbpTermProject2022
             try
             {
                 errProvider.Clear();
+
                 txtConfirmPass.Text = "";
 
-                LoadUsers();
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 if (!parent.IsAdmin)
                 {
+                    txtPassword.Text = "";
                     return;
                 }
+
+                LoadUsers();
 
                 btnSave.Text = "&Save";
                 btnAdd.Enabled = true;
@@ -530,6 +549,14 @@ namespace dbpTermProject2022
 
             try
             {
+                if (beenChange)
+                {
+                    DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to discard them?", "Unsaved changes", buttons: MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
                 Button b = (Button)sender;
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel2.Text = string.Empty;
@@ -621,7 +648,7 @@ namespace dbpTermProject2022
                 {
                     lstTextbox.Add(t);
                 }
-             
+
                 if (lstTextbox[0].Text != lstTextbox[1].Text)
                 {
                     errMsg = $"{grpName} must match";
@@ -740,6 +767,11 @@ namespace dbpTermProject2022
 
             try
             {
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                if (!parent.IsAdmin)
+                {
+                    return;
+                }
                 LoadUsersCmb();
                 LoadUsers();
             }
@@ -750,5 +782,19 @@ namespace dbpTermProject2022
 
         }
 
+        private void txtNewUser_TextChanged(object sender, EventArgs e)
+        {
+            beenChange = true;
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+            beenChange = true;
+        }
+
+        private void txtConfirmPass_TextChanged(object sender, EventArgs e)
+        {
+            beenChange = true;
+        }
     }
 }

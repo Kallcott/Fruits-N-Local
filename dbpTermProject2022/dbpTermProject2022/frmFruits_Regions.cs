@@ -29,6 +29,9 @@ namespace dbpTermProject2022
         // For menuStrips
         int totalFruits_RegionsCount = 0;
 
+        // For Tracking Changes
+        bool beenChange = false;
+
         private void frmFruits_Regions_Load(object sender, EventArgs e)
         {
 
@@ -143,11 +146,13 @@ namespace dbpTermProject2022
                     LoadFirstFruits_Regions();
                 }
 
-                //Which item we are on in the count
 
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel1.Text = $"Displaying Fruits_Regions {currentRecord} of {totalFruits_RegionsCount}";
                 NextPreviousButtonManagement();
+
+                // Reset Change checker
+                beenChange = false;
             }
             catch (Exception ex)
             {
@@ -169,6 +174,14 @@ namespace dbpTermProject2022
 
             try
             {
+                if (beenChange)
+                {
+                    DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to discard them?", "Unsaved changes", buttons: MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel1.Text = "Adding a new origin";
                 parent.MDItoolStripStatusLabel2.Text = "";
@@ -418,29 +431,46 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void Navigation_Handler(object sender, EventArgs e)
         {
-            Button b = (Button)sender;
-            MDIParent1 parent = (MDIParent1)this.MdiParent;
-            parent.MDItoolStripStatusLabel2.Text = string.Empty;
 
-            switch (b.Name)
+            try
             {
-                case "btnFirst":
-                    currentFruits_RegionsId = firstFruits_RegionsId;
-                    parent.MDItoolStripStatusLabel2.Text = "The first origin is currently displayed";
-                    break;
-                case "btnLast":
-                    currentFruits_RegionsId = lastFruits_RegionsId;
-                    parent.MDItoolStripStatusLabel2.Text = "The last origin is currently displayed";
-                    break;
-                case "btnPrevious":
-                    currentFruits_RegionsId = previousFruits_RegionsId.Value;
-                    break;
-                case "btnNext":
-                    currentFruits_RegionsId = nextFruits_RegionsId.Value;
-                    break;
+                if (beenChange)
+                {
+                    DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to discard them?", "Unsaved changes", buttons: MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+                Button b = (Button)sender;
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                parent.MDItoolStripStatusLabel2.Text = string.Empty;
+
+                switch (b.Name)
+                {
+                    case "btnFirst":
+                        currentFruits_RegionsId = firstFruits_RegionsId;
+                        parent.MDItoolStripStatusLabel2.Text = "The first origin is currently displayed";
+                        break;
+                    case "btnLast":
+                        currentFruits_RegionsId = lastFruits_RegionsId;
+                        parent.MDItoolStripStatusLabel2.Text = "The last origin is currently displayed";
+                        break;
+                    case "btnPrevious":
+                        currentFruits_RegionsId = previousFruits_RegionsId.Value;
+                        break;
+                    case "btnNext":
+                        currentFruits_RegionsId = nextFruits_RegionsId.Value;
+                        break;
+                }
+
+                LoadFruits_Regions();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-            LoadFruits_Regions();
         }
 
         #endregion
@@ -625,6 +655,19 @@ namespace dbpTermProject2022
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        #region Change Checker Events
+
+        #endregion
+        private void cmbFruits_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            beenChange = true;
+        }
+
+        private void cmbRegions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            beenChange = true;
         }
     }
 }

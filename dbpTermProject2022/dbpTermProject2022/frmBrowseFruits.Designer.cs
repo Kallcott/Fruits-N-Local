@@ -80,6 +80,7 @@ namespace dbpTermProject2022
             // 
             this.checkBox4.AutoCheck = false;
             this.checkBox4.AutoSize = true;
+            this.checkBox4.Enabled = false;
             this.checkBox4.Location = new System.Drawing.Point(251, 24);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(78, 22);
@@ -91,6 +92,7 @@ namespace dbpTermProject2022
             // 
             this.checkBox3.AutoCheck = false;
             this.checkBox3.AutoSize = true;
+            this.checkBox3.Enabled = false;
             this.checkBox3.Location = new System.Drawing.Point(165, 24);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(80, 22);
@@ -102,6 +104,7 @@ namespace dbpTermProject2022
             // 
             this.checkBox2.AutoCheck = false;
             this.checkBox2.AutoSize = true;
+            this.checkBox2.Enabled = false;
             this.checkBox2.Location = new System.Drawing.Point(91, 24);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(68, 22);
@@ -113,6 +116,7 @@ namespace dbpTermProject2022
             // 
             this.checkBox1.AutoCheck = false;
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Enabled = false;
             this.checkBox1.Location = new System.Drawing.Point(12, 24);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(73, 22);
