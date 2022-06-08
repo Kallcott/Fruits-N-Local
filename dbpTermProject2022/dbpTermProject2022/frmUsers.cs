@@ -34,7 +34,6 @@ namespace dbpTermProject2022
 
         private void frmUsers_Load(object sender, EventArgs e)
         {
-
             try
             {
                 txtNewUser.Visible = false;
@@ -47,19 +46,30 @@ namespace dbpTermProject2022
                     DisableNonAdminFeatures(parent);
                     return;
                 }
-
                 LoadFirstUser();
-
                 LoadUsersCmb();
-
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
+        }
+        private void frmUsers_Activated(object sender, EventArgs e)
+        {
+            try
+            {
+                MDIParent1 parent = (MDIParent1)this.MdiParent;
+                if (!parent.IsAdmin)
+                {
+                    return;
+                }
+                LoadUsersCmb();
+                LoadUsers();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void DisableNonAdminFeatures(MDIParent1 parent)
@@ -78,7 +88,6 @@ namespace dbpTermProject2022
                 currentUserId = parent.CurrentUser;
                 txtNonAdminUser.Text = DataAccess.GetValue($"SELECT UserName FROM Users WHERE UserID = '{parent.CurrentUser}'").ToString();
 
-
                 this.Text = "Change Password";
 
                 // resizing the controls
@@ -87,37 +96,30 @@ namespace dbpTermProject2022
                 grpUser.Size = new Size(grpUser.Width, grpUser.Height - 70);
 
                 grpUser.Text = "Change Password";
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void LoadUsersCmb()
         {
-
             try
             {
                 string sqlUsers = "SELECT UserID, Username FROM Users ORDER BY Username ASC";
                 UIUtilities.FillListControl(cmbUsers, "Username", "UserId", DataAccess.GetData(sqlUsers));
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void LoadUsers()
         {
-
             try
             {
-
                 //Clear any errors in the error provider
                 errProvider.Clear();
 
@@ -152,7 +154,6 @@ namespace dbpTermProject2022
                 DataSet ds = new DataSet();
                 ds = DataAccess.GetData(sqlStatements);
 
-
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     DataRow selectedUser = ds.Tables[0].Rows[0];
@@ -174,9 +175,6 @@ namespace dbpTermProject2022
 
                     LoadFirstUser();
                 }
-
-                //Which item we are on in the count
-
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel1.Text = $"Displaying User {currentRecord} of {totalUserCount}";
 
@@ -184,20 +182,16 @@ namespace dbpTermProject2022
                 {
                     return;
                 }
-
                 NextPreviousButtonManagement();
 
                 // Reset Change checker
                 beenChange = false;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
-
 
         #region Form Events
 
@@ -208,7 +202,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
             try
             {
                 if (beenChange)
@@ -225,7 +218,6 @@ namespace dbpTermProject2022
 
                 UIUtilities.ClearControls(grpUser.Controls);
 
-                //btn save
                 // Disable navigation controlls when adding. 
                 NavigationState(false);
 
@@ -235,19 +227,15 @@ namespace dbpTermProject2022
 
                 // Toggle Between New user and Select User
                 ToggleUsernameInput();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private void ToggleUsernameInput()
         {
-
             try
             {
                 cmbUsers.Enabled = cmbUsers.Visible
@@ -259,7 +247,6 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -270,11 +257,9 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
             try
             {
                 errProvider.Clear();
-
                 txtConfirmPass.Text = "";
 
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
@@ -285,11 +270,9 @@ namespace dbpTermProject2022
                 }
 
                 LoadUsers();
-
                 btnSave.Text = "&Save";
                 btnAdd.Enabled = true;
                 btnDelete.Enabled = true;
-
                 txtNewUser.Text = "";
 
                 NavigationState(true);
@@ -298,13 +281,11 @@ namespace dbpTermProject2022
                     ToggleUsernameInput();
                 }
                 NextPreviousButtonManagement();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -314,21 +295,14 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-
             try
             {
-                //Step #1: Validate !
                 if (ValidateChildren(ValidationConstraints.Enabled))
                 {
                     ProgressBar();
-
-
-                    // Step #2 Create! 
-
                     if (btnSave.Text == "Create")
                     {
                         CreateUser();
-
                     }
                     else
                     {
@@ -339,19 +313,15 @@ namespace dbpTermProject2022
                 {
                     MessageBox.Show("Please ensure data is valid.");
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private void SaveUser()
         {
-
             try
             {
                 string sqlUpdateUser = DataAccess.SQLCleaner($@"
@@ -360,8 +330,6 @@ namespace dbpTermProject2022
                         Password = '{txtPassword.Text.Trim()}'
                     WHERE UserID = '{currentUserId}'; 
                 ");
-                // Note the Quotes on string values of UserName and QuantityPer Unit
-
                 int rowsAffected = DataAccess.SendData(sqlUpdateUser);
 
                 if (rowsAffected == 1)
@@ -372,22 +340,17 @@ namespace dbpTermProject2022
                 {
                     MessageBox.Show("The Database reported no Rows Affected.");
                 }
-
                 LoadUsers();
-
                 return;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void CreateUser()
         {
-
             try
             {
                 string sqlInsertUsers = DataAccess.SQLCleaner($@"
@@ -413,7 +376,6 @@ namespace dbpTermProject2022
                     btnSave.Text = "Save";
                     NavigationState(true);
 
-
                     ToggleUsernameInput();
                     LoadUsersCmb();
                     LoadFirstUser();
@@ -422,14 +384,11 @@ namespace dbpTermProject2022
                 {
                     MessageBox.Show("Something went wrong");
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         /// <summary>
@@ -439,7 +398,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
             try
             {
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
@@ -450,9 +408,7 @@ namespace dbpTermProject2022
                 }
 
                 string sqlDeleteUser = $"DELETE FROM Users WHERE UserID = '{currentUserId}'";
-
                 int rowAffected = DataAccess.SendData(sqlDeleteUser);
-
                 if (rowAffected == 1)
                 {
                     MessageBox.Show($"User was deleted!");
@@ -462,36 +418,28 @@ namespace dbpTermProject2022
                 {
                     MessageBox.Show("The Database reported no rows affected.");
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
-
         #endregion
 
         #region Navigation Helpers
-
         private void LoadFirstUser()
         {
-
             try
             {
                 currentUserId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 UserId FROM Users ORDER BY Username ASC"));
                 txtConfirmPass.Text = "";
-
                 LoadUsers();
                 return;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -501,18 +449,15 @@ namespace dbpTermProject2022
         /// </summary>
         private void NextPreviousButtonManagement()
         {
-
             try
             {
                 btnPrevious.Enabled = previousUserId != null;
                 btnNext.Enabled = nextUserId != null;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -521,20 +466,17 @@ namespace dbpTermProject2022
         /// <param name="enableState"></param>
         private void NavigationState(bool enableState)
         {
-
             try
             {
                 btnFirst.Enabled = enableState;
                 btnLast.Enabled = enableState;
                 btnNext.Enabled = enableState;
                 btnPrevious.Enabled = enableState;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
 
@@ -546,7 +488,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void Navigation_Handler(object sender, EventArgs e)
         {
-
             try
             {
                 if (beenChange)
@@ -578,22 +519,16 @@ namespace dbpTermProject2022
                         currentUserId = nextUserId.Value;
                         break;
                 }
-
                 LoadUsers();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
-
         #endregion
 
         #region [Validation Events and Methods]
-
-
         /// <summary>
         /// TextBox Validating event handler
         /// </summary>
@@ -601,7 +536,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void txt_Validating(object sender, CancelEventArgs e)
         {
-
             try
             {
                 TextBox txt = (TextBox)sender;
@@ -623,19 +557,15 @@ namespace dbpTermProject2022
                 }
 
                 e.Cancel = failedValidation;
-
                 errProvider.SetError(txt, errMsg);
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
         private void ConfirmPass_Validating(object sender, CancelEventArgs e)
         {
-
             try
             {
                 GroupBox grp = (GroupBox)sender;
@@ -654,35 +584,27 @@ namespace dbpTermProject2022
                     errMsg = $"{grpName} must match";
                     failedValidation = true;
                 }
-
                 e.Cancel = failedValidation;
-
                 errProvider.SetError(grp, errMsg);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
-
         #endregion
 
         #region FormHelpers
-
         /// <summary>
         /// Animate the progress bar
         /// This is ui thread blocking. Ok for this application.
         /// </summary>
         private async void ProgressBar()
         {
-
             try
             {
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.prgBar.Visible = true;
-
                 parent.MDItoolStripStatusLabel3.Text = "Processing...";
                 parent.prgBar.Value = 0;
                 parent.MDIstatusStrip.Refresh();
@@ -692,24 +614,19 @@ namespace dbpTermProject2022
                     Thread.Sleep(15);
                     parent.prgBar.Value += 1;
                 }
-
                 parent.prgBar.Value = 100;
                 parent.MDItoolStripStatusLabel3.Text = "Processed";
 
                 await clearProgressBar().ConfigureAwait(false);
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private async Task clearProgressBar()
         {
-
             try
             {
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
@@ -720,66 +637,38 @@ namespace dbpTermProject2022
                 });
                 parent.MDItoolStripStatusLabel3.Text = $"Form: {this.Tag} Ready...";
                 parent.prgBar.Visible = false;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void frmUsers_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             try
             {
                 e.Cancel = false;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         #endregion
 
         private void cmbUsers_SelectedValueChanged(object sender, EventArgs e)
         {
-
             try
             {
                 currentUserId = (int)cmbUsers.SelectedValue;
                 LoadUsers();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-        }
-
-        private void frmUsers_Activated(object sender, EventArgs e)
-        {
-
-            try
-            {
-                MDIParent1 parent = (MDIParent1)this.MdiParent;
-                if (!parent.IsAdmin)
-                {
-                    return;
-                }
-                LoadUsersCmb();
-                LoadUsers();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
         }
 
         private void txtNewUser_TextChanged(object sender, EventArgs e)

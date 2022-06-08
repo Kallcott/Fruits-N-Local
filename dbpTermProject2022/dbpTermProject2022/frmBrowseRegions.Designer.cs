@@ -116,7 +116,7 @@ namespace dbpTermProject2022
             this.cmbRegions.Size = new System.Drawing.Size(200, 26);
             this.cmbRegions.TabIndex = 38;
             this.cmbRegions.Tag = "Username";
-            this.cmbRegions.SelectionChangeCommitted += new System.EventHandler(this.LoadRegions);
+            this.cmbRegions.SelectionChangeCommitted += new System.EventHandler(this.CmbLoadRegions);
             // 
             // label3
             // 

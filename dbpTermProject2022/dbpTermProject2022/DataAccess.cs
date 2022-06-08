@@ -10,11 +10,9 @@ namespace dbpTermProject2022
 {
     class DataAccess
     {
-
         static private string connectionString =
             System.Configuration.ConfigurationManager
                     .ConnectionStrings["DbpTermProject2022"].ConnectionString;
-
 
         /// <summary>
         /// Queries a SQL Server database with a provided SELECT statement.

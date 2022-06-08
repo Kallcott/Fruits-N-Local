@@ -32,10 +32,8 @@ namespace dbpTermProject2022
         // For Tracking Changes
         bool beenChange = false;
 
-
         private void frmFruits_Load(object sender, EventArgs e)
         {
-
             try
             {
                 LoadProducerCmb();
@@ -43,22 +41,31 @@ namespace dbpTermProject2022
                 LoadFirstFruit();
 
                 LoadFruitRegionDgv();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
+        }
+        private void frmFruits_Activated(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadProducerCmb();
+                LoadFruitRegionDgv();
+                LoadFruits();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void LoadFruitRegionDgv()
         {
-
             try
             {
                 DataTable dtFruitsRegions;
-
 
                 dgvFruits_Regions.DataSource = null;
 
@@ -86,12 +93,10 @@ namespace dbpTermProject2022
 
         private void LoadProducerCmb()
         {
-
             try
             {
                 string sqlFruits = "SELECT RegionsId, RegionsName FROM Regions ORDER BY RegionsName ASC";
                 UIUtilities.FillListControl(cmbLargestProducer, "RegionsName", "RegionsId", DataAccess.GetData(sqlFruits), true);
-
             }
             catch (Exception ex)
             {
@@ -102,7 +107,6 @@ namespace dbpTermProject2022
 
         private void LoadFruits()
         {
-
             try
             {
                 //Clear any errors in the error provider
@@ -138,7 +142,6 @@ namespace dbpTermProject2022
 
                 DataSet ds = new DataSet();
                 ds = DataAccess.GetData(sqlStatements);
-
 
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -202,7 +205,6 @@ namespace dbpTermProject2022
 
         }
 
-
         #region Form Events
 
         /// <summary>
@@ -212,10 +214,8 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
             try
             {
-
                 if (beenChange)
                 {
                     DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to discard them?", "Unsaved changes", buttons: MessageBoxButtons.OKCancel);
@@ -236,8 +236,6 @@ namespace dbpTermProject2022
                 }
                 dgvFruits_Regions.DataSource = null;
 
-
-                //btn save
                 // Disable navigation controlls when adding. 
                 NavigationState(false);
 
@@ -249,9 +247,7 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
-
 
         /// <summary>
         /// Cancel any changes to an existin selected Fruit or the beginnings of the newly created Fruit
@@ -261,7 +257,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
             try
             {
                 LoadFruits();
@@ -271,13 +266,11 @@ namespace dbpTermProject2022
 
                 NavigationState(true);
                 NextPreviousButtonManagement();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -287,26 +280,21 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-
             try
             {
-                //Step #1: Validate !
                 if (ValidateChildren(ValidationConstraints.Enabled))
                 {
                     ProgressBar();
 
-
-                    // Step #2 Create! 
-
                     if (btnSave.Text == "Create")
                     {
                         CreateFruit();
-
                     }
                     else
                     {
                         SaveFruit();
                     }
+
                     LoadFruits();
                 }
                 else
@@ -319,13 +307,10 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private void SaveFruit()
         {
-
             try
             {
                 string sqlUpdateFruit = DataAccess.SQLCleaner($@"
@@ -348,11 +333,9 @@ namespace dbpTermProject2022
                 {
                     MessageBox.Show("The Database reported no Rows Affected.");
                 }
-
                 LoadFruits();
 
                 return;
-
             }
             catch (Exception ex)
             {
@@ -363,7 +346,6 @@ namespace dbpTermProject2022
 
         private void CreateFruit()
         {
-
             try
             {
                 string sqlInsertFruits = DataAccess.SQLCleaner($@"
@@ -398,14 +380,11 @@ namespace dbpTermProject2022
                 {
                     MessageBox.Show("Something went wrong");
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         /// <summary>
@@ -415,17 +394,14 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
             try
             {
                 string sqlNumberOfTimeOrdered = $"SELECT COUNT(*) FROM Fruits_Regions WHERE FruitsId = {currentFruitsId}";
                 int numberOfTimesOrdered = Convert.ToInt32(DataAccess.GetValue(sqlNumberOfTimeOrdered));
 
-
                 if (numberOfTimesOrdered == 0)
                 {
                     string sqlDeleteFruit = $"DELETE FROM Fruits WHERE FruitsId = '{currentFruitsId}'";
-
                     int rowAffected = DataAccess.SendData(sqlDeleteFruit);
 
                     if (rowAffected == 1)
@@ -443,12 +419,10 @@ namespace dbpTermProject2022
                     if (numberOfTimesOrdered == 1)
                     {
                         MessageBox.Show($"Fruit {txtFruitsName.Text} could not be deleted as there is {numberOfTimesOrdered} dependency");
-
                     }
                     else
                     {
                         MessageBox.Show($"Fruit {txtFruitsName.Text} could not be deleted as there are {numberOfTimesOrdered} dependencies");
-
                     }
                 }
 
@@ -469,20 +443,16 @@ namespace dbpTermProject2022
         /// </summary>
         private void LoadFirstFruit()
         {
-
             try
             {
                 currentFruitsId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 FruitsId FROM Fruits ORDER BY FruitsName ASC"));
-
                 LoadFruits();
                 return;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -512,24 +482,18 @@ namespace dbpTermProject2022
         /// <param name="enableState"></param>
         private void NavigationState(bool enableState)
         {
-
             try
             {
                 btnFirst.Enabled = enableState;
                 btnLast.Enabled = enableState;
                 btnNext.Enabled = enableState;
                 btnPrevious.Enabled = enableState;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
-
-
 
         /// <summary>
         /// Handle navigation button interaction
@@ -538,7 +502,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void Navigation_Handler(object sender, EventArgs e)
         {
-
             try
             {
                 if (beenChange)
@@ -570,17 +533,13 @@ namespace dbpTermProject2022
                         currentFruitsId = nextFruitsId.Value;
                         break;
                 }
-
                 LoadFruits();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
-
         #endregion
 
         #region [Validation Events and Methods]
@@ -592,7 +551,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void cmb_Validating(object sender, CancelEventArgs e)
         {
-
             try
             {
                 ComboBox cmb = (ComboBox)sender;
@@ -610,13 +568,11 @@ namespace dbpTermProject2022
 
                 e.Cancel = failedValidation;
                 errProvider.SetError(cmb, errMsg);
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -626,7 +582,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void txt_Validating(object sender, CancelEventArgs e)
         {
-
             try
             {
                 TextBox txt = (TextBox)sender;
@@ -648,17 +603,13 @@ namespace dbpTermProject2022
                     MessageBox.Show(errMsg);
                 }
 
-
                 e.Cancel = failedValidation;
-
                 errProvider.SetError(txt, errMsg);
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -668,7 +619,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void grpSeason_Validating(object sender, CancelEventArgs e)
         {
-
             try
             {
                 GroupBox grp = (GroupBox)sender;
@@ -694,37 +644,12 @@ namespace dbpTermProject2022
 
                 e.Cancel = failedValidation;
                 errProvider.SetError(grp, errMsg);
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
-
-
-        /// <summary>
-        /// Numeric validation 
-        /// </summary>
-        /// <param name="value">The value to validate</param>
-        /// <returns>The result of the validation</returns>
-        private bool IsNumeric(string value)
-        {
-
-            try
-            {
-                return Double.TryParse(value, out double a);
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            return false;
-        }
-
         #endregion
 
         #region FormHelpers
@@ -754,19 +679,15 @@ namespace dbpTermProject2022
                 parent.MDItoolStripStatusLabel3.Text = "Processed";
 
                 await clearProgressBar().ConfigureAwait(false);
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private async Task clearProgressBar()
         {
-
             try
             {
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
@@ -777,56 +698,28 @@ namespace dbpTermProject2022
                 });
                 parent.MDItoolStripStatusLabel3.Text = $"Form: {this.Tag} Ready...";
                 parent.prgBar.Visible = false;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void frmFruits_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             try
             {
                 e.Cancel = false;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         #endregion
 
-        private void frmFruits_Activated(object sender, EventArgs e)
-        {
-
-            try
-            {
-                LoadProducerCmb();
-                LoadFruitRegionDgv();
-                LoadFruits();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-        }
-
-        private void CheckChanged(object sender, EventArgs e)
-        {
-
-        }
-
         #region Check Changes Form Events
-
         private void txtFruitsName_TextChanged(object sender, EventArgs e)
         {
             beenChange = true;

@@ -34,30 +34,34 @@ namespace dbpTermProject2022
 
         private void frmRegions_Load(object sender, EventArgs e)
         {
-
             try
             {
-
                 LoadFirstRegion();
-
                 LoadFruitRegionDgv();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
+        }
+        private void frmRegions_Activated(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadFruitRegionDgv();
+                LoadFirstRegion();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void LoadFruitRegionDgv()
         {
-
             try
             {
-
                 DataTable dtFruitsRegions;
-
-
                 dgvFruits_Regions.DataSource = null;
 
                 string sql = DataAccess.SQLCleaner($@"
@@ -78,15 +82,12 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void LoadRegions()
         {
-
             try
             {
-
                 //Clear any errors in the error provider
                 errProvider.Clear();
 
@@ -124,12 +125,9 @@ namespace dbpTermProject2022
                        SELECT FruitsName FROM Regions 
                             INNER JOIN Fruits ON Fruits.RegionsId = Regions.RegionsId
                        WHERE Regions.RegionsId = {currentRegionsId}"
-
                 };
-
                 DataSet ds = new DataSet();
                 ds = DataAccess.GetData(sqlStatements);
-
 
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -150,14 +148,12 @@ namespace dbpTermProject2022
                 else
                 {
                     MessageBox.Show($"The Region is no longer available.");
-
                     LoadFirstRegion();
                 }
 
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
                 parent.MDItoolStripStatusLabel1.Text = $"Displaying Region {currentRecord} of {totalRegionCount}";
                 NextPreviousButtonManagement();
-
 
                 // Reset Change checker
                 beenChange = false;
@@ -166,9 +162,7 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
-
 
         #region Form Events
 
@@ -179,7 +173,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
             try
             {
                 if (beenChange)
@@ -203,16 +196,12 @@ namespace dbpTermProject2022
                 btnSave.Text = "Create";
                 btnAdd.Enabled = false;
                 btnDelete.Enabled = false;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
-
 
         /// <summary>
         /// Cancel any changes to an existin selected Region or the beginnings of the newly created Region
@@ -222,23 +211,19 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
             try
             {
                 LoadRegions();
                 btnSave.Text = "&Save";
                 btnAdd.Enabled = true;
                 btnDelete.Enabled = true;
-
                 NavigationState(true);
                 NextPreviousButtonManagement();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -248,21 +233,14 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
-
             try
             {
-                //Step #1: Validate !
                 if (ValidateChildren(ValidationConstraints.Enabled))
                 {
                     ProgressBar();
-
-
-                    // Step #2 Create! 
-
                     if (btnSave.Text == "Create")
                     {
                         CreateRegion();
-
                     }
                     else
                     {
@@ -274,19 +252,14 @@ namespace dbpTermProject2022
                 {
                     MessageBox.Show("Please ensure data is valid.");
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
-
         private void SaveRegion()
         {
-
             try
             {
                 string sqlUpdateRegion = DataAccess.SQLCleaner($@"
@@ -309,20 +282,16 @@ namespace dbpTermProject2022
                 }
 
                 LoadRegions();
-
                 return;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void CreateRegion()
         {
-
             try
             {
                 string sqlInsertRegions = DataAccess.SQLCleaner($@"
@@ -342,24 +311,19 @@ namespace dbpTermProject2022
                     MessageBox.Show("Region Created!");
                     btnAdd.Enabled = true;
                     btnDelete.Enabled = true;
-
                     btnSave.Text = "Save";
                     NavigationState(true);
-
                     LoadFirstRegion();
                 }
                 else
                 {
                     MessageBox.Show("Something went wrong");
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         /// <summary>
@@ -369,7 +333,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void btnDelete_Click(object sender, EventArgs e)
         {
-
             try
             {
                 string sqlFKFruitRegions = $"SELECT COUNT(*) FROM Fruits_Regions WHERE RegionsId = '{currentRegionsId}'";
@@ -381,9 +344,7 @@ namespace dbpTermProject2022
                 if (linkedAsOrigin + linkedAsProducer == 0)
                 {
                     string sqlDeleteRegion = $"DELETE FROM Regions WHERE RegionsId = '{currentRegionsId}'";
-
                     int rowAffected = DataAccess.SendData(sqlDeleteRegion);
-
                     if (rowAffected == 1)
                     {
                         MessageBox.Show($"Region was deleted!");
@@ -404,13 +365,11 @@ namespace dbpTermProject2022
                     if (linkedAsOrigin > 0 && linkedAsProducer > 0) msgAnd = " and ";
                     MessageBox.Show($"Region could not be deleted as it is used {msgOrigin}{msgAnd}{msgProducer}.");
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         #endregion
@@ -419,20 +378,16 @@ namespace dbpTermProject2022
 
         private void LoadFirstRegion()
         {
-
             try
             {
                 currentRegionsId = Convert.ToInt32(DataAccess.GetValue("SELECT TOP 1 RegionsId FROM Regions ORDER BY RegionsName ASC"));
-
                 LoadRegions();
                 return;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -442,18 +397,15 @@ namespace dbpTermProject2022
         /// </summary>
         private void NextPreviousButtonManagement()
         {
-
             try
             {
                 btnPrevious.Enabled = previousRegionsId != null;
                 btnNext.Enabled = nextRegionsId != null;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -462,24 +414,18 @@ namespace dbpTermProject2022
         /// <param name="enableState"></param>
         private void NavigationState(bool enableState)
         {
-
             try
             {
                 btnFirst.Enabled = enableState;
                 btnLast.Enabled = enableState;
                 btnNext.Enabled = enableState;
                 btnPrevious.Enabled = enableState;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
-
-
 
         /// <summary>
         /// Handle navigation button interaction
@@ -488,7 +434,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void Navigation_Handler(object sender, EventArgs e)
         {
-
             try
             {
                 if (beenChange)
@@ -520,17 +465,13 @@ namespace dbpTermProject2022
                         currentRegionsId = nextRegionsId.Value;
                         break;
                 }
-
                 LoadRegions();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
-
         #endregion
 
         #region [Validation Events and Methods]
@@ -542,7 +483,6 @@ namespace dbpTermProject2022
         /// <param name="e"></param>
         private void txt_Validating(object sender, CancelEventArgs e)
         {
-
             try
             {
                 TextBox txt = (TextBox)sender;
@@ -564,27 +504,13 @@ namespace dbpTermProject2022
                 }
 
                 e.Cancel = failedValidation;
-
                 errProvider.SetError(txt, errMsg);
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
-
-        /// <summary>
-        /// Numeric validation 
-        /// </summary>
-        /// <param name="value">The value to validate</param>
-        /// <returns>The result of the validation</returns>
-        private bool IsNumeric(string value)
-        {
-            return Double.TryParse(value, out double a);
-        }
-
         #endregion
 
         #region FormHelpers
@@ -595,7 +521,6 @@ namespace dbpTermProject2022
         /// </summary>
         private async void ProgressBar()
         {
-
             try
             {
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
@@ -610,24 +535,18 @@ namespace dbpTermProject2022
                     Thread.Sleep(15);
                     parent.prgBar.Value += 1;
                 }
-
                 parent.prgBar.Value = 100;
                 parent.MDItoolStripStatusLabel3.Text = "Processed";
-
                 await clearProgressBar().ConfigureAwait(false);
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private async Task clearProgressBar()
         {
-
             try
             {
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
@@ -638,46 +557,25 @@ namespace dbpTermProject2022
                 });
                 parent.MDItoolStripStatusLabel3.Text = $"Form: {this.Tag} Ready...";
                 parent.prgBar.Visible = false;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void frmRegions_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             try
             {
                 e.Cancel = false;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
-
         #endregion
-
-        private void frmRegions_Activated(object sender, EventArgs e)
-        {
-
-            try
-            {
-                LoadFruitRegionDgv();
-                LoadFirstRegion();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-        }
 
         private void txtRegionsName_TextChanged(object sender, EventArgs e)
         {

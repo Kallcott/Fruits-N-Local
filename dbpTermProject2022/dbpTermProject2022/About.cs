@@ -16,10 +16,8 @@ namespace dbpTermProject2022
         {
             InitializeComponent();
         }
-
         private void About_Load(object sender, EventArgs e)
         {
-
             try
             {
                 lblProductName.Text = Application.ProductName;
@@ -32,9 +30,18 @@ namespace dbpTermProject2022
                     lblEdit.Visible = false;
                     pcbFruits.Visible = pcbFruits_Regions.Visible = pcbRegions.Visible = false;
                 }
-
                 LoadLabels();
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void frmAbout_Activated(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadLabels();
             }
             catch (Exception ex)
             {
@@ -52,7 +59,6 @@ namespace dbpTermProject2022
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-
             try
             {
                 Form childForm = null;
@@ -118,21 +124,6 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-
-        }
-
-        private void frmAbout_Activated(object sender, EventArgs e)
-        {
-
-            try
-            {
-                LoadLabels();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
         }
     }
 }

@@ -16,10 +16,8 @@ namespace dbpTermProject2022
         {
             InitializeComponent();
         }
-
         private void Splash_Load(object sender, EventArgs e)
         {
-
             try
             {
                 lblProductName.Text = Application.ProductName;
@@ -31,13 +29,10 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-
             try
             {
 
@@ -47,22 +42,18 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void btnX_Click(object sender, EventArgs e)
         {
-
             try
             {
                 DialogResult = DialogResult.Cancel;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
     }
 }

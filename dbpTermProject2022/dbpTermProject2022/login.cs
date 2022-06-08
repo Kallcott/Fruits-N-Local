@@ -15,7 +15,6 @@ namespace dbpTermProject2022
     {
         public bool AdminResult;
         public int UserInfo;
-
         public login()
         {
             InitializeComponent();
@@ -23,23 +22,18 @@ namespace dbpTermProject2022
 
         private void login_Load(object sender, EventArgs e)
         {
-
             try
             {
                 txtPassword.UseSystemPasswordChar = true;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-
             try
             {
                 string sqlCredentials = $"SELECT Count(*) FROM Users WHERE Username = '{txtUsername.Text}' AND Password = '{txtPassword.Text}'";
@@ -48,15 +42,12 @@ namespace dbpTermProject2022
                 string sqlIsAdmin = $"SELECT IsAdmin FROM Users WHERE Username = '{txtUsername.Text}' AND Password = '{txtPassword.Text}'";
                 AdminResult = Convert.ToInt32(DataAccess.GetValue(sqlIsAdmin)) == 0 ? false : true;
 
-
                 string sqlUser = $"SELECT UserId FROM Users WHERE Username = '{txtUsername.Text}' AND Password = '{txtPassword.Text}'";
                 UserInfo = Convert.ToInt32(DataAccess.GetValue(sqlUser));
-
 
                 if (isUserThere)
                 {
                     //Login successful
-
                     DialogResult = DialogResult.OK;
                 }
                 else
@@ -68,23 +59,18 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message, ex.GetType().ToString());
             }
-
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
             try
             {
-
                 DialogResult = DialogResult.Cancel;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
-
     }
 }

@@ -23,10 +23,8 @@ namespace dbpTermProject2022
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-
             try
             {
-
                 Form childForm = null;
                 object tag;
 
@@ -90,12 +88,10 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void OpenFile(object sender, EventArgs e)
         {
-
             try
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -105,18 +101,15 @@ namespace dbpTermProject2022
                 {
                     string FileName = openFileDialog.FileName;
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             try
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -126,28 +119,23 @@ namespace dbpTermProject2022
                 {
                     string FileName = saveFileDialog.FileName;
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
-
             try
             {
                 this.Close();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void CutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -165,17 +153,14 @@ namespace dbpTermProject2022
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             try
             {
-
                 LayoutMdi(MdiLayout.Cascade);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void TileVerticalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -186,65 +171,53 @@ namespace dbpTermProject2022
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
         private void TileHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             try
             {
-
                 LayoutMdi(MdiLayout.TileHorizontal);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void ArrangeIconsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             try
             {
                 LayoutMdi(MdiLayout.ArrangeIcons);
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             try
             {
                 foreach (Form childForm in MdiChildren)
                 {
                     childForm.Close();
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void MDIParent1_Load(object sender, EventArgs e)
         {
-
             try
             {
-
                 Splash frmSplash = new Splash();
                 login frmLogin = new login();
                 frmAbout frmAbout = new frmAbout();
@@ -276,7 +249,6 @@ namespace dbpTermProject2022
                         int otherWidth = this.ClientSize.Width;
                         this.ClientSize = new Size(717 - 15,
                                                    473 + 50);
-
                         ActiveMdiChild.WindowState = FormWindowState.Maximized;
                     }
                 }
@@ -293,20 +265,16 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-
-
         }
 
         private void MDIParent1_MdiChildActivate(object sender, EventArgs e)
         {
-
             try
             {
                 if (ActiveMdiChild != null)
                 {
                     MDItoolStripStatusLabel3.Text = $" || Form: {ActiveMdiChild.Text} Ready...";
                     MDItoolStripStatusLabel2.Text = "";
-                    
 
                     ActiveMdiChild.WindowState = FormWindowState.Maximized;
                 }
@@ -322,22 +290,18 @@ namespace dbpTermProject2022
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         private void MDIParent1_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             try
             {
                 e.Cancel = false;
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
     }
 }

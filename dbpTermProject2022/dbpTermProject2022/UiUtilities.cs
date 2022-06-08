@@ -66,10 +66,8 @@ namespace dbpTermProject2022
         {
             DataTable tempTable = new DataTable();
 
-            //tempTable.Columns.Add("Field Name");
-
             // Fill temp table with dt, limit columns by Width
-            for (int i = 0; i < ((dt.Rows.Count >= columWidth) ?columWidth : dt.Rows.Count); i++)
+            for (int i = 0; i < ((dt.Rows.Count >= columWidth) ? columWidth : dt.Rows.Count); i++)
             {
                 tempTable.Columns.Add();
             }
@@ -93,11 +91,14 @@ namespace dbpTermProject2022
 
                 }
                 tempTable.Rows.Add(NewRow);
-
             }
             return tempTable;
         }
 
+        /// <summary>
+        /// Takes a dgv and resizes it to fit content.
+        /// </summary>
+        /// <param name="dgv"></param>
         public static void AutoResizeDgv(DataGridView dgv)
         {
             dgv.AutoResizeColumns();
