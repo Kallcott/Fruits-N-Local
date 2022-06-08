@@ -181,6 +181,7 @@ namespace dbpTermProject2022
             // 
             // btnLast
             // 
+            this.btnLast.CausesValidation = false;
             this.btnLast.Location = new System.Drawing.Point(281, 263);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(81, 43);
@@ -191,6 +192,7 @@ namespace dbpTermProject2022
             // 
             // btnAdd
             // 
+            this.btnAdd.CausesValidation = false;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.Location = new System.Drawing.Point(20, 312);
             this.btnAdd.Name = "btnAdd";
@@ -213,6 +215,7 @@ namespace dbpTermProject2022
             // 
             // btnFirst
             // 
+            this.btnFirst.CausesValidation = false;
             this.btnFirst.Location = new System.Drawing.Point(20, 263);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(81, 43);
@@ -234,6 +237,7 @@ namespace dbpTermProject2022
             // 
             // btnPrevious
             // 
+            this.btnPrevious.CausesValidation = false;
             this.btnPrevious.Location = new System.Drawing.Point(107, 263);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(81, 43);
@@ -244,6 +248,7 @@ namespace dbpTermProject2022
             // 
             // btnNext
             // 
+            this.btnNext.CausesValidation = false;
             this.btnNext.Location = new System.Drawing.Point(194, 263);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(81, 43);
@@ -307,6 +312,7 @@ namespace dbpTermProject2022
             this.Name = "frmFruits";
             this.Text = "Edit Fruits";
             this.Activated += new System.EventHandler(this.frmFruits_Activated);
+            this.Deactivate += new System.EventHandler(this.frmFruits_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFruits_FormClosing);
             this.Load += new System.EventHandler(this.frmFruits_Load);
             this.grpEditFruit.ResumeLayout(false);

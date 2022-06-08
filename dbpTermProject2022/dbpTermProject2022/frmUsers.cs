@@ -65,6 +65,18 @@ namespace dbpTermProject2022
                 }
                 LoadUsersCmb();
                 LoadUsers();
+                this.AutoValidate = AutoValidate.EnablePreventFocusChange;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void frmUsers_Deactivate(object sender, EventArgs e)
+        {
+            try
+            {
+                this.AutoValidate = AutoValidate.Disable;
             }
             catch (Exception ex)
             {
@@ -160,6 +172,7 @@ namespace dbpTermProject2022
 
                     cmbUsers.SelectedValue = selectedUser["UserId"];
                     txtPassword.Text = selectedUser["Password"].ToString();
+                    txtConfirmPass.Text = "";
 
                     firstUserId = Convert.ToInt32(ds.Tables[1].Rows[0]["FirstUserId"]);
                     previousUserId = ds.Tables[1].Rows[0]["PreviousUserId"] != DBNull.Value ? Convert.ToInt32(ds.Tables["Table1"].Rows[0]["PreviousUserId"]) : (int?)null;
@@ -210,6 +223,10 @@ namespace dbpTermProject2022
                     if (result == DialogResult.Cancel)
                     {
                         return;
+                    }
+                    else
+                    {
+                        errProvider.Clear();
                     }
                 }
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
@@ -496,6 +513,10 @@ namespace dbpTermProject2022
                     if (result == DialogResult.Cancel)
                     {
                         return;
+                    }
+                    else
+                    {
+                        errProvider.Clear();
                     }
                 }
                 Button b = (Button)sender;

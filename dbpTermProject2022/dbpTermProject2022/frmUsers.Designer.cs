@@ -84,7 +84,7 @@ namespace dbpTermProject2022
             this.grpPasswords.Controls.Add(this.txtConfirmPass);
             this.grpPasswords.Location = new System.Drawing.Point(36, 58);
             this.grpPasswords.Name = "grpPasswords";
-            this.grpPasswords.Size = new System.Drawing.Size(298, 91);
+            this.grpPasswords.Size = new System.Drawing.Size(326, 91);
             this.grpPasswords.TabIndex = 37;
             this.grpPasswords.TabStop = false;
             this.grpPasswords.Tag = "Passwords";
@@ -276,6 +276,7 @@ namespace dbpTermProject2022
             this.Name = "frmUsers";
             this.Text = "Edit User";
             this.Activated += new System.EventHandler(this.frmUsers_Activated);
+            this.Deactivate += new System.EventHandler(this.frmUsers_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmUsers_FormClosing);
             this.Load += new System.EventHandler(this.frmUsers_Load);
             this.grpUser.ResumeLayout(false);

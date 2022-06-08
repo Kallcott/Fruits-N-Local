@@ -50,6 +50,18 @@ namespace dbpTermProject2022
             {
                 LoadFruitRegionDgv();
                 LoadFirstRegion();
+                this.AutoValidate = AutoValidate.EnablePreventFocusChange;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void frmRegions_Deactivate(object sender, EventArgs e)
+        {
+            try
+            {
+                this.AutoValidate = AutoValidate.Disable;
             }
             catch (Exception ex)
             {
@@ -181,6 +193,10 @@ namespace dbpTermProject2022
                     if (result == DialogResult.Cancel)
                     {
                         return;
+                    }
+                    else
+                    {
+                        errProvider.Clear();
                     }
                 }
                 MDIParent1 parent = (MDIParent1)this.MdiParent;
@@ -442,6 +458,10 @@ namespace dbpTermProject2022
                     if (result == DialogResult.Cancel)
                     {
                         return;
+                    }
+                    else
+                    {
+                        errProvider.Clear();
                     }
                 }
                 Button b = (Button)sender;

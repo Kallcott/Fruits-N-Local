@@ -94,6 +94,7 @@ namespace dbpTermProject2022
             // 
             // btnLast
             // 
+            this.btnLast.CausesValidation = false;
             this.btnLast.Location = new System.Drawing.Point(280, 123);
             this.btnLast.Name = "btnLast";
             this.btnLast.Size = new System.Drawing.Size(81, 42);
@@ -104,6 +105,7 @@ namespace dbpTermProject2022
             // 
             // btnAdd
             // 
+            this.btnAdd.CausesValidation = false;
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.Location = new System.Drawing.Point(20, 172);
             this.btnAdd.Name = "btnAdd";
@@ -126,6 +128,7 @@ namespace dbpTermProject2022
             // 
             // btnFirst
             // 
+            this.btnFirst.CausesValidation = false;
             this.btnFirst.Location = new System.Drawing.Point(20, 123);
             this.btnFirst.Name = "btnFirst";
             this.btnFirst.Size = new System.Drawing.Size(81, 42);
@@ -147,6 +150,7 @@ namespace dbpTermProject2022
             // 
             // btnPrevious
             // 
+            this.btnPrevious.CausesValidation = false;
             this.btnPrevious.Location = new System.Drawing.Point(106, 123);
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(81, 42);
@@ -157,6 +161,7 @@ namespace dbpTermProject2022
             // 
             // btnNext
             // 
+            this.btnNext.CausesValidation = false;
             this.btnNext.Location = new System.Drawing.Point(194, 123);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(81, 42);
@@ -211,6 +216,7 @@ namespace dbpTermProject2022
             this.Name = "frmFruits_Regions";
             this.Text = "Edit Origins";
             this.Activated += new System.EventHandler(this.frmFruits_Regions_Activated);
+            this.Deactivate += new System.EventHandler(this.frmFruits_Regions_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFruits_Regions_FormClosing);
             this.Load += new System.EventHandler(this.frmFruits_Regions_Load);
             this.grpRegisterFruits.ResumeLayout(false);
